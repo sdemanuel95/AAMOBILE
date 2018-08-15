@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context="com.tofitsolutions.armasdurasargentinas.LoginInventarioActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo_inicio"
+        android:gravity="bottom|center_vertical|center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp">
+
+        <EditText
+            android:id="@+id/usuario"
+            android:layout_width="250dp"
+            android:layout_height="47dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_radius"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Usuario"
+            android:inputType="text"
+            android:text=""
+            android:textSize="21sp"
+            tools:ignore="HardcodedText,MissingConstraints"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="240dp" />
+
+        <EditText
+            android:id="@+id/contraseña"
+            android:layout_width="250dp"
+            android:layout_height="47dp"
+            android:background="@drawable/border_radius"
+            android:cursorVisible="true"
+            android:elegantTextHeight="false"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:textSize="21sp"
+            tools:ignore="HardcodedText,UnusedAttribute"
+            tools:layout_editor_absoluteY="300dp" />
+
+        <TextView
+            android:id="@+id/excepcionSesionDescarga"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical|center_horizontal"
+            app:layout_constraintHorizontal_bias="0.079"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loguearme" />
+
+        <Button
+            android:id="@+id/loguearme"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/boton_ok_j"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contraseña" />
+    </LinearLayout>
+
+</LinearLayout>

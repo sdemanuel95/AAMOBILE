@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tofitsolutions.armasdurasargentinas">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".InicialActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PrincipalActivity"
+            android:label="@string/title_activity_main2"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProduccionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".InventarioActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".TestConsumingRest"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DespachoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AutomaticaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StemmaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TjkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PiloteraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ArmadosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LineaDobladoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PasadoresActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LineaCortadoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Pilotera2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PrePrincipalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RemitoMPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReferenciaMPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ValidarChapaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CantidadRemitosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SesionDescargaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EstribadoraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DatosUsuarioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Estribadora2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaEstribadora"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DatosUsuarioPiloActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DatosUsuarioPasaActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DatosUsuarioArmaActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DatosUsuarioCortActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".DatosUsuarioDoblActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaLineaDoblado"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaPilotera"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaArmados"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaPasadores"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaLineaCortado"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LineaDoblado2Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ArmadosActivity2"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LoginInventarioActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity android:name=".pruebaLala"></activity>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="6"
+    android:background="@drawable/fondo_rojo"
+    android:orientation="vertical"
+    android:weightSum="6"
+    tools:context="com.tofitsolutions.armasdurasargentinas.EstribadoraActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_weight="0.3"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_datosUsuario"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:background="@drawable/boton_tuerca" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20px"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_usuarioEA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Usuario"
+                android:textColor="@android:color/background_light"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_ayudanteEA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Ayudante"
+                android:textColor="@android:color/background_light"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_maquinaEA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Maquina"
+                android:textColor="@android:color/background_light"
+                android:textSize="21sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_precintoA"
+                android:layout_width="250dp"
+                android:layout_height="47dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_radius"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Precinto 1"
+                android:inputType="text"
+                android:maxLength="24"
+                android:text=""
+                android:textSize="16sp" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <EditText
+                android:id="@+id/et_kgA"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="#FFF"
+                android:background="@drawable/border_radius_grey"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Kg"
+                android:inputType="text"
+                android:maxLength="24"
+                android:textSize="16sp" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <EditText
+                android:id="@+id/et_precintoB"
+                android:layout_width="250dp"
+                android:layout_height="47dp"
+                android:layout_marginBottom="10dp"
+                android:autoText="true"
+                android:background="@drawable/border_radius"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Precinto 2"
+                android:inputType="text"
+                android:maxLength="24"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+            <EditText
+                android:id="@+id/et_kgB"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="#FFF"
+                android:background="@drawable/border_radius_grey"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="Kg"
+                android:inputType="text"
+                android:maxLength="24"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:layout_weight="0.5"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_okEstribadora"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="30px"
+            android:background="@drawable/boton_ok_j" />
+
+        <Button
+            android:id="@+id/bt_principal"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:background="@drawable/boton_principal" />
+
+        <Button
+            android:id="@+id/bt_cancelEstribadora"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boton_cancelar_x" />
+    </LinearLayout>
+</LinearLayout>

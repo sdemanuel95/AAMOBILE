@@ -1,0 +1,327 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\6de6c71a1b071a2d946a18c58e2271f9\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\d1e06465beeaf7588dd571dfec83eacb\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.3.1.aar\a7d571dd03e59bd3735f6f758ed9a61f\AndroidManifest.xml:17:1-26:12
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:17:1-31:12
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+	package
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:3:5-54
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:1-103:12
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:5:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:6:5-78
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:6:22-76
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:7:5-70
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:7:22-68
+application
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:9:5-101:19
+MERGED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\d1e06465beeaf7588dd571dfec83eacb\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\d1e06465beeaf7588dd571dfec83eacb\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:29:5-20
+	android:supportsRtl
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:14:9-35
+	android:label
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:12:9-41
+	android:roundIcon
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:13:9-54
+	android:icon
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:11:9-43
+	android:allowBackup
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:10:9-35
+	android:theme
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:15:9-40
+activity#com.tofitsolutions.armasdurasargentinas.InicialActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:16:9-24:20
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:18:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:17:13-44
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:19:13-23:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:20:17-69
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:20:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:22:17-77
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:22:27-74
+activity#com.tofitsolutions.armasdurasargentinas.PrincipalActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:25:9-29:47
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:28:13-49
+	android:label
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:27:13-57
+	android:theme
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:29:13-44
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:26:13-46
+activity#com.tofitsolutions.armasdurasargentinas.ProduccionActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:30:9-32:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:32:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:31:13-47
+activity#com.tofitsolutions.armasdurasargentinas.InventarioActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:33:9-35:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:35:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:34:13-47
+activity#com.tofitsolutions.armasdurasargentinas.DespachoActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:36:9-38:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:38:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:37:13-45
+activity#com.tofitsolutions.armasdurasargentinas.AutomaticaActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:39:9-41:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:41:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:40:13-47
+activity#com.tofitsolutions.armasdurasargentinas.StemmaActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:42:9-44:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:44:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:43:13-43
+activity#com.tofitsolutions.armasdurasargentinas.TjkActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:45:9-47:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:47:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:46:13-40
+activity#com.tofitsolutions.armasdurasargentinas.PiloteraActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:48:9-50:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:50:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:49:13-45
+activity#com.tofitsolutions.armasdurasargentinas.ArmadosActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:51:9-53:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:53:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:52:13-44
+activity#com.tofitsolutions.armasdurasargentinas.LineaDobladoActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:54:9-56:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:56:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:55:13-49
+activity#com.tofitsolutions.armasdurasargentinas.PasadoresActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:57:9-59:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:59:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:58:13-46
+activity#com.tofitsolutions.armasdurasargentinas.LineaCortadoActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:60:9-62:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:62:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:61:13-49
+activity#com.tofitsolutions.armasdurasargentinas.Pilotera2Activity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:63:9-65:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:65:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:64:13-46
+activity#com.tofitsolutions.armasdurasargentinas.PrePrincipalActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:66:9-68:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:68:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:67:13-49
+activity#com.tofitsolutions.armasdurasargentinas.RemitoMPActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:69:9-71:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:71:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:70:13-45
+activity#com.tofitsolutions.armasdurasargentinas.ReferenciaMPActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:72:9-74:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:74:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:73:13-49
+activity#com.tofitsolutions.armasdurasargentinas.ValidarChapaActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:75:9-77:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:77:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:76:13-49
+activity#com.tofitsolutions.armasdurasargentinas.CantidadRemitosActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:78:9-80:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:80:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:79:13-52
+activity#com.tofitsolutions.armasdurasargentinas.SesionDescargaActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:81:9-83:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:83:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:82:13-51
+activity#com.tofitsolutions.armasdurasargentinas.EstribadoraActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:84:9-86:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:86:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:85:13-48
+activity#com.tofitsolutions.armasdurasargentinas.DatosUsuarioActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:87:9-89:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:89:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:88:13-49
+activity#com.tofitsolutions.armasdurasargentinas.Estribadora2Activity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:90:9-92:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:92:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:91:13-49
+activity#com.tofitsolutions.armasdurasargentinas.confirmaEstribadora
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:93:9-95:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:95:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:94:13-48
+activity#com.tofitsolutions.armasdurasargentinas.LoginInventarioActivity
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:96:9-98:52
+	android:screenOrientation
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:98:13-49
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:97:13-52
+activity#com.tofitsolutions.armasdurasargentinas.pruebaLala
+ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:99:9-57
+	android:name
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml:99:19-45
+uses-sdk
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\6de6c71a1b071a2d946a18c58e2271f9\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\6de6c71a1b071a2d946a18c58e2271f9\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\d1e06465beeaf7588dd571dfec83eacb\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\d1e06465beeaf7588dd571dfec83eacb\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.3.1.aar\a7d571dd03e59bd3735f6f758ed9a61f\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.3.1.aar\a7d571dd03e59bd3735f6f758ed9a61f\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:21:5-23:58
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\RiverPlate\Desktop\ArmasdurasArgentinasAnroid\ArmasdurasArgentinas\app\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\appcompat-v7-25.3.1.aar\8d3cd505cc07fef86e270d2807eaa379\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-25.3.1.aar\277dd708b4362e56be5b9134d5f344f1\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-25.3.1.aar\ccfc94da27535d1d13dc5b02b77dd60d\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.3.1.aar\a7d571dd03e59bd3735f6f758ed9a61f\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-25.3.1.aar\a7d571dd03e59bd3735f6f758ed9a61f\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\transition-25.3.1.aar\b460492d3eb28f482fa8ea1e1633ae36\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-v4-25.3.1.aar\0b10780ac079b910f4b77c4748cf1f0a\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-fragment-25.3.1.aar\c17aac7b6720330ae0e62ec0fe4003fd\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-media-compat-25.3.1.aar\e9f209beb0807a11bc03992201914399\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-utils-25.3.1.aar\0dad8d9388841499d786a8fb599d4f66\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-core-ui-25.3.1.aar\8c14c38974d90a4bf0a4a1992d4664cd\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\support-compat-25.3.1.aar\1f16756eae1233905c4ed9866cde48eb\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:design:25.3.1] C:\Users\RiverPlate\.gradle\caches\transforms-1\files-1.1\design-25.3.1.aar\9ff5481276dac16ba9f5a487df4298bd\AndroidManifest.xml:26:9-47

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tofitsolutions.armasdurasargentinas.ManualActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:background="@drawable/fondo_rojo"
+        android:orientation="vertical"
+        android:weightSum="6"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.14"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonLineaCortado"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/boton_menos_menos"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonLineaDoblado"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.45"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LINEA CORTADO"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.14"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonArmados"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/boton_menos_menos"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.746"
+                    app:layout_constraintLeft_toRightOf="@+id/buttonLineaDoblado"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonPasadores"
+                    app:layout_constraintVertical_bias="0.536" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PASADORES"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.14"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonLineaDoblado"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="0.09"
+                    android:background="@drawable/boton_rotulo"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    tools:ignore="RtlHardcoded" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.09"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    android:text="LINEA DOBLADO"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.14"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonPasadores"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/boton_forma"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    app:layout_constraintHorizontal_bias="0.776"
+                    app:layout_constraintLeft_toRightOf="@+id/buttonLineaCortado"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.14"
+                    android:gravity="center_vertical|center_horizontal|center"
+                    android:text="ARMADOS"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="10"
+    android:background="@drawable/fondo_rojo"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context="com.tofitsolutions.armasdurasargentinas.DatosUsuarioArmaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bt_armados"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@drawable/boton_armado"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="8"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_Usuario"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_radius"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Usuario"
+            android:inputType="text"
+            android:textSize="21sp" />
+
+        <EditText
+            android:id="@+id/et_Ayudante"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:layout_marginBottom="10dp"
+            android:autoText="false"
+            android:background="@drawable/border_radius"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Ayudante"
+            android:inputType="text"
+            android:textSize="21sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_okDatosUsuario"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="30px"
+            android:background="@drawable/boton_ok_j" />
+
+        <Button
+            android:id="@+id/bt_PrincipalDatosUsuario"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:background="@drawable/boton_principal" />
+
+        <Button
+            android:id="@+id/bt_CancelarDatosUsuario"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boton_cancelar_x" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tofitsolutions.armasdurasargentinas.AutomaticaActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:background="@drawable/fondo_rojo"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonStemma"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/boton_tuerca"
+                android:gravity="center_vertical|center_horizontal|center"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tw_stemma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="STEMMA"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:typeface="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonTjk"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/boton_tuerca"
+                app:layout_constraintBottom_toTopOf="@+id/buttonPilotera"
+                app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonStemma" />
+
+            <TextView
+                android:id="@+id/tw_tjk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="TJK"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:typeface="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonPilotera"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/boton_circulo"
+                android:gravity="center_vertical|center_horizontal|center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/tw_pilotera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal|center"
+                android:text="PILOTERA"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:typeface="normal" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

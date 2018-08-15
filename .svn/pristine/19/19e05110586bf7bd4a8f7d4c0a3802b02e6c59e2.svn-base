@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Armaduras Argentinas</string>
+    <string name="button">Ingresar</string>
+    <string name="title_activity_main2">Main2Activity</string>
+</resources>

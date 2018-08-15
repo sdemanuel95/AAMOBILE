@@ -1,0 +1,122 @@
+package com.tofitsolutions.armasdurasargentinas;
+
+/**
+ * Created by Gonzalo on 19/08/2017.
+ */
+
+public class MateriaPrima {
+
+    private long id;
+    private String fecha;
+    private String referencia;
+    private String material;
+    private String descripcion;
+    private String cantidad;
+    private String umb;
+    private String lote;
+    private String destinatario;
+    private String colada;
+    private String pesoPorBalanza;
+
+    public MateriaPrima(long id, String fecha, String referencia, String material, String descripcion, String cantidad, String umb, String lote, String destinatario, String colada, String pesoPorBalanza) {
+        this.id = id;
+        this.fecha = fecha;
+        this.referencia = referencia;
+        this.material = material;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.umb = umb;
+        this.lote = lote;
+        this.destinatario = destinatario;
+        this.colada = colada;
+        this.pesoPorBalanza = pesoPorBalanza;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public String getUmb() {
+        return umb;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public String getColada() {
+        return colada;
+    }
+
+    public String getPesoPorBalanza() {
+        return pesoPorBalanza;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setUmb(String umb) {
+        this.umb = umb;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
+    }
+
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    public void setColada(String colada) {
+        this.colada = colada;
+    }
+
+    public void setPesoPorBalanza(String pesoPorBalanza) {
+        this.pesoPorBalanza = pesoPorBalanza;
+    }
+}

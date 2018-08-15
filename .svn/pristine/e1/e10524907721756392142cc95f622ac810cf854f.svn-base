@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="6"
+    android:background="@drawable/fondo_rojo"
+    android:orientation="vertical"
+    android:weightSum="6"
+    tools:context="com.tofitsolutions.armasdurasargentinas.ReferenciaMPActivity">
+
+    <LinearLayout
+        android:id="@+id/layoutReferenciaMP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textViewInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Por favor, ingrese el numero de referencia."
+            android:textColor="@color/colorAccent"
+            android:textSize="21sp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView_Exception"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom|center_horizontal"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            tools:ignore="NestedWeights" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:layout_weight="3.5"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText_Referencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:hint="Numero de Referencia"
+            android:inputType="numberSigned"
+            android:maxLength="10"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorAccent"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.4"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_Referencia"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="30px"
+            android:background="@drawable/boton_ok_j"
+            android:gravity="bottom|center_horizontal" />
+
+    </LinearLayout>
+
+</LinearLayout>

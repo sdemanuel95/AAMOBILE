@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tofitsolutions.armasdurasargentinas"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.3.1" />
+
+    <application
+        android:name="android.support.multidex.MultiDexApplication"
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.InicialActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.PrincipalActivity"
+            android:label="@string/title_activity_main2"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.ProduccionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.InventarioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.DespachoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.AutomaticaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.StemmaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.TjkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.PiloteraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.ArmadosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.LineaDobladoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.PasadoresActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.LineaCortadoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.Pilotera2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.PrePrincipalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.RemitoMPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.ReferenciaMPActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.ValidarChapaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.CantidadRemitosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.SesionDescargaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.EstribadoraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.DatosUsuarioActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.Estribadora2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.confirmaEstribadora"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tofitsolutions.armasdurasargentinas.LoginInventarioActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.tofitsolutions.armasdurasargentinas.pruebaLala" />
+
+        <provider
+            android:name="com.android.tools.ir.server.InstantRunContentProvider"
+            android:authorities="com.tofitsolutions.armasdurasargentinas.com.android.tools.ir.server.InstantRunContentProvider"
+            android:multiprocess="true" />
+    </application>
+
+</manifest>

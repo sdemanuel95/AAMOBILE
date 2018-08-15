@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tofitsolutions.armasdurasargentinas.PiloteraActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutPilotera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:background="@drawable/fondo_rojo"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/imageViewPilotera"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/boton_circulo" />
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="38dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/boton_ok_j"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPilotera"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="37dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/boton_cancelar_x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintLeft_toRightOf="@+id/buttonOk"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/textViewUsuario"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Usuario"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:visibility="visible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.049"
+        tools:gravity="center_vertical"
+        tools:ignore="HardcodedText,MissingConstraints,RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/textViewAyudante"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="Ayudante"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112"
+        tools:ignore="HardcodedText,MissingConstraints,RtlHardcoded" />
+
+
+
+    <EditText
+        android:id="@+id/editTextPedido"
+        android:layout_width="220dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_radius"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Pedido"
+        android:inputType="text"
+        android:text=""
+        android:textCursorDrawable="@color/colorPrimaryDark"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText,MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="160dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textColor="@color/colorAccent"
+        android:textSize="22dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.175"
+        tools:ignore="HardcodedText,MissingConstraints,RtlHardcoded" />
+</android.support.constraint.ConstraintLayout>
