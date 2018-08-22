@@ -51,7 +51,11 @@ public class ItemController {
             json = response.toString();
 
             JSONArray jsonArr = null;
-            JSONObject objecto = new JSONObject(json);
+            if(json == null || json.equals("")){
+                return null;
+            }
+            else{
+                JSONObject objecto = new JSONObject(json);
             /*
             jsonArr = new JSONArray(json);
             String mensaje = "";
@@ -64,10 +68,12 @@ public class ItemController {
             }
             */
 
-            String mensaje = objecto.toString();
-            item =  gson.fromJson(json, Item.class);
+                String mensaje = objecto.toString();
+                item =  gson.fromJson(json, Item.class);
 
-            //sal.setText(item.getAcero() + item.getCodigo());
+                //sal.setText(item.getAcero() + item.getCodigo());
+            }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

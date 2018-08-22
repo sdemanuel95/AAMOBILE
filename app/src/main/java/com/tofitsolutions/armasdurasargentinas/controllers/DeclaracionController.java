@@ -26,7 +26,7 @@ public class DeclaracionController {
         Gson gson = new Gson();
         URL url = null;
         HttpURLConnection conn;
-        boolean existe = false;
+        Boolean existe = false;
 
         try {
             url = new URL(sql);
@@ -43,7 +43,7 @@ public class DeclaracionController {
             StringBuffer response = new StringBuffer();
 
             String json = "";
-            response.toString();
+
             while((inputLine = in.readLine()) != null){
                 response.append(inputLine);
             }

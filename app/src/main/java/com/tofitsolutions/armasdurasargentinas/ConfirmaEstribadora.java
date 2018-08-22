@@ -55,8 +55,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
     String cantidad;
     String kgTotalItem;
     int merma;
-    String diametro_minimo;
-    String diametro_maximo;
+    int diametro_minimo;
+    int diametro_maximo;
     String kgdisponible1;
     String kgdisponible2;
     String kdproducido1;
@@ -100,8 +100,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         ayudante = intentPrecintos.getStringExtra("ayudante");
         maquina = intentPrecintos.getStringExtra("maquina");
         merma = Integer.valueOf(intentPrecintos.getStringExtra("merma"));
-        diametro_minimo = intentPrecintos.getStringExtra("diametro_minimo");
-        diametro_maximo = intentPrecintos.getStringExtra("diametro_maximo");
+        diametro_minimo = intentPrecintos.getIntExtra("diametro_minimo",0);
+        diametro_maximo = intentPrecintos.getIntExtra("diametro_maximo",0);
         item = intentPrecintos.getStringExtra("item");
         cantidad = intentPrecintos.getStringExtra("cantidad");
 
@@ -243,7 +243,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     String mermaCalculada = String.valueOf( merma * Double.parseDouble(cantidad) / 100);
                     cantidad = String.valueOf(Double.parseDouble(cantidad) - Double.parseDouble(mermaCalculada));
                     stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza) values (CURRENT_TIME,\"\",1,121,121,'" + mermaCalculada + "')");
-                    kgdisponible1 = String.valueOf(Double.parseDouble(kgdisponible1) - Double.parseDouble(cantidad));
+                    System.out.println("KILOGRAMO DISPONIBLE " + kgdisponible1 + cantidad);
+                    String kgdis1 = String.valueOf(Double.parseDouble(kgdisponible1) - Double.parseDouble(cantidad));
                     stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible1 +"', KGDisponible = '" + cantidad+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
                     if(loteB != null || loteB != ""){
                         stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible2 +"', KGDisponible = '" + cantidad+"' where lote ='" + loteB + "' AND material = '" + materialB + "' And cantidad ='" + cantidadCodBarraB + "';");

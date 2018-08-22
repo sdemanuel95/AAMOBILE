@@ -338,6 +338,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                             String kgPrecintoB = "0";
                             i.putExtra("codPreA", codPreA);
                             i.putExtra("codPreB", codPreB);
+                            System.out.println("PRECINTO 1 = " +precinto1.getKgDisponible());
                             i.putExtra("kgdisponible1" , precinto1.getKgDisponible());
                             i.putExtra("kgproducido1",precinto1.getKgProd());
                             i.putExtra("precintoA", precintoA);
