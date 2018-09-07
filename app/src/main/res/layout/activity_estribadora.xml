@@ -89,7 +89,6 @@
                 android:hint="Precinto 1"
                 android:inputType="text"
                 android:maxLength="24"
-                android:text=""
                 android:textSize="16sp" />
             <Space
                 android:layout_width="match_parent"
@@ -100,13 +99,13 @@
                 android:layout_width="80dp"
                 android:layout_height="35dp"
                 android:layout_marginBottom="10dp"
-                android:textColorHint="#FFF"
                 android:background="@drawable/border_radius_grey"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Kg"
                 android:inputType="text"
                 android:maxLength="24"
+                android:textColorHint="#FFF"
                 android:textSize="16sp" />
 
 
@@ -131,18 +130,19 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
+
             <EditText
                 android:id="@+id/et_kgB"
                 android:layout_width="80dp"
                 android:layout_height="35dp"
                 android:layout_marginBottom="10dp"
-                android:textColorHint="#FFF"
                 android:background="@drawable/border_radius_grey"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Kg"
                 android:inputType="text"
                 android:maxLength="24"
+                android:textColorHint="#FFF"
                 android:textSize="16sp" />
 
             <Space

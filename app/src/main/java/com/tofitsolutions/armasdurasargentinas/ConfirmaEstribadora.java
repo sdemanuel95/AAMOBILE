@@ -37,8 +37,6 @@ public class ConfirmaEstribadora extends AppCompatActivity {
     private ArrayList<Declaracion> listaDeclaracion;
     private Declaracion d;
 
-
-
     //Ingresa info del Activity -> EstribadoraActivity
     Intent intentPrecintos = getIntent();
     String codPreA;
@@ -55,8 +53,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
     String cantidad;
     String kgTotalItem;
     int merma;
-    int diametro_minimo;
-    int diametro_maximo;
+    int diametroMin;
+    int diametroMax;
     String kgdisponible1;
     String kgdisponible2;
     String kdproducido1;
@@ -100,8 +98,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         ayudante = intentPrecintos.getStringExtra("ayudante");
         maquina = intentPrecintos.getStringExtra("maquina");
         merma = Integer.valueOf(intentPrecintos.getStringExtra("merma"));
-        diametro_minimo = intentPrecintos.getIntExtra("diametro_minimo",0);
-        diametro_maximo = intentPrecintos.getIntExtra("diametro_maximo",0);
+        diametroMin = intentPrecintos.getIntExtra("diametroMin",0);
+        diametroMax = intentPrecintos.getIntExtra("diametroMax",0);
         item = intentPrecintos.getStringExtra("item");
         cantidad = intentPrecintos.getStringExtra("cantidad");
 
@@ -131,6 +129,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         new guardarDeclaracion().execute();
+                        
                     }
                 });
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -245,10 +244,9 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza) values (CURRENT_TIME,\"\",1,121,121,'" + mermaCalculada + "')");
                     System.out.println("KILOGRAMO DISPONIBLE " + kgdisponible1 + cantidad);
                     String kgdis1 = String.valueOf(Double.parseDouble(kgdisponible1) - Double.parseDouble(cantidad));
-                    stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible1 +"', KGDisponible = '" + cantidad+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
+                    //stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible1 +"', KGDisponible = '" + cantidad+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
                     if(loteB != null || loteB != ""){
                         stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible2 +"', KGDisponible = '" + cantidad+"' where lote ='" + loteB + "' AND material = '" + materialB + "' And cantidad ='" + cantidadCodBarraB + "';");
-
                     }
                     //ingresoMPController.updatekg(codBarrasA + cantidad);
                 }

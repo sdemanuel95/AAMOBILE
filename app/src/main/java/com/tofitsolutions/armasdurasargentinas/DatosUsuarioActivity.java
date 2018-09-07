@@ -31,7 +31,7 @@ public class DatosUsuarioActivity extends AppCompatActivity {
 
         maquinas =  mc.getEstribadoras();
         for(Maquina m : maquinas){
-            System.out.println("MAQUINASANTTTERIORES  = " + m.getDiametro_maximo());
+            System.out.println("MAQUINASANTTTERIORES  = " + m.getdiametroMax());
             System.out.println("MAQUINAS PUTAS = "+ m.getMarca() );
 
 
@@ -73,17 +73,17 @@ public class DatosUsuarioActivity extends AppCompatActivity {
                     i.putExtra("ayudante", ayudante);
                     Maquina maquina = null;
                     for(Maquina m : maquinas){
-                        System.out.println("MAQUINAS = " + m.getDiametro_maximo());
+                        System.out.println("MAQUINAS = " + m.getdiametroMax());
                         if(maquinaElegida.equals(m.getMarca() + "-" + m.getModelo())){
                             maquina = m ;
                         }
 
                     }
                     i.putExtra("maquina", maquina.getMarca() + "-" +maquina.getModelo());
-                    i.putExtra("diametro_minimo" , maquina.getDiametro_minimo());
-                    System.out.println(maquina.getDiametro_maximo());
-                    System.out.println(maquina.getDiametro_minimo());
-                    i.putExtra("diametro_maximo",maquina.getDiametro_maximo());
+                    i.putExtra("diametroMin" , maquina.getdiametroMin());
+                    System.out.println(maquina.getdiametroMax());
+                    System.out.println(maquina.getdiametroMin());
+                    i.putExtra("diametroMax",maquina.getdiametroMax());
                     i.putExtra("merma", maquina.getMerma());
                     i.putExtra("et_invalidos", "valido");
                     finish();

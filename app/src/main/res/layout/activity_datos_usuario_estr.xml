@@ -61,10 +61,9 @@
             android:textSize="21sp" />
 
 
-
         <Spinner
             android:id="@+id/SpinnerEstribadora"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="47dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/border_radius"

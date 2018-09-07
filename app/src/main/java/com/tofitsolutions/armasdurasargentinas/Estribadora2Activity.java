@@ -1,8 +1,10 @@
 package com.tofitsolutions.armasdurasargentinas;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -88,8 +90,8 @@ public class Estribadora2Activity extends AppCompatActivity {
         final String usuario = intentPrecintos.getStringExtra("usuario");
         final String ayudante = intentPrecintos.getStringExtra("ayudante");
         final String maquina = intentPrecintos.getStringExtra("maquina");
-        final int diametro_minimo = Integer.parseInt(intentPrecintos.getStringExtra("diametro_minimo"));
-        final int diametro_maximo= Integer.parseInt(intentPrecintos.getStringExtra("diametro_maximo"));
+        final int diametroMin = Integer.parseInt(intentPrecintos.getStringExtra("diametroMin"));
+        final int diametroMax= Integer.parseInt(intentPrecintos.getStringExtra("diametroMax"));
         final String merma = intentPrecintos.getStringExtra("merma");
         final String kgPrecintoA = intentPrecintos.getStringExtra("kgPrecintoA");
         final String kgPrecintoB = intentPrecintos.getStringExtra("kgPrecintoB");
@@ -137,7 +139,6 @@ public class Estribadora2Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                System.out.println("HASTA ACÁ LLEGO;");
                 String nro = s.toString();
 
                 String itemPendiente = "none";
@@ -145,31 +146,54 @@ public class Estribadora2Activity extends AppCompatActivity {
 
 
                 if (nro.length()==11) {
+                    boolean existe = declaracionController.existe(et_ItemEstribadora2.getText().toString());
+                    Log.i("Existe","" + existe);
                     if (declaracionController.existe(et_ItemEstribadora2.getText().toString())){
-                        System.out.println("Ya declarado.");
-                        String mensaje = "Error: El item ingresado ya encuentra declarado.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El item ingresado ya encuentra declarado.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                         et_ItemEstribadora2.setText("");
                         return;
                     }
                     Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
                     if(itemTemp==null){
-                        System.out.println("No existe.");
-                        String mensaje = "Error: El item no existe en la base de datos.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El item no existe en la base de datos.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                         et_ItemEstribadora2.setText("");
                         return;
                     }
-                    if(Integer.parseInt(itemTemp.getDiametro()) < diametro_minimo || Integer.parseInt(itemTemp.getDiametro()) > diametro_maximo){
-                        String mensaje = "Error: El diametro del item no corresponde con la máquina.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                    if(Integer.parseInt(itemTemp.getDiametro()) < diametroMin || Integer.parseInt(itemTemp.getDiametro()) > diametroMax){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El diametro del item no corresponde con la máquina.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                         et_ItemEstribadora2.setText("");
                         return;
                     }
-
 
                     // Se actualizan los ET de Cantidad Posible e Item Pendientes
                     item = et_ItemEstribadora2.getText().toString();
@@ -241,23 +265,31 @@ public class Estribadora2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(et_ItemEstribadora2 == null || et_ItemEstribadora2.length() != 11){
-                    String mensaje = "Error: El item insertado no corresponde";
-                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El item insertado no corresponde.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                     return;
                 }
                 //TODO
                 //if(validarItem()){
                     Intent i = new Intent(Estribadora2Activity.this, ConfirmaEstribadora.class);
                     i.putExtra("usuario", usuario);
-                i.putExtra("ayudante", ayudante);
-                i.putExtra("maquina", maquina);
-                i.putExtra("diametro_minimo", diametro_minimo);
-                i.putExtra("diametro_maximo", diametro_maximo);
-                i.putExtra("merma", merma);
-                i.putExtra("precintoA", precintoA);
-                i.putExtra("kgdisponible1", kgdisponible1);
-                i.putExtra("kgdisponible2", kgdisponible2);
+                    i.putExtra("ayudante", ayudante);
+                    i.putExtra("maquina", maquina);
+                    i.putExtra("diametroMin", diametroMin);
+                    i.putExtra("diametroMax", diametroMax);
+                    i.putExtra("merma", merma);
+                    i.putExtra("precintoA", precintoA);
+                    i.putExtra("kgdisponible1", kgdisponible1);
+                    i.putExtra("kgdisponible2", kgdisponible2);
                     i.putExtra("precintoB", precintoB);
                     i.putExtra("item", item);
                     i.putExtra("cantidad", cantidad);
@@ -266,8 +298,8 @@ public class Estribadora2Activity extends AppCompatActivity {
                     i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
                     finish();
                     startActivity(i);
-                /*}
-                else{
+                //}
+                /*else{
                     String mensaje = "Error: El código o el diametro del item no se corresponden.";
                     Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                     msjToast.show();
@@ -317,7 +349,7 @@ public class Estribadora2Activity extends AppCompatActivity {
             }
         }
         if(!val){
-            String mensaje = "Error: El codigo no se corresponde con el presinto";
+            String mensaje = "Error: El codigo no se corresponde con el precinto";
             Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
             msjToast.show();
         }
@@ -529,7 +561,6 @@ public class Estribadora2Activity extends AppCompatActivity {
         }
     }
 
-
     private class traerCodigosMP extends AsyncTask<Void, Integer, Void> {
         private ArrayList<CodigoMP> listaCodigos;
         private int progresoItem = 0;
@@ -601,9 +632,7 @@ public class Estribadora2Activity extends AppCompatActivity {
         }
     }
 
-
     //NUEVO ASYNTASK PARA VALIDAR SOLO EL ITEM PUESTO.
-
     public class traerUnItem extends AsyncTask<Void, Integer, Void> {
         private ArrayList<Item> listaItems;
         private int progresoItem = 0;

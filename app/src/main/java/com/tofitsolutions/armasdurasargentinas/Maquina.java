@@ -8,18 +8,18 @@ public class Maquina {
     String marca;
     String modelo;
     String tipo_mp;
-    String diametro_minimo;
-    String diametro_maximo;
+    String diametroMin;
+    String diametroMax;
     String merma;
 
-    public Maquina(long id, String clasificacion, String marca, String modelo, String tipo_mp, String diametro_minimo, String diametro_maximo, String merma) {
+    public Maquina(long id, String clasificacion, String marca, String modelo, String tipo_mp, String diametroMin, String diametroMax, String merma) {
         this.id = id;
         this.clasificacion = clasificacion;
         this.marca = marca;
         this.modelo = modelo;
         this.tipo_mp = tipo_mp;
-        this.diametro_minimo = diametro_minimo;
-        this.diametro_maximo = diametro_maximo;
+        this.diametroMin = diametroMin;
+        this.diametroMax = diametroMax;
         this.merma = merma;
     }
     public Maquina(){
@@ -66,20 +66,20 @@ public class Maquina {
         this.tipo_mp = tipo_mp;
     }
 
-    public String getDiametro_minimo() {
-        return diametro_minimo;
+    public String getdiametroMin() {
+        return diametroMin;
     }
 
-    public void setDiametro_minimo(String diametro_minimo) {
-        this.diametro_minimo = diametro_minimo;
+    public void setdiametroMin(String diametroMin) {
+        this.diametroMin = diametroMin;
     }
 
-    public String getDiametro_maximo() {
-        return diametro_maximo;
+    public String getdiametroMax() {
+        return diametroMax;
     }
 
-    public void setDiametro_maximo(String diametro_maximo) {
-        this.diametro_maximo = diametro_maximo;
+    public void setdiametroMax(String diametroMax) {
+        this.diametroMax = diametroMax;
     }
 
     public String getMerma() {

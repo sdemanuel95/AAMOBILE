@@ -4,8 +4,8 @@ public class Util {
     //static String host;
     static String dbLocal;
     //LOCAL
-  //  static String host = "192.168.1.38:8080";
-//
+    //static String host = "192.168.1.43:8080";
+
     //PRODUCCION
     static String host = "armadurasargentinas.herokuapp.com";
 

@@ -74,8 +74,8 @@ public class DatosUsuarioDoblActivity extends AppCompatActivity {
                         }
                     }
                     i.putExtra("maquina", maquina.getMarca() + "-" +maquina.getModelo());
-                    i.putExtra("diametro_minimo" , maquina.getDiametro_minimo());
-                    i.putExtra("diametro_maximo",maquina.getDiametro_maximo());
+                    i.putExtra("diametroMin" , maquina.getdiametroMin());
+                    i.putExtra("diametroMax",maquina.getdiametroMax());
                     i.putExtra("merma", maquina.getMerma());
                     i.putExtra("et_invalidos", "valido");
                     finish();

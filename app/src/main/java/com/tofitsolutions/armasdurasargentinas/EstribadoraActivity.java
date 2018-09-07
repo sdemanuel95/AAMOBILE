@@ -14,6 +14,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -55,14 +56,10 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
     protected void onCreate(Bundle savedInstanceState) {
         ingresoMPController = new IngresoMPController();
         maquinas = new ArrayList<>();
-        //new PrecintosQuery().execute();
-        //mdi = new MaquinaDAOImpl("Estribadora");
-        //mdi.execute();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estribadora);
 
         //Inicializo Button
-
         bt_datosUsuario = (Button)findViewById(R.id.bt_datosUsuario);
         bt_principal = (Button)findViewById(R.id.bt_principal);
         bt_okEstribadora = (Button)findViewById(R.id.bt_okEstribadora);
@@ -73,15 +70,13 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         et_kgB = (EditText) findViewById(R.id.et_kgB);
         et_precintoA = (EditText)findViewById(R.id.et_precintoA);
         et_precintoA.addTextChangedListener(this);
-
         et_precintoB = (EditText)findViewById(R.id.et_precintoB);
         et_precintoB.addTextChangedListener(this);
+
         //Inicializo TextView
         tv_usuario = (TextView)findViewById(R.id.tv_usuarioEA);
         tv_ayudante = (TextView)findViewById(R.id.tv_ayudanteEA);
         tv_maquina = (TextView)findViewById(R.id.tv_maquinaEA);
-
-
 
         //Ingresa info del Activity -> DatosUsuarioActivity
         Intent intentDatosUsuarios = getIntent();
@@ -89,10 +84,9 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         final String usuario = intentDatosUsuarios.getStringExtra("usuario");
         final String ayudante = intentDatosUsuarios.getStringExtra("ayudante");
         final String maquina = intentDatosUsuarios.getStringExtra("maquina");
-        final String diametro_minimo = intentDatosUsuarios.getStringExtra("diametro_minimo");
-        final String diametro_maximo = intentDatosUsuarios.getStringExtra("diametro_maximo");
+        final String diametroMin = intentDatosUsuarios.getStringExtra("diametroMin");
+        final String diametroMax = intentDatosUsuarios.getStringExtra("diametroMax");
         final String merma = intentDatosUsuarios.getStringExtra("merma");
-
 
         //Cambia el valor de los TextView
         if (usuario != null) {
@@ -101,9 +95,13 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
             tv_maquina.setText(maquina);
         }
 
+        et_kgA.setInputType(InputType.TYPE_NULL);
+        et_kgB.setInputType(InputType.TYPE_NULL);
+        et_kgA.setEnabled(false);
+        et_kgB.setEnabled(false);
+
         //Valida nulidad de los EditText
         if (et_invalidos != null) {
-            //Ejecuto QUERY
             et_precintoA.setEnabled(true);
             et_precintoB.setEnabled(true);
             et_precintoA.setInputType(InputType.TYPE_NUMBER_VARIATION_NORMAL);
@@ -170,58 +168,85 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         bt_okEstribadora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(usuario == null || maquina == null){
-                    String mensaje = "Error: Debe completar al menos usuario y máquina para continuar.";
-                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();
+                if(usuario == null && maquina == null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("Debe completar los campos 'usuario' y 'máquina' para continuar.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                     return;
 
                 }
-                //Valida los campos "precintoA" y "precintoB"
-                String precintoA = et_precintoA.getText().toString();
-                String precintoB = "";
-                try {
-                    precintoB = et_precintoB.getText().toString();
+                if(usuario != null && maquina != null && et_precintoA.getText().toString().isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("Debe completar al menos un precinto.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
-                catch (Exception e) {
-                    precintoB = "";
-                }
-                codPreA = precintoA.substring(10,20);
-                codPreB = "";
-
-                // Si se ingresan ambos precintos, se valida que sea el mismo codigo de MP
-                if((precintoB.length() != 24) && precintoB.length() != 0){
-                    String mensaje = "Error: El precinto B , debe contener 24 caracteres.";
-                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();
-                    return;
-                }
-                if(!precintoB.isEmpty()) {
-                    codPreB = precintoB.substring(10, 20);
-                    Log.d("entro","codPreA " + codPreA);
-                    Log.d("entro","codPreB " + codPreB);
-                    // Verifica si los codigo de MP son iguales
-                    if(codPreA.equals(codPreB)) {
-                        validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina,diametro_minimo,diametro_maximo,merma);
+                else {
+                    //Valida los campos "precintoA" y "precintoB"
+                    String precintoA = et_precintoA.getText().toString();
+                    String precintoB = "";
+                    try {
+                        precintoB = et_precintoB.getText().toString();
+                    } catch (Exception e) {
+                        precintoB = "";
                     }
-                    else {
-                        Log.d("entro","al else");
-                        String mensaje = "Error: Los lotes no corresponden al mismo código de material.";
+                    codPreA = precintoA.substring(10, 20);
+                    codPreB = "";
+
+                    // Si se ingresan ambos precintos, se valida que sea el mismo codigo de MP
+                    if ((precintoB.length() != 24) && precintoB.length() != 0) {
+                        String mensaje = "Error: El precinto B , debe contener 24 caracteres.";
                         Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                         msjToast.show();
-                        et_precintoA.setText("");
-                        et_precintoB.setText("");
-                        et_precintoB.setHint("Precinto 2");
-                        et_precintoB.setHintTextColor(getResources().getColor(R.color.colorPrimary));
-                        et_precintoA.setHint("Por favor lea el codigo");
-                        et_precintoA.setHintTextColor(Color.RED);
-                        et_precintoA.requestFocus();
+                        return;
                     }
-                }
-                // Si se ingresa solo el precinto "A"
-                else {
-                    validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina,diametro_minimo,diametro_maximo,merma);
+                    if (!precintoB.isEmpty()) {
+                        codPreB = precintoB.substring(10, 20);
+                        // Verifica si los codigo de MP son iguales
+                        if (codPreA.equals(codPreB)) {
+                            validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina, diametroMin, diametroMax, merma);
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            builder.setTitle("Atencion!");
+                            builder.setMessage("Los lotes no corresponden al mismo tipo de material. Complete nuevamente los campos.");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            et_precintoA.setText("");
+                            et_precintoB.setText("");
+                            et_kgA.setText("");
+                            et_kgB.setText("");
+                            et_precintoB.setHint("Precinto 2");
+                            et_precintoB.setHintTextColor(getResources().getColor(R.color.colorPrimary));
+                            et_precintoA.setHint("Por favor lea el codigo");
+                            et_precintoA.setHintTextColor(Color.RED);
+                            et_precintoA.requestFocus();
+                        }
+                    }
+                    // Si se ingresa solo el precinto "A"
+                    else {
+                        validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina, diametroMin, diametroMax, merma);
+                    }
                 }
             }
         });
@@ -256,35 +281,48 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                 et_kgA.setText(et_precintoA.getText().toString().substring((20)));
             }
 
-            if(et_precintoB.length() == 24){
-                et_kgB.setText(et_precintoB.getText().toString().substring((20)));
-            }
-
-
-            System.out.println(nro);
-            if(ingresoMPController.esRollo(nro)){
-                String mensaje = "Es Rollo";
-                Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                msjToast.show();
-            }
-            else{
-                String mensaje = "El precinto ingresado no es Rollo";
-                Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                msjToast.show();
-
-
-            }
-            //editable.replace(0,editable.length(),"100");
             if (et_precintoA.isFocusable()) {
-
                 et_precintoB.requestFocus();
                 et_precintoB.setHint("Por favor lea el codigo");
                 et_precintoB.setHintTextColor(Color.RED);
             }
+
+            if(et_precintoB.length() == 24){
+                et_kgB.setText(et_precintoB.getText().toString().substring((20)));
+            }
+
+            /*
+            if(ingresoMPController.esRollo(nro)) {
+                if (et_precintoA.isFocusable()) {
+                    et_precintoB.requestFocus();
+                    et_precintoB.setHint("Por favor lea el codigo");
+                    et_precintoB.setHintTextColor(Color.RED);
+                }
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                builder.setTitle("Atencion!");
+                builder.setMessage("El lote ingresado no es Rollo. Por favor ingrese uno nuevo.");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        et_precintoA.setText("");
+                        et_precintoA.requestFocus();
+                        et_precintoA.setHint("Por favor lea el codigo");
+                        et_precintoA.setHintTextColor(Color.RED);
+                        et_kgA.setText("");
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+            //editable.replace(0,editable.length(),"100");
+            */
         }
     }
 
-    public void validarPrecinto(String precintoA, String precintoB, String usuario, String ayudante, String maquina, String diametro_minimo, String diametro_maximo, String merma) {
+    public void validarPrecinto(String precintoA, String precintoB, String usuario, String ayudante, String maquina, String diametroMin, String diametroMax, String merma) {
         String lotea="";
         String loteb ="";
         if (precintoA.length() == 24) {
@@ -315,8 +353,8 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                                 i.putExtra("usuario",usuario);
                                 i.putExtra("ayudante", ayudante);
                                 i.putExtra("maquina", maquina);
-                                i.putExtra("diametro_minimo", diametro_minimo);
-                                i.putExtra("diametro_maximo", diametro_maximo);
+                                i.putExtra("diametroMin", diametroMin);
+                                i.putExtra("diametroMax", diametroMax);
                                 i.putExtra("merma", merma);
                                 i.putExtra("kgPrecintoA", kgPrecintoA);
                                 i.putExtra("kgPrecintoB", kgPrecintoB);
@@ -346,8 +384,8 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                             i.putExtra("usuario",usuario);
                             i.putExtra("ayudante", ayudante);
                             i.putExtra("maquina", maquina);
-                            i.putExtra("diametro_minimo", diametro_minimo);
-                            i.putExtra("diametro_maximo", diametro_maximo);
+                            i.putExtra("diametroMin", diametroMin);
+                            i.putExtra("diametroMax", diametroMax);
                             i.putExtra("merma", merma);
                             i.putExtra("kgPrecintoA", kgPrecintoA);
                             i.putExtra("kgPrecintoB", kgPrecintoB);
