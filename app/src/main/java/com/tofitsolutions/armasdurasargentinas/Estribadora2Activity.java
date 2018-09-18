@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 
@@ -28,7 +29,15 @@ import java.util.ArrayList;
 
 public class Estribadora2Activity extends AppCompatActivity {
 
-    private TextView tv_precintoA, tv_precintoB, tv_usuarioEA2, tv_ayudanteEA2, tv_maquinaEA2, tv_cantidad1KGEA2, tv_cantidad2KGEA2, tv_cantPosible, tv_pendiente;
+
+
+
+
+    int cantidadPosibleNum;
+    Double cantidadPendienteNum ;
+    Double kgAProducir;
+    //KG, CANT POSIBLE Y CANT PENDIENTE .
+    private TextView tv_kgADeclarar,tv_precintoA, tv_precintoB, tv_usuarioEA2, tv_ayudanteEA2, tv_maquinaEA2, tv_cantidad1KGEA2, tv_cantidad2KGEA2, tv_cantPosible, tv_pendiente;
     private EditText et_ItemEstribadora2;
     private Button bt_teclado, bt_okEstribadora2, bt_principalEstribadora2, bt_cancelEstribadora2;
     //private ArrayList<IngresoMP> materiasPrima;
@@ -39,17 +48,19 @@ public class Estribadora2Activity extends AppCompatActivity {
     private int pesoItem;
     private double kgTotalItem;
     private  String cantidad;
+    private  String cantidadDec;
     private String item;
     private String pesoPrecintoTotal;
     private ProgressDialog progressI;
     private ProgressDialog progresso;
     private String codPreA;
     private String codPreB;
-    private String kdDisponible1;
-    private String kdDisponible2;
+    private String kddisponible1;
+    private String kddisponible2;
     private String kdproducido1;
     private String kdproducido2;
     DeclaracionController declaracionController;
+    CodigoMPController codigoMPController;
     ItemController itemController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +68,9 @@ public class Estribadora2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_estribadora2);
         itemController = new ItemController();
         declaracionController = new DeclaracionController();
+        codigoMPController = new CodigoMPController();
         tv_precintoA = (TextView) findViewById(R.id.textView_PrecintoA);
+        tv_kgADeclarar =(TextView) findViewById(R.id.textView_kgADeclarar);
         tv_precintoB = (TextView) findViewById(R.id.textView_PrecintoB);
         tv_usuarioEA2 = (TextView) findViewById(R.id.tv_usuarioEA2);
         tv_ayudanteEA2 = (TextView) findViewById(R.id.tv_ayudanteEA2);
@@ -80,46 +93,34 @@ public class Estribadora2Activity extends AppCompatActivity {
 
         //Ingresa info del Activity -> EstribadoraActivity
         Intent intentPrecintos = getIntent();
-
-        codPreA = intentPrecintos.getStringExtra("codPreA");
-        codPreB = intentPrecintos.getStringExtra("codPreB");
-
-        //final String codPreB = intentPrecintos.getStringExtra("codPreB");
-        final String precintoA = intentPrecintos.getStringExtra("precintoA");
-        final String precintoB = intentPrecintos.getStringExtra("precintoB");
+        final Maquina maquina = (Maquina) intentPrecintos.getSerializableExtra("maquina");
+        final IngresoMP ingresoMP1 = (IngresoMP)intentPrecintos.getSerializableExtra("ingresoMP1");
+        final IngresoMP ingresoMP2 = (IngresoMP)intentPrecintos.getSerializableExtra("ingresoMP2");
         final String usuario = intentPrecintos.getStringExtra("usuario");
         final String ayudante = intentPrecintos.getStringExtra("ayudante");
-        final String maquina = intentPrecintos.getStringExtra("maquina");
-        final int diametroMin = Integer.parseInt(intentPrecintos.getStringExtra("diametroMin"));
-        final int diametroMax= Integer.parseInt(intentPrecintos.getStringExtra("diametroMax"));
-        final String merma = intentPrecintos.getStringExtra("merma");
-        final String kgPrecintoA = intentPrecintos.getStringExtra("kgPrecintoA");
-        final String kgPrecintoB = intentPrecintos.getStringExtra("kgPrecintoB");
-        final String kgdisponible1= intentPrecintos.getStringExtra("kgdisponible1");
-        final String kgdisponible2= intentPrecintos.getStringExtra("kgdisponible2");
-        final String kdproducido1 = intentPrecintos.getStringExtra("kdproducido1");
-        final String kgproducido2 = intentPrecintos.getStringExtra("kdproducido2");
+
+
         pesoItem = 0;
         cantidad = null;
+        cantidadDec = null;
         item = "";
 
-        if(!precintoB.isEmpty()) {
-            pesoPrecintoTotal = Integer.toString(Integer.parseInt(kgPrecintoA.substring(0, 4)) + Integer.parseInt(kgPrecintoB.substring(0, 4)));
+        if(ingresoMP2 != null ) {
+            pesoPrecintoTotal = Integer.toString(Integer.parseInt(ingresoMP1.getCantidad()) + Integer.parseInt(ingresoMP2.getCantidad()));
+            tv_precintoB.setText(ingresoMP2.getLote());
+
+            tv_cantidad2KGEA2.setText(ingresoMP2.getKgDisponible());
         }
         else {
-            pesoPrecintoTotal = Integer.toString(Integer.parseInt(kgPrecintoA.substring(0, 4)));
+            pesoPrecintoTotal = Integer.toString(Integer.parseInt(ingresoMP1.getCantidad()));
         }
 
-        tv_precintoA.setText(precintoA.substring(0,10));
-        if(precintoB.length() == 24){
-            tv_precintoB.setText(precintoB.substring(0,10));
+        tv_precintoA.setText(ingresoMP1.getLote());
 
-        }
         tv_usuarioEA2.setText(usuario);
         tv_ayudanteEA2.setText(ayudante);
-        tv_maquinaEA2.setText(maquina);
-        tv_cantidad1KGEA2.setText(kgPrecintoA);
-        tv_cantidad2KGEA2.setText(kgPrecintoB);
+        tv_maquinaEA2.setText(maquina.getMarca() + "-" + maquina.getModelo());
+        tv_cantidad1KGEA2.setText(ingresoMP1.getKgDisponible());
 
         bt_teclado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,10 +146,9 @@ public class Estribadora2Activity extends AppCompatActivity {
                 String cantPosible = "none";
 
 
+                Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
                 if (nro.length()==11) {
-                    boolean existe = declaracionController.existe(et_ItemEstribadora2.getText().toString());
-                    Log.i("Existe","" + existe);
-                    if (declaracionController.existe(et_ItemEstribadora2.getText().toString())){
+                    if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item ingresado ya encuentra declarado.");
@@ -163,7 +163,6 @@ public class Estribadora2Activity extends AppCompatActivity {
                         et_ItemEstribadora2.setText("");
                         return;
                     }
-                    Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
                     if(itemTemp==null){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
@@ -179,7 +178,91 @@ public class Estribadora2Activity extends AppCompatActivity {
                         et_ItemEstribadora2.setText("");
                         return;
                     }
-                    if(Integer.parseInt(itemTemp.getDiametro()) < diametroMin || Integer.parseInt(itemTemp.getDiametro()) > diametroMax){
+                    CodigoMP codigoMP = codigoMPController.getCodigoMP(ingresoMP1.getDescripcion());
+
+
+
+                        String tipoMat = codigoMP.getTipoMaterial();
+                    if(!tipoMat.equals("ADNS") && !tipoMat.equals("ADN") ){
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El item no corresponde al material del lote.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
+
+                    if(codigoMP.getTipoMaterial().equals("ADNS")){
+
+                        /*
+                        if(itemTemp.getAcero().equals("ADN420S")){
+
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            builder.setTitle("Atencion!");
+                            builder.setMessage("El item no corresponde al material del lote.");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            et_ItemEstribadora2.setText("");
+                            return;
+                        }
+                        */
+                    }
+
+
+                    if(codigoMP.getTipoMaterial().equals("ADN") && !itemTemp.getAcero().equals("ADN420")){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El item no corresponde al material del lote.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        et_ItemEstribadora2.setText("");
+                        return;
+
+                    }
+
+
+                    if(!codigoMP.getFamilia().equals(itemTemp.getDiametro())){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            builder.setTitle("Atencion!");
+                            builder.setMessage("El diametro del item no corresponde con el lote.");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            et_ItemEstribadora2.setText("");
+                            return;
+
+                    }
+
+
+
+                    if(Integer.parseInt(itemTemp.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(itemTemp.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El diametro del item no corresponde con la máquina.");
@@ -199,11 +282,32 @@ public class Estribadora2Activity extends AppCompatActivity {
                     item = et_ItemEstribadora2.getText().toString();
                     Item i = itemController.getItem(item);
                     cantidad = (i.getCantidad());
-                    tv_cantidad1KGEA2.setText(kgPrecintoA);
+                    cantidadDec = (i.getCantidadDec());
+                    tv_cantidad1KGEA2.setText(ingresoMP1.getKgDisponible());
+                    cantidadPosibleNum = calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),Double.parseDouble(i.getPeso()),(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)));
 
-                    tv_cantPosible.setText("CP: " + calcularPosible((Double.parseDouble(kgPrecintoA)),Double.parseDouble(i.getPeso())
-                            ,Double.parseDouble(cantidad)));
-                    tv_pendiente.setText("P: " + "0");
+                    if(cantidadPosibleNum==0){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("No se puede declarar ya que la cantidad posible es 0.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
+                    cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - cantidadPosibleNum;
+                    kgAProducir = cantidadPosibleNum * Double.parseDouble(i.getPeso());
+                    System.out.println("Cantidad a producir = " + kgAProducir);
+                    tv_cantPosible.setText("CP: " + cantidadPosibleNum);
+                    tv_pendiente.setText("P: " + cantidadPendienteNum);
+                    tv_kgADeclarar.setText("KG:" + kgAProducir);
 
                     /*
                     for (int i = 0; i < listaDeItems.size(); i++) {
@@ -284,17 +388,12 @@ public class Estribadora2Activity extends AppCompatActivity {
                     i.putExtra("usuario", usuario);
                     i.putExtra("ayudante", ayudante);
                     i.putExtra("maquina", maquina);
-                    i.putExtra("diametroMin", diametroMin);
-                    i.putExtra("diametroMax", diametroMax);
-                    i.putExtra("merma", merma);
-                    i.putExtra("precintoA", precintoA);
-                    i.putExtra("kgdisponible1", kgdisponible1);
-                    i.putExtra("kgdisponible2", kgdisponible2);
-                    i.putExtra("precintoB", precintoB);
+                i.putExtra("ingresoMP1",ingresoMP1);
+                i.putExtra("ingresoMP2",ingresoMP2);
                     i.putExtra("item", item);
-                    i.putExtra("cantidad", cantidad);
-                    i.putExtra("codPreA", codPreA);
-                    i.putExtra("codPreB", codPreB);
+                    i.putExtra("kgAProducir",kgAProducir);
+                    //i.putExtra("itemObject",i);
+                    i.putExtra("cantidad", cantidadPosibleNum);
                     i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
                     finish();
                     startActivity(i);
@@ -731,7 +830,7 @@ public class Estribadora2Activity extends AppCompatActivity {
         }
     }
 
-    public double calcularPosible(double kgPrecinto, double kgItem,double cantItem){
+    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem){
         double resp= 0;
         kgTotalItem = kgItem * cantItem;
         if(cantItem == 0){

@@ -1,9 +1,14 @@
 package com.tofitsolutions.armasdurasargentinas;
 
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
 
-public class IngresoMP {
+public class IngresoMP implements Serializable {
+
+    private static final long serialVersionId = 1L;
+
+
     private long id;
     private Date fecha;
     private String referencia;
@@ -47,6 +52,9 @@ public class IngresoMP {
         this.destinatario = destinatario;
         this.colada = colada;
         this.pesoPorBalanza = pesoPorBalanza;
+        this.kgProd = kgProd;
+        this.kgDisponible= kgDisp;
+        this.kgTeorico = kgTeo;
     }
 
 

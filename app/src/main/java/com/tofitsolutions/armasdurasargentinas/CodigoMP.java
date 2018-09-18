@@ -1,10 +1,14 @@
 package com.tofitsolutions.armasdurasargentinas;
 
+import java.io.Serializable;
+
 /**
  * Created by Abel on 5/11/2017.
  */
 
-public class CodigoMP {
+public class CodigoMP implements Serializable{
+
+    private final long serialVersionUID = 1L;
     private long id;
     private String codSap;
     private String familia;

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
+import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.controllers.StockController;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -36,29 +38,21 @@ public class ConfirmaEstribadora extends AppCompatActivity {
     private ProgressDialog progress;
     private ArrayList<Declaracion> listaDeclaracion;
     private Declaracion d;
-
+    private ItemController itemController = new ItemController();
+    private StockController stockController = new StockController();
     //Ingresa info del Activity -> EstribadoraActivity
     Intent intentPrecintos = getIntent();
-    String codPreA;
-    String codPreB;
-    String precintoA;
-    String codBarrasA;
-    String codBarrasB;
-    String precintoAcortado;
-    String precintoB;
+    Maquina maquina = null;
+    IngresoMP ingresoMP1 = null;
+    IngresoMP ingresoMP2 = null;
+    Item itemObject = null;
     String usuario;
     String ayudante;
-    String maquina;
     String item;
-    String cantidad;
+    int cantidadAUsar;
+    Double kgAProducir;
     String kgTotalItem;
-    int merma;
-    int diametroMin;
-    int diametroMax;
-    String kgdisponible1;
-    String kgdisponible2;
-    String kdproducido1;
-    String kdproducido2;
+    Item itemADeclarar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +64,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         preAConfEst = (TextView) findViewById(R.id.preAConfEst);
         preBConfEst = (TextView) findViewById(R.id.preBConfEst);
         itemConfEst = (TextView) findViewById(R.id.itemConfEst);
+
         cantidadConfEst = (TextView) findViewById(R.id.cantidadConfEst);
         bt_okEstribadoraConf = (Button) findViewById(R.id.bt_okEstribadoraConf);
         bt_principalConfEst = (Button) findViewById(R.id.bt_principalConfEst);
@@ -78,40 +73,30 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         //Ingresa info del Activity -> EstribadoraActivity
         Intent intentPrecintos = getIntent();
         kgTotalItem = intentPrecintos.getStringExtra("kgTotalItem");
-        codPreA = intentPrecintos.getStringExtra("codPreA");
-        codPreB = intentPrecintos.getStringExtra("codPreB");
-        precintoA = intentPrecintos.getStringExtra("precintoA");
-
-        codBarrasA = intentPrecintos.getStringExtra("precintoA");
-
-        codBarrasB = intentPrecintos.getStringExtra("precintoB");
 
 
-        kgdisponible1 = intentPrecintos.getStringExtra("kgdisponible1");
-        kgdisponible2 = intentPrecintos.getStringExtra("kgdisponible2");
-        kdproducido1 = intentPrecintos.getStringExtra("kdproducido1");
-        kdproducido2 = intentPrecintos.getStringExtra("kdproducido2");
-
-        precintoAcortado = precintoA.substring(0,10);
-        precintoB = intentPrecintos.getStringExtra("precintoB");
         usuario = intentPrecintos.getStringExtra("usuario");
         ayudante = intentPrecintos.getStringExtra("ayudante");
-        maquina = intentPrecintos.getStringExtra("maquina");
-        merma = Integer.valueOf(intentPrecintos.getStringExtra("merma"));
-        diametroMin = intentPrecintos.getIntExtra("diametroMin",0);
-        diametroMax = intentPrecintos.getIntExtra("diametroMax",0);
+        maquina = (Maquina)intentPrecintos.getSerializableExtra("maquina");
+        ingresoMP1 = (IngresoMP) intentPrecintos.getSerializableExtra("ingresoMP1");
+        ingresoMP2 = (IngresoMP) intentPrecintos.getSerializableExtra("ingresoMP2");
+        if(ingresoMP2==null){
+            ingresoMP2 = new IngresoMP();
+        }
+        itemObject = (Item) intentPrecintos.getSerializableExtra("itemObject");
         item = intentPrecintos.getStringExtra("item");
-        cantidad = intentPrecintos.getStringExtra("cantidad");
-
-        d = new Declaracion(usuario,ayudante,maquina,precintoAcortado,precintoB,item,cantidad);
+        cantidadAUsar = intentPrecintos.getIntExtra("cantidad",0);
+        kgAProducir = intentPrecintos.getDoubleExtra("kgAProducir",0);
+        itemADeclarar = itemController.getItem(item);
+        d = new Declaracion(usuario,ayudante,maquina.getMarca()+"-"+maquina.getModelo(),ingresoMP1.getLote(),null,item,String.valueOf(cantidadAUsar));
 
         usuarioConfEst.setText(usuario);
         AyudanteConfEst.setText(ayudante);
-        equipoConfEst.setText(maquina);
-        preAConfEst.setText(precintoAcortado);
-        preBConfEst.setText(precintoB);
+        equipoConfEst.setText(maquina.getMarca()+"-"+maquina.getModelo());
+        preAConfEst.setText(ingresoMP1.getLote());
+        preBConfEst.setText("");
         itemConfEst.setText(item);
-        cantidadConfEst.setText(cantidad);
+        cantidadConfEst.setText(String.valueOf(cantidadAUsar));
 
         bt_okEstribadoraConf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,20 +199,13 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     String precintoB = ld.getPrecintoB();
                     String item = ld.getItem();
                     String cantidad = ld.getCantidad();
-                    String lote = codBarrasA.substring(0,10);
-                    String material = codBarrasA.substring(10,20);
-                    String cantidadCodBarra = codBarrasA.substring(20,24);
-                    String loteB = null;
-                    String materialB= null;
-                    String cantidadCodBarraB= null;
-                    if(codBarrasB != null || codBarrasA != ""){
-                        if(codBarrasB.length() == 24){
-                            loteB = codBarrasB.substring(0,10);
-                            materialB = codBarrasB.substring(10,20);
-                            cantidadCodBarraB = codBarrasB.substring(20,24);
+                    String lote = ingresoMP1.getLote();
+                    String material = ingresoMP1.getMaterial();
+                    String cantidadCodBarra = ingresoMP1.getCantidad();
+                    String loteB = ingresoMP2.getLote();
+                    String materialB = ingresoMP2.getMaterial();
+                    String cantidadCodBarraB = ingresoMP2.getCantidad();
 
-                        }
-                    }
                     //String loteB = codBarrasB.substring(0,10);
                     //String materialB = codBarrasB.substring(10,20);
                     //String cantidadCodBarraB = codBarrasB.substring(20,24);
@@ -239,16 +217,38 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
                             "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad +"');" );
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
-                    String mermaCalculada = String.valueOf( merma * Double.parseDouble(cantidad) / 100);
-                    cantidad = String.valueOf(Double.parseDouble(cantidad) - Double.parseDouble(mermaCalculada));
-                    stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza) values (CURRENT_TIME,\"\",1,121,121,'" + mermaCalculada + "')");
-                    System.out.println("KILOGRAMO DISPONIBLE " + kgdisponible1 + cantidad);
-                    String kgdis1 = String.valueOf(Double.parseDouble(kgdisponible1) - Double.parseDouble(cantidad));
-                    //stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible1 +"', KGDisponible = '" + cantidad+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
+                    String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
+                    String cantidadKG = String.valueOf(kgAProducir);
+                    stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza) values (NOW(),'" + ingresoMP1.getReferencia() + "','"+ingresoMP1.getCantidad() + "','" + ingresoMP1.getLote() + "','" + ingresoMP1.getColada() + "','"+ mermaCalculada + "')");
+
+                    String kgdis1 = String.valueOf(Double.parseDouble(ingresoMP1.getKgDisponible()) - (Double.parseDouble(cantidadKG) + Double.parseDouble(mermaCalculada)));
+                    String kgprod1 = String.valueOf(Double.parseDouble(ingresoMP1.getKgProd()) + Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*/);
+                    stmt.executeUpdate("update ingresomp set KGProd = '" + kgprod1 +"', KGDisponible = '" + kgdis1+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
+
+
+                    int cantidadDelItem = Integer.parseInt(itemADeclarar.getCantidad());
+                    int cantidadDecDelItem = Integer.parseInt(itemADeclarar.getCantidadDec());
+                    cantidadDelItem = cantidadDelItem - Integer.parseInt(cantidad);
+                    cantidadDecDelItem = cantidadDecDelItem + Integer.parseInt(cantidad);
+                    stmt.executeUpdate("update items set CantidadDec = '" + cantidadDecDelItem+"' where Codigo ='" + item + "';");
+
                     if(loteB != null || loteB != ""){
-                        stmt.executeUpdate("update ingresomp set KGProd = '" + kgdisponible2 +"', KGDisponible = '" + cantidad+"' where lote ='" + loteB + "' AND material = '" + materialB + "' And cantidad ='" + cantidadCodBarraB + "';");
+                        //stmt.executeUpdate("update ingresomp set KGProd = '" + ingresoMP2.getKgDisponible() +"', KGDisponible = '" + cantidad+"' where lote ='" + loteB + "' AND material = '" + materialB + "' And cantidad ='" + cantidadCodBarraB + "';");
                     }
                     //ingresoMPController.updatekg(codBarrasA + cantidad);
+                    Stock stock = stockController.getStock(ingresoMP1.getMaterial());
+                    String stockKGPROD = stock.getKgprod();
+                    String stockKGDISP = stock.getKgdisponible();
+
+
+                    stockKGPROD = String.valueOf(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*/));
+                    stockKGDISP = String.valueOf(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKG)) + Double.parseDouble(mermaCalculada)));
+                    //ACTUALIZA EN STOCK
+                    stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
+
+
+
+
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -262,7 +262,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             //listaDeclaracion = listaDeclaraciones;
-            Intent i = new Intent(ConfirmaEstribadora.this, PrincipalActivity.class);
+            Intent i = new Intent(ConfirmaEstribadora.this, Estribadora2Activity.class);
             finish();
             startActivity(i);
             super.onPostExecute(aVoid);

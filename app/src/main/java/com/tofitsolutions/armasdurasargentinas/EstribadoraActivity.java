@@ -50,7 +50,9 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
     private String codPreA;
     private String codPreB;
     IngresoMPController ingresoMPController;
-
+    IngresoMP ingresoMP1 = null;
+    IngresoMP ingresoMP2 = null;
+    Maquina maquina = null;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,8 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         final String et_invalidos = intentDatosUsuarios.getStringExtra("et_invalidos");
         final String usuario = intentDatosUsuarios.getStringExtra("usuario");
         final String ayudante = intentDatosUsuarios.getStringExtra("ayudante");
-        final String maquina = intentDatosUsuarios.getStringExtra("maquina");
+
+        maquina = (Maquina)intentDatosUsuarios.getSerializableExtra("maquina");
         final String diametroMin = intentDatosUsuarios.getStringExtra("diametroMin");
         final String diametroMax = intentDatosUsuarios.getStringExtra("diametroMax");
         final String merma = intentDatosUsuarios.getStringExtra("merma");
@@ -92,7 +95,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         if (usuario != null) {
             tv_usuario.setText(usuario);
             tv_ayudante.setText(ayudante);
-            tv_maquina.setText(maquina);
+            tv_maquina.setText(maquina.getMarca() + "-" + maquina.getModelo());
         }
 
         et_kgA.setInputType(InputType.TYPE_NULL);
@@ -219,7 +222,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                         codPreB = precintoB.substring(10, 20);
                         // Verifica si los codigo de MP son iguales
                         if (codPreA.equals(codPreB)) {
-                            validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina, diametroMin, diametroMax, merma);
+                            validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina);
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                             builder.setTitle("Atencion!");
@@ -245,7 +248,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                     }
                     // Si se ingresa solo el precinto "A"
                     else {
-                        validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina, diametroMin, diametroMax, merma);
+                        validarPrecinto(precintoA, precintoB, usuario, ayudante, maquina);
                     }
                 }
             }
@@ -275,10 +278,30 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
     @Override
     public void afterTextChanged(Editable editable) {
         String nro = editable.toString();
-
+        IngresoMP ingreso;
         if (nro.length()==24) {
             if(et_precintoA.length() == 24){
-                et_kgA.setText(et_precintoA.getText().toString().substring((20)));
+                ingreso = ingresoMPController.getMP(et_precintoA.getText().toString());
+                if(ingreso==null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El precinto ingresado no existe.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    et_precintoA.setText("");
+                    et_kgA.setText("");
+                    return;
+                }
+                else{
+                    et_kgA.setText(ingreso.getKgDisponible());
+                }
+
             }
 
             if (et_precintoA.isFocusable()) {
@@ -322,7 +345,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         }
     }
 
-    public void validarPrecinto(String precintoA, String precintoB, String usuario, String ayudante, String maquina, String diametroMin, String diametroMax, String merma) {
+    public void validarPrecinto(String precintoA, String precintoB, String usuario, String ayudante,Maquina maquina) {
         String lotea="";
         String loteb ="";
         if (precintoA.length() == 24) {
@@ -333,31 +356,19 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                         loteb= precintoB.substring(0,10);
                     }
                     if(ingresoMPController.esRollo(precintoA)){
-                        IngresoMP precinto1 = ingresoMPController.getMP(precintoA);
+                        ingresoMP1 = ingresoMPController.getMP(precintoA);
                         if(precintoB.length()!=0) {
                             if(ingresoMPController.esRollo((precintoB))) {
-                                IngresoMP precinto2 = ingresoMPController.getMP(precintoB);
+                                ingresoMP2  = ingresoMPController.getMP(precintoB);
 
                                 Intent i = new Intent(EstribadoraActivity.this, Estribadora2Activity.class);
-                                String kgPrecintoA = precinto1.getCantidad();
-                                String kgPrecintoB = precinto2.getCantidad();
-                                i.putExtra("codPreA", codPreA);
-                                i.putExtra("codPreB", codPreB);
-                                i.putExtra("kgdisponible1" , precinto1.getKgDisponible());
-                                i.putExtra("kgdisponible2" , precinto2.getKgDisponible());
-                                i.putExtra("kgproducido1",precinto1.getKgProd());
-                                i.putExtra("kgproducido2",precinto2.getKgProd());
 
-                                i.putExtra("precintoA", precintoA);
-                                i.putExtra("precintoB", precintoB);
+                                i.putExtra("ingresoMP1",ingresoMP1);
+                                i.putExtra("ingresoMP2",ingresoMP2);
                                 i.putExtra("usuario",usuario);
                                 i.putExtra("ayudante", ayudante);
                                 i.putExtra("maquina", maquina);
-                                i.putExtra("diametroMin", diametroMin);
-                                i.putExtra("diametroMax", diametroMax);
-                                i.putExtra("merma", merma);
-                                i.putExtra("kgPrecintoA", kgPrecintoA);
-                                i.putExtra("kgPrecintoB", kgPrecintoB);
+
                                 finish();
                                 startActivity(i);
                             } else {
@@ -372,23 +383,11 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                         }
                         else {
                             Intent i = new Intent(EstribadoraActivity.this, Estribadora2Activity.class);
-                            String kgPrecintoA = precinto1.getCantidad();
-                            String kgPrecintoB = "0";
-                            i.putExtra("codPreA", codPreA);
-                            i.putExtra("codPreB", codPreB);
-                            System.out.println("PRECINTO 1 = " +precinto1.getKgDisponible());
-                            i.putExtra("kgdisponible1" , precinto1.getKgDisponible());
-                            i.putExtra("kgproducido1",precinto1.getKgProd());
-                            i.putExtra("precintoA", precintoA);
-                            i.putExtra("precintoB", precintoB);
+                            i.putExtra("ingresoMP1",ingresoMP1);
+                            i.putExtra("ingresoMP2",ingresoMP2);
                             i.putExtra("usuario",usuario);
                             i.putExtra("ayudante", ayudante);
                             i.putExtra("maquina", maquina);
-                            i.putExtra("diametroMin", diametroMin);
-                            i.putExtra("diametroMax", diametroMax);
-                            i.putExtra("merma", merma);
-                            i.putExtra("kgPrecintoA", kgPrecintoA);
-                            i.putExtra("kgPrecintoB", kgPrecintoB);
                             finish();
                             startActivity(i);
                         }

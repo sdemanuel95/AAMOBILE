@@ -336,7 +336,7 @@ public class InventarioActivity extends AppCompatActivity {
                     String colada = IngresoMP_temp.getColada();
                     String pesoPorBalanza = IngresoMP_temp.getPesoPorBalanza();
                     String kgEnPlanta = IngresoMP_temp.getKgEnPlanta();
-                    String query = "INSERT INTO ingresomp_temp values (default, default, '"+material+
+                    String query = "INSERT INTO ingresomp_temp values (default, NOW(), '"+material+
                             "','"+descripcion+"','"+kgInicial+"','"+UMB+"','"+ lote
                             +"','"+destinatario+"','"+colada+"','"+pesoPorBalanza+"','"+kgEnPlanta+"');";
                     System.out.println(query);

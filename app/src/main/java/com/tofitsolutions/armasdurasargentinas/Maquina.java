@@ -1,8 +1,13 @@
 package com.tofitsolutions.armasdurasargentinas;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
-public class Maquina {
+public class Maquina implements Serializable{
+
+
+    private static final long serialVersionId = 1L;
+
     long id;
     String clasificacion;
     String marca;

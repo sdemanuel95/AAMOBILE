@@ -1,10 +1,15 @@
 package com.tofitsolutions.armasdurasargentinas;
 
+import java.io.Serializable;
+
 /**
  * Created by Abel on 16/10/2017.
  */
 
-public class Item {
+public class Item implements Serializable{
+
+
+
     private long id;
     private long idpedido;
     private long item;

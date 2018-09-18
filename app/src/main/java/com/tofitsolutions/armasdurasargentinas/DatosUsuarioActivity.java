@@ -25,14 +25,13 @@ public class DatosUsuarioActivity extends AppCompatActivity {
     List<Maquina> maquinas;
     List<String> maquinasString = new ArrayList<>();
     MaquinaController mc = new MaquinaController();
+    Maquina maquina = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         maquinas =  mc.getEstribadoras();
         for(Maquina m : maquinas){
-            System.out.println("MAQUINASANTTTERIORES  = " + m.getdiametroMax());
-            System.out.println("MAQUINAS PUTAS = "+ m.getMarca() );
 
 
             maquinasString.add(m.getMarca() + "-" + m.getModelo());
@@ -71,7 +70,6 @@ public class DatosUsuarioActivity extends AppCompatActivity {
                     Intent i = new Intent(DatosUsuarioActivity.this, EstribadoraActivity.class);
                     i.putExtra("usuario", usuario);
                     i.putExtra("ayudante", ayudante);
-                    Maquina maquina = null;
                     for(Maquina m : maquinas){
                         System.out.println("MAQUINAS = " + m.getdiametroMax());
                         if(maquinaElegida.equals(m.getMarca() + "-" + m.getModelo())){
@@ -79,13 +77,14 @@ public class DatosUsuarioActivity extends AppCompatActivity {
                         }
 
                     }
-                    i.putExtra("maquina", maquina.getMarca() + "-" +maquina.getModelo());
+                    //i.putExtra("maquina", maquina.getMarca() + "-" +maquina.getModelo());
                     i.putExtra("diametroMin" , maquina.getdiametroMin());
                     System.out.println(maquina.getdiametroMax());
                     System.out.println(maquina.getdiametroMin());
                     i.putExtra("diametroMax",maquina.getdiametroMax());
                     i.putExtra("merma", maquina.getMerma());
                     i.putExtra("et_invalidos", "valido");
+                    i.putExtra("maquina",maquina);
                     finish();
                     startActivity(i);
                 }
