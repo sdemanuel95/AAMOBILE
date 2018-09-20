@@ -176,19 +176,11 @@ public class IngresoMPController {
         try {
             url = new URL(sql);
             conn = (HttpURLConnection) url.openConnection();
-
             conn.setRequestMethod("GET");
-
             conn.connect();
-
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
             String inputLine;
-
             StringBuffer response = new StringBuffer();
-
-
-
             System.out.println("Existe es " + esBarra + " ... Response es " + response.toString());
             //esBarra = Boolean.parseBoolean(response.toString());
 
@@ -197,6 +189,39 @@ public class IngresoMPController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean insertStockInicial(String codigoDeBarra) {
+        String sql = "http://"+host+"/ingresomp/stockinicial/insertar/" + codigoDeBarra;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+        URL url = null;
+        HttpURLConnection conn;
+        boolean resultado = false;
+        try {
+            url = new URL(sql);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.connect();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while((inputLine = in.readLine()) != null){
+                response.append(inputLine);
+            }
+
+            System.out.println("Response es " + response.toString());
+            resultado = Boolean.parseBoolean(response.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            resultado = false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            resultado = false;
+        }
+        return resultado;
     }
 
 }

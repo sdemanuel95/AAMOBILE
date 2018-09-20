@@ -1,13 +1,9 @@
 package com.tofitsolutions.armasdurasargentinas;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,18 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.sql.Array;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static com.tofitsolutions.armasdurasargentinas.R.id.excepcion;
 
 public class ValidarChapaActivity extends AppCompatActivity {
 
@@ -52,7 +42,7 @@ public class ValidarChapaActivity extends AppCompatActivity {
 
         contadorDeChapasCargadas = 0;
         tv_contador = (TextView) findViewById(R.id.textView_Contador);
-        bt_ok = (Button) findViewById(R.id.button_ValidarChapa);
+        bt_ok = (Button) findViewById(R.id.button_ok);
         bt_finalizar = (Button) findViewById(R.id.button_Finalizar);
         et_codigoDeBarras = (EditText) findViewById(R.id.editText_CodigoDeBarras);
         et_codigoDeBarras.setInputType(InputType.TYPE_NULL);

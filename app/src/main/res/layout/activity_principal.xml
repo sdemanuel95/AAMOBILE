@@ -184,6 +184,36 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/stockInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonStockInicial"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/stock_inicial"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonInventario"
+                app:layout_constraintVertical_bias="0.474" />
+
+            <TextView
+                android:id="@+id/tw_despacho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="STOCK INICIAL"
+                android:textColor="@android:color/white"
+                android:textSize="19sp"
+                android:typeface="normal" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/loginInventario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

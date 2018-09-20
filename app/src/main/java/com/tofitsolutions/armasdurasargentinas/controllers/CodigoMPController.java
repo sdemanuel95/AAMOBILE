@@ -20,42 +20,29 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class CodigoMPController {
-
     String host = Util.getHost();
-
 
     public CodigoMP getCodigoMP(String desc){
         String sql = "http://"+host+"/codigomp/" + desc;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
-
         URL url = null;
         HttpURLConnection conn;
         CodigoMP item = null;
-
         try {
             url = new URL(sql);
             conn = (HttpURLConnection) url.openConnection();
-
             conn.setRequestMethod("POST");
-
             conn.connect();
-
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
             String inputLine;
-
             StringBuffer response = new StringBuffer();
-
             String json = "";
-
             while((inputLine = in.readLine()) != null){
                 response.append(inputLine);
             }
-
             json = response.toString();
-
             JSONArray jsonArr = null;
             JSONObject objecto = new JSONObject(json);
             /*
@@ -69,10 +56,8 @@ public class CodigoMPController {
 
             }
             */
-
             String mensaje = objecto.toString();
             item =  gson.fromJson(json, CodigoMP.class);
-
             //sal.setText(item.getAcero() + item.getCodigo());
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -81,9 +66,42 @@ public class CodigoMPController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return item;
     }
 
-
+    public CodigoMP getCodigoMPPorCodigo(String codSap){
+        String sql = "http://"+host+"/codigomp/codigosap/" + codSap;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+        URL url = null;
+        HttpURLConnection conn;
+        CodigoMP item = null;
+        try {
+            url = new URL(sql);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.connect();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            String json = "";
+            while((inputLine = in.readLine()) != null){
+                response.append(inputLine);
+            }
+            json = response.toString();
+            JSONArray jsonArr = null;
+            JSONObject objecto = new JSONObject(json);
+            String mensaje = objecto.toString();
+            item =  gson.fromJson(json, CodigoMP.class);
+            //sal.setText(item.getAcero() + item.getCodigo());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
 }

@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class PrincipalActivity extends AppCompatActivity {
 
-    private Button produccion, inventario, despacho, descarga, loginInventario;
+    private Button produccion, inventario, despacho, descarga, loginInventario, stockInicial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class PrincipalActivity extends AppCompatActivity {
         inventario = (Button) findViewById(R.id.buttonInventario);
         despacho = (Button) findViewById(R.id.buttonDespacho);
         descarga = (Button) findViewById(R.id.buttonDescarga);
+        stockInicial = (Button) findViewById(R.id.buttonStockInicial);
         loginInventario = (Button) findViewById(R.id.buttonLoginInventario);
         Intent intentPrePrincipal = getIntent();
         final String usuario = intentPrePrincipal.getStringExtra("usuario");
@@ -65,6 +66,13 @@ public class PrincipalActivity extends AppCompatActivity {
             }
         });
 
+        stockInicial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(PrincipalActivity.this, StockInicial.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
