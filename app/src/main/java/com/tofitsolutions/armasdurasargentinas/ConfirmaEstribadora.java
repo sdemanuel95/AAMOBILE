@@ -154,7 +154,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
 
     private class guardarDeclaracion extends AsyncTask<Void, Integer, Void> {
         ArrayList<Declaracion> listaDeclaraciones;
-
+        IngresoMPController ingresoMPController = new IngresoMPController();
         private int progreso = 0;
 
         @Override
@@ -262,7 +262,16 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             //listaDeclaracion = listaDeclaraciones;
+
             Intent i = new Intent(ConfirmaEstribadora.this, Estribadora2Activity.class);
+            ingresoMP1 = ingresoMPController.getMP(ingresoMP1.getLote() + ingresoMP1.getMaterial() + ingresoMP1.getCantidad());
+            ingresoMP2 = ingresoMPController.getMP(ingresoMP2.getLote() + ingresoMP2.getMaterial() + ingresoMP2.getCantidad());
+            i.putExtra("ingresoMP1",ingresoMP1);
+            i.putExtra("ingresoMP2",ingresoMP2);
+            i.putExtra("usuario",usuario);
+            i.putExtra("ayudante", ayudante);
+            i.putExtra("maquina", maquina);
+
             finish();
             startActivity(i);
             super.onPostExecute(aVoid);
