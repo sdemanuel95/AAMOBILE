@@ -303,7 +303,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                     }
 
                     cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - cantidadPosibleNum;
-                    kgAProducir = cantidadPosibleNum * Double.parseDouble(i.getPeso());
+                    kgAProducir = Double.parseDouble(i.getPeso());
                     System.out.println("Cantidad a producir = " + kgAProducir);
                     tv_cantPosible.setText("CP: " + cantidadPosibleNum);
                     tv_pendiente.setText("P: " + cantidadPendienteNum);
@@ -637,7 +637,8 @@ public class Estribadora2Activity extends AppCompatActivity {
                     String precintoB = rowDeclaracionCompleto.getString("PrecintoB");
                     String item = rowDeclaracionCompleto.getString("Item");
                     String cantidad = rowDeclaracionCompleto.getString("Cantidad");
-                    listaDeclaraciones.add(new Declaracion(id, fecha, usuario, ayudante, equipo, precintoA, precintoB, item, cantidad));
+                    String cantidadKG = rowDeclaracionCompleto.getString("CantidadKG");
+                    listaDeclaraciones.add(new Declaracion(id, fecha, usuario, ayudante, equipo, precintoA, precintoB, item, cantidad, cantidadKG));
                     progresoDec++;
                     publishProgress(progresoDec);
                 }
@@ -832,7 +833,7 @@ public class Estribadora2Activity extends AppCompatActivity {
 
     public int calcularPosible(double kgPrecinto, double kgItem,int cantItem){
         double resp= 0;
-        kgTotalItem = kgItem * cantItem;
+        kgTotalItem = kgItem / cantItem;
         if(cantItem == 0){
             return 0;
         }

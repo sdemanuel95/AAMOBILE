@@ -14,8 +14,11 @@ public class Declaracion {
     private String precintoB;
     private String item;
     private String cantidad;
+    private String cantidadKG;
 
-    public Declaracion(long id, String fecha, String usuario, String ayudante, String equipo, String precintoA, String precintoB, String item, String cantidad) {
+    public Declaracion(long id, String fecha, String usuario, String ayudante,
+                       String equipo, String precintoA, String precintoB,
+                       String item, String cantidad, String cantidadKG) {
         this.id = id;
         this.fecha = fecha;
         this.usuario = usuario;
@@ -25,6 +28,7 @@ public class Declaracion {
         this.precintoB = precintoB;
         this.item = item;
         this.cantidad = cantidad;
+        this.cantidadKG = cantidadKG;
     }
 
     public Declaracion(String usuario, String ayudante, String equipo, String precintoA, String precintoB, String item, String cantidad) {
@@ -107,5 +111,13 @@ public class Declaracion {
 
     public void setCantidad(String cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public String getCantidadKG() {
+        return cantidadKG;
+    }
+
+    public void setCantidadKG(String cantidadKG) {
+        this.cantidadKG = cantidadKG;
     }
 }

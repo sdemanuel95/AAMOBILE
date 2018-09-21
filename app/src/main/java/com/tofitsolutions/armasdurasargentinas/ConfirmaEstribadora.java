@@ -214,8 +214,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     Log.d("usuario: ", usuario);
                     progreso++;
                     publishProgress(progreso);
-                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
-                            "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad +"');" );
+                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad,CantidadKG) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
+                            "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad + "','" + kgAProducir + "');" );
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
                     String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
                     String cantidadKG = String.valueOf(kgAProducir);

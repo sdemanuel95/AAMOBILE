@@ -104,7 +104,8 @@ public class pruebaLala extends AppCompatActivity {
                     String precintoB = rowDeclaracionCompleto.getString("PrecintoB");
                     String item = rowDeclaracionCompleto.getString("Item");
                     String cantidad = rowDeclaracionCompleto.getString("Cantidad");
-                    listaDeclaraciones.add(new Declaracion(id, fecha, usuario, ayudante, equipo, precintoA, precintoB, item, cantidad));
+                    String cantidadKG = rowDeclaracionCompleto.getString("CantidadKG");
+                    listaDeclaraciones.add(new Declaracion(id, fecha, usuario, ayudante, equipo, precintoA, precintoB, item, cantidad, cantidadKG));
                     progreso++;
                     publishProgress(progreso);
                 }
