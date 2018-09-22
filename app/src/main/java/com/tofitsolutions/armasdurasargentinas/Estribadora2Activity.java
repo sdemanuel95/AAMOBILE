@@ -283,8 +283,9 @@ public class Estribadora2Activity extends AppCompatActivity {
                     Item i = itemController.getItem(item);
                     cantidad = (i.getCantidad());
                     cantidadDec = (i.getCantidadDec());
+                    double kgUnitario = Double.parseDouble(i.getPeso()) / Double.parseDouble(cantidad);
                     tv_cantidad1KGEA2.setText(ingresoMP1.getKgDisponible());
-                    cantidadPosibleNum = calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),Double.parseDouble(i.getPeso()),(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)));
+                    cantidadPosibleNum = calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)));
 
                     if(cantidadPosibleNum==0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -302,8 +303,8 @@ public class Estribadora2Activity extends AppCompatActivity {
                         return;
                     }
 
-                    cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - cantidadPosibleNum;
-                    kgAProducir = Double.parseDouble(i.getPeso());
+                    cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - cantidadPosibleNum - Integer.parseInt(cantidadDec);
+                    kgAProducir = cantidadPosibleNum * kgUnitario;
                     System.out.println("Cantidad a producir = " + kgAProducir);
                     tv_cantPosible.setText("CP: " + cantidadPosibleNum);
                     tv_pendiente.setText("P: " + cantidadPendienteNum);
@@ -833,7 +834,7 @@ public class Estribadora2Activity extends AppCompatActivity {
 
     public int calcularPosible(double kgPrecinto, double kgItem,int cantItem){
         double resp= 0;
-        kgTotalItem = kgItem / cantItem;
+        kgTotalItem = kgItem * cantItem;
         if(cantItem == 0){
             return 0;
         }

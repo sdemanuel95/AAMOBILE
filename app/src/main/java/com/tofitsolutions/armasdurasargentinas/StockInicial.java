@@ -70,6 +70,27 @@ public class StockInicial extends AppCompatActivity {
                 codigoMP = codigoMPController.getCodigoMPPorCodigo(codigoMaterial);
                 */
 
+
+                if(ingresoMPController.getMP(codigoBarras) != null){
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(StockInicial.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Stock Inicial");
+                    builder.setMessage("El codigo de barras ingresado ya existe en la base de datos..");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                                    //Se le da el foco, se elimina el texto y se setea el hint para el elemento et_codigoBarras
+                et_codigoBarras.requestFocus();
+                et_codigoBarras.setText("");
+                et_codigoBarras.setHint("Por favor lea el codigo");
+                et_codigoBarras.setHintTextColor(Color.RED);
+
+                    return;
+                }
                 if(ingresoMPController.insertStockInicial(codigoBarras)) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(StockInicial.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                     builder.setTitle("Stock Inicial");

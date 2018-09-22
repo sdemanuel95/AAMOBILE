@@ -26,7 +26,7 @@ import java.util.Date;
 public class ValidarChapaActivity extends AppCompatActivity {
 
     private Button bt_ok, bt_finalizar;
-    private EditText et_codigoDeBarras, et_colada, et_pesoPorBalanza;
+    private EditText et_codigoDeBarras, /*et_colada,*/ et_pesoPorBalanza;
     private TextView tv_informativo, excepcion, tv_contador;
     private ProgressDialog progress;
     private ArrayList<IngresoMP> materiasPrima;
@@ -48,8 +48,8 @@ public class ValidarChapaActivity extends AppCompatActivity {
         et_codigoDeBarras.setInputType(InputType.TYPE_NULL);
         et_codigoDeBarras.setHint("Por favor lea el codigo");
         et_codigoDeBarras.setHintTextColor(Color.RED);
-        et_colada = (EditText) findViewById(R.id.editText_Colada);
-        et_colada.setInputType(InputType.TYPE_NULL);
+        //et_colada = (EditText) findViewById(R.id.editText_Colada);
+        //et_colada.setInputType(InputType.TYPE_NULL);
         et_pesoPorBalanza = (EditText) findViewById(R.id.editText_PesoPorBalanza);
         et_pesoPorBalanza.setInputType(InputType.TYPE_NULL);
         tv_informativo = (TextView) findViewById(R.id.textView_Informativo);
@@ -71,13 +71,18 @@ public class ValidarChapaActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 String nro = editable.toString();
                 if (nro.length() == 24){
-                    et_colada.requestFocus();
-                    et_colada.setHint("Por favor ingrese la colada");
-                    et_colada.setHintTextColor(Color.RED);
+                    //et_colada.requestFocus();
+                    //et_colada.setHint("Por favor ingrese la colada");
+                    //et_colada.setHintTextColor(Color.RED);
+                                      et_pesoPorBalanza.requestFocus();
+                    et_pesoPorBalanza.setHint("Por favor ingrese el peso");
+                    et_pesoPorBalanza.setHintTextColor(Color.RED);
                 }
             }
         });
 
+
+        /*
         et_colada.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -93,14 +98,14 @@ public class ValidarChapaActivity extends AppCompatActivity {
                 }
             }
         });
-
+        */
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String codigoDeBarras = et_codigoDeBarras.getText().toString();
-                String colada = et_colada.getText().toString();
+                //String colada = et_colada.getText().toString();
                 if (codigoDeBarras.length() == 24) {
-                    if (colada.length() == 10) {
+                    if (/*colada.length() == 10*/true) {
                         String lote = codigoDeBarras.substring(0, 10);
                         String material = codigoDeBarras.substring(10, 20);
                         String peso = codigoDeBarras.substring(20, 24);
@@ -114,13 +119,13 @@ public class ValidarChapaActivity extends AppCompatActivity {
                                 //FALTA TERMINAR
                                 for (int i = 0; i < numerosDeReferencia.size(); i++) {
                                     String numRef = numerosDeReferencia.get(i);
-                                    if (numRef.equals(mpActual.getReferencia()) && mpActual.getColada().equals("")) {
-                                        mpActual.setColada(colada);
+                                    if (numRef.equals(mpActual.getReferencia()) /*&& mpActual.getColada().equals("")*/) {
+                                        //mpActual.setColada(colada);
                                         if (!et_pesoPorBalanza.getText().toString().equals("")) {
                                             mpActual.setPesoPorBalanza(et_pesoPorBalanza.getText().toString());
                                         }
                                         et_codigoDeBarras.setText("");
-                                        et_colada.setText("");
+                                        //et_colada.setText("");
                                         et_pesoPorBalanza.setText("");
                                         contadorDeChapasCargadas++;
                                         tv_contador.setText(contadorDeChapasCargadas + " / " + materiasPrima.size());
@@ -153,8 +158,8 @@ public class ValidarChapaActivity extends AppCompatActivity {
                 }
 
                 et_codigoDeBarras.requestFocus();
-                et_colada.setHint("Colada");
-                et_colada.setHintTextColor(Color.WHITE);
+                //et_colada.setHint("Colada");
+                //et_colada.setHintTextColor(Color.WHITE);
                 et_pesoPorBalanza.setHint("Peso por balanza");
                 et_pesoPorBalanza.setHintTextColor(Color.WHITE);
             }
@@ -168,10 +173,10 @@ public class ValidarChapaActivity extends AppCompatActivity {
 
                 boolean estaCompleto = true;
                 for (IngresoMP mp : materiasPrima) {
-                    String colada = mp.getColada();
-                    if (colada.equals("")) {
-                        estaCompleto = false;
-                    }
+                    //String colada = mp.getColada();
+                    //if (colada.equals("")) {
+                     //   estaCompleto = false;
+                    //}
                 }
                 if (estaCompleto) {
                     new setChapa().execute();
@@ -278,10 +283,10 @@ public class ValidarChapaActivity extends AppCompatActivity {
                 Statement stmt = con.createStatement();
                 progress.setMax(materiasPrima.size());
                 for (IngresoMP mp : materiasPrima) {
-                    String colada = mp.getColada();
+                    //String colada = mp.getColada();
                     String pesoPorBalanza = mp.getPesoPorBalanza();
                     long id = mp.getId();
-                    stmt.executeUpdate("UPDATE ingresomp SET Colada = '" + colada + "' WHERE ID = '" + id + "'");
+                    //stmt.executeUpdate("UPDATE ingresomp SET Colada = '" + colada + "' WHERE ID = '" + id + "'");
                     stmt.executeUpdate("UPDATE ingresomp SET PesoPorBalanza = '" + pesoPorBalanza + "' WHERE ID = '" + id + "'");
                     stmt.executeUpdate("UPDATE stock SET KGTeorico = KGTeorico +'" + mp.getCantidad() + "' WHERE CodMat = '" + mp.getMaterial() + "'");
                     stmt.executeUpdate("UPDATE stock SET KGDisponible = KGDisponible +'" + mp.getCantidad() + "' WHERE CodMat = '" + mp.getMaterial() + "'");

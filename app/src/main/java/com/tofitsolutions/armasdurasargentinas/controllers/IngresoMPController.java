@@ -156,10 +156,13 @@ public class IngresoMPController {
             //sal.setText(item.getAcero() + item.getCodigo());
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
 
         return item;

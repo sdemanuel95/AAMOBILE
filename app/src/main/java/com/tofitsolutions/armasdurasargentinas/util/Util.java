@@ -19,6 +19,14 @@ public class Util {
         return dbLocal;
     }
 */
+
+
+
+	public static double setearDosDecimales(double numero) {
+
+		double response = Math.round(numero* 10d) / 10d;
+		return response;
+	}
 }
 
 

@@ -45,7 +45,7 @@
         android:textColorHint="@color/colorAccent"
         tools:ignore="HardcodedText" />
 
-    <EditText
+    <!--<EditText
         android:id="@+id/editText_Colada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:textColor="@color/colorAccent"
         android:textColorHighlight="@color/colorAccent"
         android:textColorHint="@color/colorAccent"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText" />-->
 
     <EditText
         android:id="@+id/editText_PesoPorBalanza"
