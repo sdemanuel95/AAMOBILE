@@ -51,7 +51,6 @@
             android:hint="Codigo de Barras"
             android:inputType="numberSigned"
             android:maxLength="24"
-            android:text="000001326500060795321783"
             android:textSize="16sp" />
 
     </LinearLayout>

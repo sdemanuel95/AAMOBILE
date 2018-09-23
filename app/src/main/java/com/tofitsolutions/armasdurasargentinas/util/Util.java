@@ -4,10 +4,10 @@ public class Util {
     //static String host;
     static String dbLocal;
     //LOCAL
-    static String host = "192.168.1.33:8080";
+    //static String host = "192.168.0.101:8080";
 
     //PRODUCCION
-    //static String host = "armadurasargentinas.herokuapp.com";
+    static String host = "armadurasargentinas.herokuapp.com";
 
 
     //static String dbLocal = "192.168.1.35:3306";
@@ -19,8 +19,6 @@ public class Util {
         return dbLocal;
     }
 */
-
-
 
 	public static double setearDosDecimales(double numero) {
 

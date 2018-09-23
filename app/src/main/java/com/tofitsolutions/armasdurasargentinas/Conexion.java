@@ -18,10 +18,10 @@ public class Conexion  {
         //Connection con = DriverManager.getConnection("jdbc:mysql://b4e9xxkxnpu2v96i.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/fq9e54tk8ag0jl2f", "rnahyl78396j7usi", "z4x6xvpkmu82ptrc");
 
         //PRODUCCION
-        //Connection con = DriverManager.getConnection("jdbc:mysql://wvulqmhjj9tbtc1w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/m04c2f80573m1icb","joifpn3i49i6l0ib", "vwxdfv7no1ascale");
+        con = DriverManager.getConnection("jdbc:mysql://wvulqmhjj9tbtc1w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/m04c2f80573m1icb","joifpn3i49i6l0ib", "vwxdfv7no1ascale");
 
         //LOCAL
-        con = DriverManager.getConnection("jdbc:mysql://192.168.1.33:3306/armadurasargentinas","test","test");
+        //con = DriverManager.getConnection("jdbc:mysql://192.168.0.101:3306/armadurasargentinas","root","root");
 
         return con;
     }

@@ -61,18 +61,8 @@ public class StockInicial extends AppCompatActivity {
                     dialog.show();
                 }
 
-                /*
-                //Divido el codigo de barras
-                String lote = codigoBarras.substring(0,10);
-                String codigoMaterial = codigoBarras.substring(10,20);
-                String cantKG = codigoBarras.substring(20,24);
-
-                codigoMP = codigoMPController.getCodigoMPPorCodigo(codigoMaterial);
-                */
-
-
                 if(ingresoMPController.getMP(codigoBarras) != null){
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(StockInicial.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(StockInicial.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                     builder.setTitle("Stock Inicial");
                     builder.setMessage("El codigo de barras ingresado ya existe en la base de datos..");
                     builder.setCancelable(false);
@@ -83,11 +73,12 @@ public class StockInicial extends AppCompatActivity {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                                    //Se le da el foco, se elimina el texto y se setea el hint para el elemento et_codigoBarras
-                et_codigoBarras.requestFocus();
-                et_codigoBarras.setText("");
-                et_codigoBarras.setHint("Por favor lea el codigo");
-                et_codigoBarras.setHintTextColor(Color.RED);
+
+                    //Se le da el foco, se elimina el texto y se setea el hint para el elemento et_codigoBarras
+                    et_codigoBarras.requestFocus();
+                    et_codigoBarras.setText("");
+                    et_codigoBarras.setHint("Por favor lea el codigo");
+                    et_codigoBarras.setHintTextColor(Color.RED);
 
                     return;
                 }

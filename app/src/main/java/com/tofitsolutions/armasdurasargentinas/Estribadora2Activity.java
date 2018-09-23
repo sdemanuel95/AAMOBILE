@@ -28,11 +28,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Estribadora2Activity extends AppCompatActivity {
-
-
-
-
-
     int cantidadPosibleNum;
     Double cantidadPendienteNum ;
     Double kgAProducir;
@@ -106,7 +101,8 @@ public class Estribadora2Activity extends AppCompatActivity {
         item = "";
 
         if(ingresoMP2 != null ) {
-            pesoPrecintoTotal = Integer.toString(Integer.parseInt(ingresoMP1.getCantidad()) + Integer.parseInt(ingresoMP2.getCantidad()));
+            pesoPrecintoTotal = Integer.toString(Integer.parseInt(ingresoMP1.getCantidad()) +
+                    Integer.parseInt(ingresoMP2.getCantidad()));
             tv_precintoB.setText(ingresoMP2.getLote());
 
             tv_cantidad2KGEA2.setText(ingresoMP2.getKgDisponible());
@@ -141,28 +137,12 @@ public class Estribadora2Activity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String nro = s.toString();
-
                 String itemPendiente = "none";
                 String cantPosible = "none";
-
-
                 Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
                 if (nro.length()==11) {
-                    if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("El item ingresado ya encuentra declarado.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        et_ItemEstribadora2.setText("");
-                        return;
-                    }
+                    // --------------ESTA VALIDACION DEBE IR PRIMERO-------------------
+                    //Valida que el item exista en la base de datos
                     if(itemTemp==null){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
@@ -178,11 +158,27 @@ public class Estribadora2Activity extends AppCompatActivity {
                         et_ItemEstribadora2.setText("");
                         return;
                     }
+
+                    //Valida si el item ya se encuentra declarado
+                    if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El item ingresado ya encuentra declarado.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
+                    //Validacion de codigo de material
                     CodigoMP codigoMP = codigoMPController.getCodigoMP(ingresoMP1.getDescripcion());
-
-
-
-                        String tipoMat = codigoMP.getTipoMaterial();
+                    String tipoMat = codigoMP.getTipoMaterial();
                     if(!tipoMat.equals("ADNS") && !tipoMat.equals("ADN") ){
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -224,7 +220,6 @@ public class Estribadora2Activity extends AppCompatActivity {
                         */
                     }
 
-
                     if(codigoMP.getTipoMaterial().equals("ADN") && !itemTemp.getAcero().equals("ADN420")){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
@@ -242,7 +237,6 @@ public class Estribadora2Activity extends AppCompatActivity {
 
                     }
 
-
                     if(!codigoMP.getFamilia().equals(itemTemp.getDiametro())){
                             AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                             builder.setTitle("Atencion!");
@@ -259,8 +253,6 @@ public class Estribadora2Activity extends AppCompatActivity {
                             return;
 
                     }
-
-
 
                     if(Integer.parseInt(itemTemp.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(itemTemp.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -309,58 +301,6 @@ public class Estribadora2Activity extends AppCompatActivity {
                     tv_cantPosible.setText("CP: " + cantidadPosibleNum);
                     tv_pendiente.setText("P: " + cantidadPendienteNum);
                     tv_kgADeclarar.setText("KG:" + kgAProducir);
-
-                    /*
-                    for (int i = 0; i < listaDeItems.size(); i++) {
-                        String codigo = listaDeItems.get(i).getCodigo();
-                        cantidad = Integer.parseInt(listaDeItems.get(i).getCantidad());
-                        int cantidadDec = Integer.parseInt(listaDeItems.get(i).getCantidadDec());
-                        String peso = listaDeItems.get(i).getPeso();
-                        if (codigo.equals(item)) {
-                            itemPendiente = Integer.toString(cantidad - cantidadDec);
-                            pesoItem = Integer.parseInt(peso);
-                            break;
-                        } else {
-                            // Agregar Alert Dialog con el siguiente mensaje: "Error: El Item no existe."
-                            itemPendiente = "no";
-                        }
-                    }
-                    int a = Integer.parseInt(pesoPrecintoTotal);
-                    int b = pesoItem;
-                    int resta = a - b;
-                    Log.i("resta", resta + "");
-                    if (resta >= 0) {
-                        cantPosible = itemPendiente;
-                        itemPendiente = "0";
-                        Log.i("cantPosible", cantPosible);
-                    }
-                    tv_cantPosible.setText("CP: " + cantPosible);
-                    tv_pendiente.setText("P: " + itemPendiente);
-
-
-                    // Se valida que el item no este declarado.
-                    boolean declarado = false;
-                    for (Declaracion dec : listaDeclaracion) {
-                        String itemDec = dec.getItem();
-                        Log.d("ItemDec = " + itemDec, " ItemET = " + item);
-                        if (itemDec.equals(item)) {
-
-                            declarado = true;
-
-                        }
-                    }
-                    if(declarado == true){
-                        String mensaje = "Error: El item "+ item +" ya se encuentra declarado.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
-                        et_ItemEstribadora2.setText("");
-                    } else {
-                        String mensaje = "Item cargado correctamente.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
-                    }
-
-                    */
 
                 }
             }

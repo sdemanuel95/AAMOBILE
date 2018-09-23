@@ -267,7 +267,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
             ingresoMP1 = ingresoMPController.getMP(ingresoMP1.getLote() + ingresoMP1.getMaterial() + ingresoMP1.getCantidad());
 
             i.putExtra("ingresoMP1",ingresoMP1);
-            i.putExtra("ingresoMP2",ingresoMP2);
+            if (ingresoMP2.getLote() != null) i.putExtra("ingresoMP2",ingresoMP2);
             i.putExtra("usuario",usuario);
             i.putExtra("ayudante", ayudante);
             i.putExtra("maquina", maquina);

@@ -40,8 +40,8 @@
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:password="true"
-            android:text="a"
-            android:textSize="21sp" />
+            android:textSize="21sp"
+            tools:text="a" />
 
         <TextView
             android:id="@+id/excepcion"

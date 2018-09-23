@@ -45,6 +45,7 @@
             android:gravity="center"
             android:hint="Usuario"
             android:inputType="text"
+            android:text="aa"
             android:textSize="21sp" />
 
         <EditText
@@ -58,7 +59,8 @@
             android:gravity="center"
             android:hint="Ayudante"
             android:inputType="text"
-            android:textSize="21sp" />
+            android:textSize="21sp"
+            tools:text="ee" />
 
 
         <Spinner
