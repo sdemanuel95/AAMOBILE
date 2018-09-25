@@ -23,7 +23,7 @@ public class CodigoMPController {
     String host = Util.getHost();
 
     public CodigoMP getCodigoMP(String desc){
-        String sql = "http://"+host+"/codigomp/" + desc;
+        String sql = "http://"+host+"/codigomp/" + desc.replace(" ","");
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Gson gson=  new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();

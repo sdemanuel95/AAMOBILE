@@ -139,8 +139,9 @@ public class Estribadora2Activity extends AppCompatActivity {
                 String nro = s.toString();
                 String itemPendiente = "none";
                 String cantPosible = "none";
-                Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
                 if (nro.length()==11) {
+
+                    Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
                     // --------------ESTA VALIDACION DEBE IR PRIMERO-------------------
                     //Valida que el item exista en la base de datos
                     if(itemTemp==null){
