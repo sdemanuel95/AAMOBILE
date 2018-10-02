@@ -16,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import android.media.MediaPlayer;
+
+import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +39,8 @@ public class InventarioActivity extends AppCompatActivity {
     boolean validacion;
     String loteActual;
     MediaPlayer mp;
+    IngresoMPController ingresoMPController = new IngresoMPController();
+    IngresoMP ingresoMP;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +73,21 @@ public class InventarioActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 String nro = editable.toString();
                 if (nro.length() == 24){
-                    et_kgReal.requestFocus();
-                    et_kgReal.setHint("Por favor ingrese el peso");
-                    et_kgReal.setHintTextColor(Color.RED);
-                    et_kgReal.setText(et_codigoDeBarras.getText().toString().substring(20));
+                    ingresoMP = ingresoMPController.getMP(nro);
+
+                    if(ingresoMP!=null){
+                        et_kgReal.requestFocus();
+                        et_kgReal.setHint("Por favor ingrese el peso");
+                        et_kgReal.setHintTextColor(Color.RED);
+                        et_kgReal.setText(ingresoMP.getKgDisponible());
+                    }
+                    else{
+                        String mensaje = "Error: El precinto ingresado no existe.";
+                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
+                        msjToast.show();
+                        return;
+                    }
+
                 }
             }
         });
@@ -93,7 +109,8 @@ public class InventarioActivity extends AppCompatActivity {
 
                     String mensaje = "Error: El peso debe ser numérico.";
                     Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();return;
+                    msjToast.show();
+                    return;
                 }
                 if(kgReal.length() != 0) {
                     if (codigoDeBarras.length() == 24) {
