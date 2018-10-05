@@ -18,6 +18,7 @@ import android.widget.Toast;
 import android.media.MediaPlayer;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
+import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMP_TEMPController;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class InventarioActivity extends AppCompatActivity {
     private EditText et_codigoDeBarras, et_kgReal;
     private TextView tv_informativo, excepcion, tv_contador;
     private ProgressDialog progress;
-    private ArrayList<MateriaPrima_temp> materiasPrima;
+    private ArrayList<String> materiasPrima;
     private int contadorDeChapasCargadas;
     String loteObtenido;
     String materialObtenido;
@@ -40,7 +41,9 @@ public class InventarioActivity extends AppCompatActivity {
     String loteActual;
     MediaPlayer mp;
     IngresoMPController ingresoMPController = new IngresoMPController();
+    IngresoMP_TEMPController ingresoMP_tempController = new IngresoMP_TEMPController();
     IngresoMP ingresoMP;
+    String materiaAIngresar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +63,8 @@ public class InventarioActivity extends AppCompatActivity {
         et_kgReal.setHintTextColor(Color.RED);
         tv_informativo = (TextView) findViewById(R.id.textView_Informativo);
         excepcion = (TextView) findViewById(R.id.textView_Exception);
-        materiasPrima = new ArrayList<MateriaPrima_temp>();
-
+        materiasPrima = new ArrayList<String>();
+        materiaAIngresar = "";
         Intent intentRemitoMP = getIntent();
 
         et_codigoDeBarras.addTextChangedListener(new TextWatcher() {
@@ -121,7 +124,7 @@ public class InventarioActivity extends AppCompatActivity {
                         System.out.println(loteObtenido);
                         System.out.println(materialObtenido);
                         System.out.println(pesoObtenido);
-                        new InventarioActivity.ValidarIngresoMP().execute();
+                        // InventarioActivity.ValidarIngresoMP().execute();
 
 
                     }
@@ -138,7 +141,8 @@ public class InventarioActivity extends AppCompatActivity {
                         msjToast.show();
 
                 }
-
+                materiaAIngresar = codigoDeBarras;
+                materiasPrima.add(materiaAIngresar);
                 et_codigoDeBarras.requestFocus();
             }
         });
@@ -152,156 +156,7 @@ public class InventarioActivity extends AppCompatActivity {
         });
     }
 
-    private class ValidarIngresoMP extends AsyncTask<Void, Void, Void> {
 
-        private ArrayList<IngresoMP> materiasPrimaBD;
-        private ArrayList<MateriaPrima_temp> materiasPrimaTempBD;
-        private boolean repetido = false;
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            materiasPrimaBD = new ArrayList<IngresoMP>();
-            materiasPrimaTempBD = new ArrayList<MateriaPrima_temp>();
-            Conexion conexion = new Conexion();
-            validacion = false;
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-
-                Connection con = conexion.crearConexion();
-
-
-                Statement stmt = con.createStatement();
-                final ResultSet rs = stmt.executeQuery("SELECT * FROM ingresomp where lote = '" + loteObtenido + "' AND material = '"
-                        + materialObtenido + "' AND cantidad = '" + pesoObtenido + "';");
-                while (rs.next()) {
-                    long id = rs.getInt("ID");
-                    //String fecha = rs.getString("Fecha");
-                    String referencia = rs.getString("Referencia");
-                    String material2 = rs.getString("Material");
-                    String descripcion = rs.getString("Descripcion");
-                    String cantidad = rs.getString("Cantidad");
-                    String umb = rs.getString("UMB");
-                    String lote2 = rs.getString("Lote");
-                    String destinatario = rs.getString("Destinatario");
-                    String colada = rs.getString("Colada");
-                    String pesoPorBalanza = rs.getString("PesoPorBalanza");
-
-                    materiasPrimaBD.add(new IngresoMP(id, new Date(), referencia, material2, descripcion, cantidad, umb, lote2, destinatario, colada, pesoPorBalanza));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-
-                Connection con2 = conexion.crearConexion();
-
-
-                Statement stmt2 = con2.createStatement();
-                final ResultSet rs2 = stmt2.executeQuery("SELECT * FROM ingresomp_temp where lote ='" + loteObtenido + "' AND material = '"
-                        + materialObtenido + "' AND KGInicial= '" + pesoObtenido + "';");
-                while (rs2.next()) {
-                    long id = rs2.getInt("ID");
-                    //String fecha = rs.getString("Fecha");
-                    String material2 = rs2.getString("Material");
-                    String descripcion = rs2.getString("Descripcion");
-                    String kgInicial = rs2.getString("KGInicial");
-                    String umb = rs2.getString("UMB");
-                    String lote2 = rs2.getString("Lote");
-                    String destinatario = rs2.getString("Destinatario");
-                    String colada = rs2.getString("Colada");
-                    String pesoPorBalanza = rs2.getString("PesoPorBalanza");
-                    String kgEnPlanta = rs2.getString("KGEnPlanta");
-
-                    materiasPrimaTempBD.add(new MateriaPrima_temp(id, "",  material2, descripcion, kgInicial, umb, lote2, destinatario, colada, pesoPorBalanza,kgEnPlanta));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            System.out.println("Cantidad de materias encontradas "+ materiasPrimaBD.size());
-            System.out.println("Cantidad de materias TEMP encontradas "+ materiasPrimaTempBD.size());
-            for(MateriaPrima_temp mpt : materiasPrima){
-                if(mpt.getLote().equals(loteObtenido) && mpt.getMaterial().equals(materialObtenido) && mpt.getKgInicial().equals(pesoObtenido)){
-                    Toast msjToast = Toast.makeText(getApplicationContext(), "Validación incorrecta, ya ingresó ese número de lote.", Toast.LENGTH_LONG);
-                    msjToast.show();
-                    return;
-                }
-            }
-
-
-            System.out.println(materiasPrimaTempBD.size());
-            if(materiasPrimaBD.size() == 0){
-
-                validacion = false;
-                et_codigoDeBarras.setText("");
-                et_kgReal.setText("");
-                Toast msjToast = Toast.makeText(getApplicationContext(), "Validación incorrecta, verificar los datos", Toast.LENGTH_LONG);
-                msjToast.show();
-                //"mandar mail"
-                new MailJob("emanuelsuarezarmaduras@gmail.com", "armaduras10").execute(
-                        new MailJob.Mail("emanuelsuarezarmaduras@gmail.com", "sd.emanuel95@gmail.com", "Equipo de desarrollo y soporte de Armaduras Argentinas", "Se ha ingresado un codigo de barras inválido, el lote invalido es = " + loteActual   )
-                );
-                new MailJob("emanuelsuarezarmaduras@gmail.com", "armaduras10").execute(
-                        new MailJob.Mail("emanuelsuarezarmaduras@gmail.com", "sd.emanuel95@gmail.com", "Equipo de desarrollo y soporte de Armaduras Argentinas", "Se ha ingresado un codigo de barras inválido, el lote invalido es = " + loteActual   )
-                );
-            }
-
-            else{
-                if(materiasPrimaTempBD.size()>=1){
-                    validacion = false;
-                    et_codigoDeBarras.setText("");
-                    et_kgReal.setText("");
-                    Toast msjToast = Toast.makeText(getApplicationContext(), "Validación incorrecta, el lote ingresado ya se encuentra registrado.", Toast.LENGTH_LONG);
-                    msjToast.show();
-                    //"mandar mail"
-                    new MailJob("emanuelsuarezarmaduras@gmail.com", "armaduras10").execute(
-                            new MailJob.Mail("SoporteArmadurasArgentinas@gmail.com", "sd.emanuel95@gmail.com", "Equipo de desarrollo y soporte de Armaduras Argentinas", "Se ha ingresado un codigo de barras que ya existe en el inventario, el lote invalido es = " + loteActual   )
-                    );
-                    new MailJob("emanuelsuarezarmaduras@gmail.com", "armaduras10").execute(
-                            new MailJob.Mail("SoporteArmadurasArgentinas@gmail.com", "sd.emanuel95@gmail.com", "Equipo de desarrollo y soporte de Armaduras Argentinas", "Se ha ingresado un codigo de barras que ya existe en el inventario, el lote invalido es = " + loteActual   )
-                    );
-
-                }
-                else{
-                    System.out.println(materiasPrimaTempBD.size());
-
-                    et_codigoDeBarras.setText("");
-                    et_kgReal.setText("");
-                    for(IngresoMP IngresoMP : materiasPrimaBD){
-                        String lote = IngresoMP.getLote();
-                        String material = IngresoMP.getMaterial();
-                        String cantidad = IngresoMP.getCantidad();
-                        String descripcion = IngresoMP.getDescripcion();
-                        String pesoPorBalanza = IngresoMP.getPesoPorBalanza();
-                        String umb = IngresoMP.getUmb();
-                        String colada = IngresoMP.getColada();
-                        String destinatario = IngresoMP.getDestinatario();
-
-                        materiasPrima.add(new MateriaPrima_temp(material,descripcion,cantidad,umb,lote,destinatario,colada,pesoPorBalanza,kgReal));
-
-                        Toast msjToast = Toast.makeText(getApplicationContext(), "Validación correcta", Toast.LENGTH_LONG);
-                        msjToast.show();
-
-                    }
-                }
-
-            }
-            super.onPostExecute(aVoid);
-        }
-    }
 
     private class guardarMateriasPrimas extends AsyncTask<Void, Integer, Void> {
 
@@ -338,26 +193,11 @@ public class InventarioActivity extends AppCompatActivity {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 Connection con = conexion.crearConexion();
-                for(MateriaPrima_temp IngresoMP_temp : materiasPrima){
+                for(String codigoDeBarras : materiasPrima){
                     Statement stmt = con.createStatement();
-                    String material = IngresoMP_temp.getMaterial();
-                    String fecha = IngresoMP_temp.getFecha();
-                    String descripcion = IngresoMP_temp.getDescripcion();
-                    String kgInicial = IngresoMP_temp.getKgInicial();
-                    String UMB = IngresoMP_temp.getUmb();
-                    String lote = IngresoMP_temp.getLote();
-                    String destinatario = IngresoMP_temp.getDestinatario();
-                    String colada = IngresoMP_temp.getColada();
-                    String pesoPorBalanza = IngresoMP_temp.getPesoPorBalanza();
-                    String kgEnPlanta = IngresoMP_temp.getKgEnPlanta();
-                    String query = "INSERT INTO ingresomp_temp values (default, NOW(), '"+material+
-                            "','"+descripcion+"','"+kgInicial+"','"+UMB+"','"+ lote
-                            +"','"+destinatario+"','"+colada+"','"+pesoPorBalanza+"','"+kgEnPlanta+"');";
-                    System.out.println(query);
-                    stmt.executeUpdate(query);
+                    ingresoMP_tempController.insertarIngresoMP_TEMP(codigoDeBarras);
                     String query2="update ajuste_inventario set ajuste=1;";
                     stmt.executeUpdate(query2);
-
                 }
 
             } catch (SQLException e) {
