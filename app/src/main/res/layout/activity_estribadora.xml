@@ -89,7 +89,6 @@
                 android:hint="Precinto 1"
                 android:inputType="text"
                 android:maxLength="24"
-                android:text="00000134070006079532181"
                 android:textSize="16sp" />
             <Space
                 android:layout_width="match_parent"

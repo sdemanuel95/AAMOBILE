@@ -22,7 +22,7 @@ public class IngresoMP_TEMPController {
 
     String host = Util.getHost();
     public boolean existe(String codigoDeBarra) {
-        String sql = "http://"+host+"/ingresomp_temp/existe/" + codigoDeBarra.substring(0,20);
+        String sql = "http://"+host+"/ingresomp_temp/existe/" + codigoDeBarra;
             System.out.println(sql);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

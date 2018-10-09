@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.tofitsolutions.armasdurasargentinas.controllers.InventarioController;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,14 +28,14 @@ public class InicialActivity extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private boolean codigoCorrecto, contraseñaCorrecta;
     private ArrayList<String> codigos, contraseñas;
-
+    private InventarioController inventarioController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
 
         new MyTask().execute();
-
+        inventarioController = new InventarioController();
         codigoCorrecto = false;
         contraseñaCorrecta = false;
 
@@ -74,6 +77,13 @@ public class InicialActivity extends AppCompatActivity {
                     contraseñaCorrecta = false;
                 } else {
                     // CREAR NUEVO ACTIVITY
+                    if(inventarioController.validarAjuste()){
+                        String mensaje = "Error: No podrá ingresar hasta ajustar inventario desde la web.";
+                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
+                        msjToast.show();
+                        return;
+                    }
+
                     Intent i = new Intent(InicialActivity.this, PrincipalActivity.class);
                     new getUsuario().execute();
 //                    finish();  //Kill the activity from which you will go to next activity

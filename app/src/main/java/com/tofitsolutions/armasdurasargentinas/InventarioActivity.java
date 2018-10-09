@@ -54,11 +54,9 @@ public class InventarioActivity extends AppCompatActivity {
         bt_ok = (Button) findViewById(R.id.button_ok);
         bt_finalizar = (Button) findViewById(R.id.button_Finalizar);
         et_codigoDeBarras = (EditText) findViewById(R.id.editText_CodigoDeBarras);
-        et_codigoDeBarras.setInputType(InputType.TYPE_NULL);
         et_codigoDeBarras.setHint("Por favor lea el codigo");
         et_codigoDeBarras.setHintTextColor(Color.RED);
         et_kgReal = (EditText) findViewById(R.id.editText_KgReal);
-        et_kgReal.setInputType(InputType.TYPE_NULL);
         et_kgReal.setHintTextColor(Color.RED);
         et_kgReal.setHintTextColor(Color.RED);
         tv_informativo = (TextView) findViewById(R.id.textView_Informativo);
@@ -85,6 +83,11 @@ public class InventarioActivity extends AppCompatActivity {
                         et_kgReal.setText(ingresoMP.getKgDisponible());
                     }
                     else{
+
+                        et_codigoDeBarras.setText("");
+                        et_codigoDeBarras.setHint("Por favor lea el codigo");
+                        et_codigoDeBarras.setHintTextColor(Color.RED);
+                        et_codigoDeBarras.requestFocus();
                         String mensaje = "Error: El precinto ingresado no existe.";
                         Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                         msjToast.show();
@@ -108,6 +111,16 @@ public class InventarioActivity extends AppCompatActivity {
                 loteActual = codigoDeBarras;
                 kgReal = et_kgReal.getText().toString();
                 System.out.println(kgReal);
+
+                if(ingresoMP_tempController.existe(codigoDeBarras)){
+                    et_codigoDeBarras.setText("");
+                    et_codigoDeBarras.setHint("Por favor lea el codigo");
+                    et_codigoDeBarras.setHintTextColor(Color.RED);
+                    et_codigoDeBarras.requestFocus();
+                    String mensaje = "Error: El precinto ingresado ya fue ingresado antes.";
+                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
+                    msjToast.show();
+                }
                 if(!esNumero(kgReal)){
 
                     String mensaje = "Error: El peso debe ser numérico.";
@@ -115,7 +128,7 @@ public class InventarioActivity extends AppCompatActivity {
                     msjToast.show();
                     return;
                 }
-                if(kgReal.length() != 0) {
+                if(kgReal.length() == 4) {
                     if (codigoDeBarras.length() == 24) {
 
                         loteObtenido = codigoDeBarras.substring(0, 10);
@@ -129,20 +142,78 @@ public class InventarioActivity extends AppCompatActivity {
 
                     }
                     else {
+                        et_codigoDeBarras.setText("");
+                        et_codigoDeBarras.setHint("Por favor lea el codigo");
+                        et_codigoDeBarras.setHintTextColor(Color.RED);
+                        et_codigoDeBarras.requestFocus();
                         String mensaje = "Error: Codigo de barras invalido";
                         Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                         msjToast.show();
+                        return;
                     }
                 }
                 else{
-                    System.out.println(kgReal);
-                        String mensaje = "Error: El peso ingresado no puede ser vacío.";
+                        System.out.println(kgReal);
+                    et_kgReal.setText("");
+
+                    et_kgReal.setHint("Por favor reingrese el peso.");
+                        et_kgReal.setHintTextColor(Color.RED);
+                        et_kgReal.requestFocus();
+                        String mensaje = "Error: El peso ingresado debe tener 4 números.";
                         Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                         msjToast.show();
+                        return;
 
                 }
+
+
                 materiaAIngresar = codigoDeBarras;
-                materiasPrima.add(materiaAIngresar);
+
+                for(String materia : materiasPrima){
+                    if(materiaAIngresar.equals(materia.substring(0,24))){
+                        et_codigoDeBarras.setText("");
+                        et_kgReal.setText("");
+                        et_codigoDeBarras.setHint("Por favor lea el codigo");
+                        et_codigoDeBarras.setHintTextColor(Color.RED);
+                        et_codigoDeBarras.requestFocus();
+                        String mensaje = "Error: Codigo de barras ya ingresado";
+                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
+                        msjToast.show();
+                        return;
+                    }
+                }
+
+                ingresoMP = ingresoMPController.getMP(codigoDeBarras);
+
+                if(ingresoMP!=null){
+                    et_kgReal.requestFocus();
+                    et_kgReal.setHint("Por favor ingrese el peso");
+                    et_kgReal.setHintTextColor(Color.RED);
+                    et_kgReal.setText(ingresoMP.getKgDisponible());
+                }
+                else{
+
+                    et_codigoDeBarras.setText("");
+                    et_codigoDeBarras.setHint("Por favor lea el codigo");
+                    et_codigoDeBarras.setHintTextColor(Color.RED);
+                    et_codigoDeBarras.requestFocus();
+                    String mensaje = "Error: El precinto ingresado no existe.";
+                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
+                    msjToast.show();
+                    return;
+                }
+
+
+                et_kgReal.setText("");
+                et_codigoDeBarras.setText("");
+                et_codigoDeBarras.setHint("Por favor lea el codigo");
+                et_codigoDeBarras.setHintTextColor(Color.RED);
+                et_codigoDeBarras.requestFocus();
+                String mensaje = "Validación correcta.";
+                Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
+                msjToast.show();
+
+                materiasPrima.add(materiaAIngresar + kgReal);
                 et_codigoDeBarras.requestFocus();
             }
         });
@@ -193,12 +264,14 @@ public class InventarioActivity extends AppCompatActivity {
                 Class.forName("com.mysql.jdbc.Driver");
 
                 Connection con = conexion.crearConexion();
+
                 for(String codigoDeBarras : materiasPrima){
-                    Statement stmt = con.createStatement();
                     ingresoMP_tempController.insertarIngresoMP_TEMP(codigoDeBarras);
-                    String query2="update ajuste_inventario set ajuste=1;";
-                    stmt.executeUpdate(query2);
+
                 }
+                Statement stmt = con.createStatement();
+                String query2="update ajuste_inventario set ajuste=1;";
+                stmt.executeUpdate(query2);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -211,7 +284,7 @@ public class InventarioActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Intent i = new Intent(InventarioActivity.this, PrincipalActivity.class);
+            Intent i = new Intent(InventarioActivity.this, InicialActivity.class);
             finish();
             startActivity(i);
             super.onPostExecute(aVoid);

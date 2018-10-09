@@ -26,7 +26,6 @@
             android:gravity="center"
             android:hint="Codigo"
             android:inputType="text"
-            android:text="armaduras"
             android:textSize="21sp" />
 
         <EditText
@@ -40,7 +39,6 @@
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:password="true"
-            android:text="a"
             android:textSize="21sp" />
 
         <TextView
