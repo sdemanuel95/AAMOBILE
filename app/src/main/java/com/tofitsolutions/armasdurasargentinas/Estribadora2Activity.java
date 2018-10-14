@@ -33,7 +33,7 @@ public class Estribadora2Activity extends AppCompatActivity {
     Double kgAProducir;
     //KG, CANT POSIBLE Y CANT PENDIENTE .
     private TextView tv_kgADeclarar,tv_precintoA, tv_precintoB, tv_usuarioEA2, tv_ayudanteEA2, tv_maquinaEA2, tv_cantidad1KGEA2, tv_cantidad2KGEA2, tv_cantPosible, tv_pendiente;
-    private EditText et_ItemEstribadora2;
+    private EditText et_ItemEstribadora2,et_cantidadADeclarar;
     private Button bt_teclado, bt_okEstribadora2, bt_principalEstribadora2, bt_cancelEstribadora2;
     //private ArrayList<IngresoMP> materiasPrima;
 
@@ -59,6 +59,8 @@ public class Estribadora2Activity extends AppCompatActivity {
     ItemController itemController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estribadora2);
         itemController = new ItemController();
@@ -85,6 +87,7 @@ public class Estribadora2Activity extends AppCompatActivity {
 
         et_ItemEstribadora2 = (EditText)findViewById(R.id.et_ItemEstribadora2);
         et_ItemEstribadora2.setInputType(InputType.TYPE_NULL);
+        et_cantidadADeclarar = (EditText)findViewById(R.id.et_cantidadADeclarar);
 
         //Ingresa info del Activity -> EstribadoraActivity
         Intent intentPrecintos = getIntent();
@@ -125,6 +128,8 @@ public class Estribadora2Activity extends AppCompatActivity {
                 et_ItemEstribadora2.requestFocus();
             }
         });
+
+
 
 
         et_ItemEstribadora2.addTextChangedListener(new TextWatcher() {
@@ -300,16 +305,95 @@ public class Estribadora2Activity extends AppCompatActivity {
                     kgAProducir = cantidadPosibleNum * kgUnitario;
                     System.out.println("Cantidad a producir = " + kgAProducir);
                     tv_cantPosible.setText("CP: " + cantidadPosibleNum);
+                    et_cantidadADeclarar.setText(String.valueOf(cantidadPosibleNum));
                     tv_pendiente.setText("P: " + cantidadPendienteNum);
                     tv_kgADeclarar.setText("KG:" + kgAProducir);
-
                 }
             }
         });
 
+        et_cantidadADeclarar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String nro = s.toString();
+                if(nro.length() > 0){
+
+                    if(cantidadPosibleNum < Integer.parseInt((et_cantidadADeclarar.getText().toString()))){
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("La cantidad de piezas a declarar no puede ser mayor a la cantidad posible");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        et_cantidadADeclarar.setText("");
+                        return;
+                    }
+
+                    if(Integer.parseInt(et_cantidadADeclarar.getText().toString()) > cantidadPosibleNum){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("La cantidad de piezas a declarar no puede ser mayor a la cantidad posible");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        et_cantidadADeclarar.setText("");
+                        return;
+                    }
+                    else{
+                        item = et_ItemEstribadora2.getText().toString();
+                        Item i = itemController.getItem(item);
+                        cantidad = (i.getCantidad());
+                        cantidadDec = (i.getCantidadDec());
+                        double kgUnitario = Double.parseDouble(i.getPeso()) / Double.parseDouble(cantidad);
+                        cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - Integer.parseInt(et_cantidadADeclarar.getText().toString()) - Integer.parseInt(cantidadDec);
+                        kgAProducir = Integer.parseInt(et_cantidadADeclarar.getText().toString()) * kgUnitario;
+                        tv_pendiente.setText("P: " + cantidadPendienteNum);
+                        tv_kgADeclarar.setText("KG:" + kgAProducir);
+                    }
+                }
+
+
+                }
+
+
+            });
         bt_okEstribadora2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(cantidadPosibleNum < Integer.parseInt((et_cantidadADeclarar.getText().toString()))){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("La cantidad de piezas a declarar no puede ser mayor a la cantidad posible");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    et_cantidadADeclarar.setText("");
+                    return;
+                }
                 if(et_ItemEstribadora2 == null || et_ItemEstribadora2.length() != 11){
                     AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                     builder.setTitle("Atencion!");
@@ -335,7 +419,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                     i.putExtra("item", item);
                     i.putExtra("kgAProducir",kgAProducir);
                     //i.putExtra("itemObject",i);
-                    i.putExtra("cantidad", cantidadPosibleNum);
+                    i.putExtra("cantidad", Integer.parseInt(et_cantidadADeclarar.getText().toString()));
                     i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
                     finish();
                     startActivity(i);
