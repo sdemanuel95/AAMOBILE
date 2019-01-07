@@ -12,17 +12,17 @@ public class Maquina implements Serializable{
     String clasificacion;
     String marca;
     String modelo;
-    String tipo_mp;
+    String tipoMP;
     String diametroMin;
     String diametroMax;
     String merma;
 
-    public Maquina(long id, String clasificacion, String marca, String modelo, String tipo_mp, String diametroMin, String diametroMax, String merma) {
+    public Maquina(long id, String clasificacion, String marca, String modelo, String tipoMP, String diametroMin, String diametroMax, String merma) {
         this.id = id;
         this.clasificacion = clasificacion;
         this.marca = marca;
         this.modelo = modelo;
-        this.tipo_mp = tipo_mp;
+        this.tipoMP = tipoMP;
         this.diametroMin = diametroMin;
         this.diametroMax = diametroMax;
         this.merma = merma;
@@ -63,12 +63,12 @@ public class Maquina implements Serializable{
         this.modelo = modelo;
     }
 
-    public String getTipo_mp() {
-        return tipo_mp;
+    public String gettipoMP() {
+        return tipoMP;
     }
 
-    public void setTipo_mp(String tipo_mp) {
-        this.tipo_mp = tipo_mp;
+    public void settipoMP(String tipoMP) {
+        this.tipoMP = tipoMP;
     }
 
     public String getdiametroMin() {

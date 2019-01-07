@@ -55,10 +55,7 @@
             android:name=".ArmadosActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LineaDobladoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PasadoresActivity"
+            android:name=".LineaDoblado2Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LineaCortadoActivity"
@@ -94,7 +91,13 @@
             android:name=".Estribadora2Activity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Estribadora2DobleActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ConfirmaEstribadora"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmaEstribadoraDoble"
             android:screenOrientation="portrait" />
         <activity
             android:name=".DatosUsuarioPiloActivity"
@@ -127,10 +130,19 @@
             android:name=".ConfirmaLineaCortado"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LineaDoblado2Activity"
+            android:name=".ArmadosActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ArmadosActivity2"
+            android:name=".PasadoresActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Pasadores2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DatosUsuarioPasadoresActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LineaCortado2Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginInventarioActivity"

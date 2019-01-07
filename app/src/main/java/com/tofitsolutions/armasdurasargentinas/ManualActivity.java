@@ -47,7 +47,7 @@ public class ManualActivity extends AppCompatActivity {
         lineaDoblado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ManualActivity.this, LineaDobladoActivity.class);
+                Intent i = new Intent(ManualActivity.this, LineaDoblado2Activity.class);
 //                    finish();  //Kill the activity from which you will go to next activity
                 i.putExtra("usuario", usuario);
                 i.putExtra("ayudante", ayudante);

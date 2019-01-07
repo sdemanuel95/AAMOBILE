@@ -2,9 +2,9 @@ package com.tofitsolutions.armasdurasargentinas;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 
-public class LineaDobladoActivity extends AppCompatActivity {
-    Button bt_oklineadoblado2,bt_cancellineadoblado2,bt_principal;
+public class Pasadores2Activity extends AppCompatActivity {
+    Button bt_oklineacortado2,bt_cancellineacortado2,bt_principal;
     TextView tv_usuarioEA2,tv_ayudanteEA2,tv_maquinaEA2,textView_PrecintoA,tv_cantidad1KGEA2,tv_cantPosible,tv_pendiente;
     EditText et_cantidadADeclarar,et_ItemEstribadora2;
     ItemController itemController;
@@ -24,9 +24,9 @@ public class LineaDobladoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linea_doblado2);
-        bt_oklineadoblado2 = (Button) findViewById(R.id.bt_oklineadoblado2);
-        bt_cancellineadoblado2 = (Button) findViewById(R.id.bt_cancellineadoblado2);
+        setContentView(R.layout.activity_linea_cortado2);
+        bt_oklineacortado2 = (Button) findViewById(R.id.bt_oklineacortado2);
+        bt_cancellineacortado2 = (Button) findViewById(R.id.bt_cancellineacortado2);
         bt_principal = (Button) findViewById(R.id.bt_principal);
         tv_usuarioEA2 = (TextView) findViewById(R.id.tv_usuarioEA2);
         tv_ayudanteEA2 = (TextView) findViewById(R.id.tv_ayudanteEA2);
@@ -56,12 +56,12 @@ public class LineaDobladoActivity extends AppCompatActivity {
         tv_cantidad1KGEA2.setText(kgReal);
 
         //Redirecciona a DatosUsuario
-        bt_oklineadoblado2.setOnClickListener(new View.OnClickListener() {
+        bt_oklineacortado2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(et_ItemEstribadora2.length() != 11 || et_cantidadADeclarar.length() == 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                     builder.setTitle("Atencion!");
                     builder.setMessage("Complete los datos para continuar");
                     builder.setCancelable(false);
@@ -78,7 +78,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     et_cantidadADeclarar.setText("");
                     return;
                 }
-                Intent i = new Intent(LineaDobladoActivity.this, ConfirmaLineaCortado.class);
+                Intent i = new Intent(Pasadores2Activity.this, ConfirmaPasadores.class);
                 i.putExtra("ingreso",ingreso);
                 i.putExtra("item",item);
                 i.putExtra("codigoMP",codigoMP);
@@ -93,10 +93,10 @@ public class LineaDobladoActivity extends AppCompatActivity {
         });
 
         //Redirecciona a DatosUsuario
-        bt_cancellineadoblado2.setOnClickListener(new View.OnClickListener() {
+        bt_cancellineacortado2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDobladoActivity.this, LineaCortadoActivity.class);
+                Intent i = new Intent(Pasadores2Activity.this, PasadoresActivity.class);
                 finish();
                 startActivity(i);
             }
@@ -106,7 +106,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
         bt_principal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDobladoActivity.this, PrincipalActivity.class);
+                Intent i = new Intent(Pasadores2Activity.this, PrincipalActivity.class);
                 finish();
                 startActivity(i);
             }
@@ -137,7 +137,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     // --------------ESTA VALIDACION DEBE IR PRIMERO-------------------
                     //Valida que el item exista en la base de datos
                     if(itemTemp==null){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item no existe en la base de datos.");
                         builder.setCancelable(false);
@@ -156,7 +156,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
 
                     //Valida si el item ya se encuentra declarado
                     if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item ingresado ya encuentra declarado.");
                         builder.setCancelable(false);
@@ -178,7 +178,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     /*
                     if(!tipoMat.equals("ADNS") && !tipoMat.equals("ADN") ){
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaCortado2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item no corresponde al material del lote.");
                         builder.setCancelable(false);
@@ -197,7 +197,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     */
 
                     if(!codigoMP.getFamilia().equals(itemTemp.getDiametro())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El diametro del item no corresponde con el lote.");
                         builder.setCancelable(false);
@@ -215,7 +215,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     }
 
                     if(Integer.parseInt(itemTemp.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(itemTemp.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El diametro del item no corresponde con la máquina.");
                         builder.setCancelable(false);
@@ -240,7 +240,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     int cantidadPosibleNum = calcularPosible((Double.parseDouble(ingreso.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),Integer.parseInt(maquina.getMerma()));
                     cantidadPosible = cantidadPosibleNum;
                     if(cantidadPosibleNum==0){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("No se puede declarar ya que la cantidad posible es 0.");
                         builder.setCancelable(false);
@@ -317,7 +317,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                             Double.parseDouble(et_cantidadADeclarar.getText().toString());
                         }
                         catch(Exception e){
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                             builder.setTitle("Atencion!");
                             builder.setMessage("Debe ingresar un valor numérico.");
                             builder.setCancelable(false);
@@ -333,7 +333,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                             return;
                         }
                         if (Integer.parseInt(et_cantidadADeclarar.getText().toString()) > cantidadPosible ) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                             builder.setTitle("Atencion!");
                             builder.setMessage("No puede declarar más que la cantidad posible.");
                             builder.setCancelable(false);
@@ -362,7 +362,6 @@ public class LineaDobladoActivity extends AppCompatActivity {
     }
 
 
-
     public int calcularPosible(double kgPrecinto, double kgItem,int cantItem,int merma){
         double resp= 0;
 
@@ -378,6 +377,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
             return calcularPosible(kgPrecinto, kgItem, cantItem-1,merma);
         }
     }
+
 
 
 }

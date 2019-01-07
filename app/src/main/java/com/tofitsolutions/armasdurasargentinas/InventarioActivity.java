@@ -1,9 +1,11 @@
 package com.tofitsolutions.armasdurasargentinas;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -88,9 +90,19 @@ public class InventarioActivity extends AppCompatActivity {
                         et_codigoDeBarras.setHint("Por favor lea el codigo");
                         et_codigoDeBarras.setHintTextColor(Color.RED);
                         et_codigoDeBarras.requestFocus();
-                        String mensaje = "Error: El precinto ingresado no existe.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El codigo de barras ingresado no existe.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        dialog.show();
+
                         return;
                     }
 
@@ -105,6 +117,8 @@ public class InventarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mp.start();
+                bt_ok.setEnabled(false);
+                bt_ok.setClickable(false);
                 System.out.println("Cantidad de materias ingresadas "+ materiasPrima.size());
                 validacion = false;
                 String codigoDeBarras = et_codigoDeBarras.getText().toString();
@@ -117,15 +131,33 @@ public class InventarioActivity extends AppCompatActivity {
                     et_codigoDeBarras.setHint("Por favor lea el codigo");
                     et_codigoDeBarras.setHintTextColor(Color.RED);
                     et_codigoDeBarras.requestFocus();
-                    String mensaje = "Error: El precinto ingresado ya fue ingresado antes.";
-                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El precinto ya fue ingresado antes.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                    dialog.show();
                 }
                 if(!esNumero(kgReal)){
 
-                    String mensaje = "Error: El peso debe ser numérico.";
-                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El codigo de barras ingresado no existe.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                    dialog.show();
                     return;
                 }
                 if(kgReal.length() == 4) {
@@ -146,9 +178,18 @@ public class InventarioActivity extends AppCompatActivity {
                         et_codigoDeBarras.setHint("Por favor lea el codigo");
                         et_codigoDeBarras.setHintTextColor(Color.RED);
                         et_codigoDeBarras.requestFocus();
-                        String mensaje = "Error: Codigo de barras invalido";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El codigo de barras ingresado no existe.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        dialog.show();
                         return;
                     }
                 }
@@ -159,9 +200,18 @@ public class InventarioActivity extends AppCompatActivity {
                     et_kgReal.setHint("Por favor reingrese el peso.");
                         et_kgReal.setHintTextColor(Color.RED);
                         et_kgReal.requestFocus();
-                        String mensaje = "Error: El peso ingresado debe tener 4 números.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El peso debe tener 4 digitos.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                    dialog.show();
                         return;
 
                 }
@@ -176,9 +226,18 @@ public class InventarioActivity extends AppCompatActivity {
                         et_codigoDeBarras.setHint("Por favor lea el codigo");
                         et_codigoDeBarras.setHintTextColor(Color.RED);
                         et_codigoDeBarras.requestFocus();
-                        String mensaje = "Error: Codigo de barras ya ingresado";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El codigo de barras ya fue ingresado.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        dialog.show();
                         return;
                     }
                 }
@@ -197,9 +256,18 @@ public class InventarioActivity extends AppCompatActivity {
                     et_codigoDeBarras.setHint("Por favor lea el codigo");
                     et_codigoDeBarras.setHintTextColor(Color.RED);
                     et_codigoDeBarras.requestFocus();
-                    String mensaje = "Error: El precinto ingresado no existe.";
-                    Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                    msjToast.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El codigo de barras ingresado no existe.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                    dialog.show();
                     return;
                 }
 
@@ -209,9 +277,18 @@ public class InventarioActivity extends AppCompatActivity {
                 et_codigoDeBarras.setHint("Por favor lea el codigo");
                 et_codigoDeBarras.setHintTextColor(Color.RED);
                 et_codigoDeBarras.requestFocus();
-                String mensaje = "Validación correcta.";
-                Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                msjToast.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(InventarioActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                builder.setTitle("Valicación correcta.");
+                builder.setMessage("El precinto fue validado con éxito.");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_green_light);
+                dialog.show();
 
                 materiasPrima.add(materiaAIngresar + kgReal);
                 et_codigoDeBarras.requestFocus();

@@ -77,12 +77,7 @@ public class InicialActivity extends AppCompatActivity {
                     contraseñaCorrecta = false;
                 } else {
                     // CREAR NUEVO ACTIVITY
-                    if(inventarioController.validarAjuste()){
-                        String mensaje = "Error: No podrá ingresar hasta ajustar inventario desde la web.";
-                        Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                        msjToast.show();
-                        return;
-                    }
+
 
                     Intent i = new Intent(InicialActivity.this, PrincipalActivity.class);
                     new getUsuario().execute();

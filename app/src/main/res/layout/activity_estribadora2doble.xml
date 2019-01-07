@@ -123,7 +123,7 @@
                 android:id="@+id/textView_LOTETEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="#LOTE"
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
@@ -137,7 +137,7 @@
                 android:id="@+id/textView_PIEZATEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:hint="#PIEZA"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorAccent"
@@ -152,7 +152,7 @@
                 android:id="@+id/tv_KGTEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="#KG"
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
@@ -172,10 +172,10 @@
                 android:id="@+id/textView_precintoA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="PRECINTOA"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -186,11 +186,11 @@
                 android:id="@+id/textView_piezasPosiblesA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:hint="#POSIBLE"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -201,10 +201,10 @@
                 android:id="@+id/textView_kgPosibleA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="#POSIBLE"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,10 +221,10 @@
                 android:id="@+id/textView_precintoB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="PRECINTOB"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -235,11 +235,11 @@
                 android:id="@+id/textView_piezasPosiblesB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:hint="#POSIBLE"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -250,10 +250,10 @@
                 android:id="@+id/textView_kgPosibleB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="#POSIBLE"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -270,10 +270,10 @@
                 android:id="@+id/textView_TOTALTEXT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TOTAL"
+                android:layout_weight="0.8"
+                android:text="TOTAL          "
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -288,7 +288,7 @@
                 android:hint="#PIEZAS"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -302,8 +302,9 @@
                 android:layout_weight="1"
                 android:text="#KG"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -319,10 +320,10 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="NOTIFICAR"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -331,12 +332,11 @@
 
             <EditText
                 android:id="@+id/et_cantidadADeclarar"
-                android:layout_width="100dp"
-                android:layout_height="47dp"
+                android:layout_width="100sp"
+                android:layout_height="47sp"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="200px"
-                android:layout_weight="3"
+                android:layout_marginRight="0px"
+                android:layout_weight="1"
                 android:background="@drawable/border_radius"
                 android:ems="10"
                 android:gravity="center_vertical|center_horizontal"
@@ -364,7 +364,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_marginLeft="30px"
             android:layout_marginRight="30px"
             android:layout_weight="5"
@@ -376,10 +376,10 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:text="PENDIENTE"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -394,9 +394,7 @@
                 android:hint="#PIEZAS"
                 android:textColor="@color/colorAccent"
                 android:textColorHint="@color/colorAccent"
-                android:textSize="21sp" />
-
-
+                android:textSize="15sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -410,7 +408,7 @@
                 android:layout_weight="1"
                 android:text="#KG"
                 android:textColor="@color/colorAccent"
-                android:textSize="21sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -419,7 +417,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_weight=""
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
         android:weightSum="3">

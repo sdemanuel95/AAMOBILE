@@ -8,31 +8,41 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class LineaDoblado2Activity extends AppCompatActivity {
-    Button bt_oklineadoblado2,bt_cancellineadoblado2,bt_principal;
+    Button bt_datosUsuario,bt_ok,bt_cancel,bt_principal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linea_doblado2);
-        bt_oklineadoblado2 = (Button) findViewById(R.id.bt_ok);
-        bt_cancellineadoblado2 = (Button) findViewById(R.id.bt_cancel);
+        setContentView(R.layout.activity_linea_doblado);
+        bt_datosUsuario = (Button) findViewById(R.id.bt_datosUsuario);
+        bt_ok = (Button) findViewById(R.id.bt_ok);
+        bt_cancel = (Button) findViewById(R.id.bt_cancel);
         bt_principal = (Button) findViewById(R.id.bt_principal);
 
 
         //Redirecciona a DatosUsuario
-        bt_oklineadoblado2.setOnClickListener(new View.OnClickListener() {
+        bt_datosUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDoblado2Activity.this, ConfirmaLineaDoblado.class);
+                Intent i = new Intent(LineaDoblado2Activity.this, DatosUsuarioDoblActivity.class);
+                finish();
+                startActivity(i);
+            }
+        });
+        //Redirecciona a DatosUsuario
+        bt_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LineaDoblado2Activity.this, LineaDoblado2Activity.class);
                 finish();
                 startActivity(i);
             }
         });
 
         //Redirecciona a DatosUsuario
-        bt_cancellineadoblado2.setOnClickListener(new View.OnClickListener() {
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDoblado2Activity.this, LineaDobladoActivity.class);
+                Intent i = new Intent(LineaDoblado2Activity.this, PrincipalActivity.class);
                 finish();
                 startActivity(i);
             }

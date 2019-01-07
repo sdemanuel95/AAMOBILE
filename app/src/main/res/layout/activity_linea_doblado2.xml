@@ -23,7 +23,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_weight="1"
-            android:background="@drawable/boton_linea_doblado" />
+            android:background="@drawable/boton_linea_cortado" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -189,6 +189,8 @@
             android:layout_marginLeft="30px"
             android:layout_marginRight="30px"
             android:orientation="horizontal"
+
+            android:layout_weight="0.5"
             android:weightSum="2">
 
             <TextView
@@ -208,6 +210,42 @@
                 android:text="Pendiente"
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <TextView
+                android:id="@+id/tv_declarar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Declarar"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/et_cantidadADeclarar"
+                android:layout_width="100dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/border_radius"
+                android:ems="10"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="Lea el código del Item"
+                android:inputType="text"
+                android:maxLength="3"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+
         </LinearLayout>
 
     </LinearLayout>

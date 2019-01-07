@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
 
 import java.sql.Connection;
@@ -53,10 +54,12 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
     IngresoMP ingresoMP1 = null;
     IngresoMP ingresoMP2 = null;
     Maquina maquina = null;
+    CodigoMPController codigoMPController;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ingresoMPController = new IngresoMPController();
+        codigoMPController= new CodigoMPController();
         maquinas = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estribadora);
@@ -83,8 +86,20 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         //Ingresa info del Activity -> DatosUsuarioActivity
         Intent intentDatosUsuarios = getIntent();
         final String et_invalidos = intentDatosUsuarios.getStringExtra("et_invalidos");
-        final String usuario = intentDatosUsuarios.getStringExtra("usuario");
-        final String ayudante = intentDatosUsuarios.getStringExtra("ayudante");
+        String user = intentDatosUsuarios.getStringExtra("usuario");
+        String ayud = intentDatosUsuarios.getStringExtra("ayudante");
+
+        if(user!=null){
+            if(user.length() > 15){
+                user = user.substring(0,15);
+            }
+            if(ayud.length() > 15){
+                ayud = ayud.substring(0,15);
+            }
+        }
+
+        final String usuario = user;
+        final String ayudante = ayud;
 
         maquina = (Maquina)intentDatosUsuarios.getSerializableExtra("maquina");
         final String diametroMin = intentDatosUsuarios.getStringExtra("diametroMin");
@@ -93,6 +108,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
 
         //Cambia el valor de los TextView
         if (usuario != null) {
+
             tv_usuario.setText(usuario);
             tv_ayudante.setText(ayudante);
             tv_maquina.setText(maquina.getMarca() + "-" + maquina.getModelo());
@@ -183,6 +199,8 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
                     return;
 
                 }
@@ -198,6 +216,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                 }
                 else {
                     //Valida los campos "precintoA" y "precintoB"
@@ -235,6 +254,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                             });
                             AlertDialog dialog = builder.create();
                             dialog.show();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                             et_precintoA.setText("");
                             et_precintoB.setText("");
                             et_kgA.setText("");
@@ -281,6 +301,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
         IngresoMP ingreso;
         if (nro.length()==24) {
             if(et_precintoA.length() == 24){
+
                 ingreso = ingresoMPController.getMP(et_precintoA.getText().toString());
                 if(ingreso==null){
                     AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -294,24 +315,122 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                     et_precintoA.setText("");
                     et_kgA.setText("");
                     return;
                 }
                 else{
-                    et_kgA.setText(ingreso.getKgDisponible());
+
+                    //SE VERIFICA QUE EL TIPO DE MP COINCIDA.
+                    String maquinaTipoMP = (maquina.gettipoMP().toLowerCase());
+                        if(maquinaTipoMP.equals("rollos")){
+
+                            //CALCULAR PARA ROLLOS
+                            maquinaTipoMP = "alambron";
+                        }
+                        else{
+                        //CALCULAR PARA BARRAS
+                            maquinaTipoMP = "barra";
+                    }
+
+
+                    if(ingreso.getDescripcion().toLowerCase().contains(maquinaTipoMP)){
+                        //EL TIPO MP COINCIDE
+                        et_kgA.setText(ingreso.getKgDisponible());
+
+                    }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El tipo de materia prima no coincide.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_precintoB.setText("");
+                        et_kgB.setText("");
+                        return;
+                    }
+
                 }
 
-            }
+                if (et_precintoA.isFocusable()) {
+                    et_precintoB.requestFocus();
+                    et_precintoB.setHint("Por favor lea el codigo");
+                    et_precintoB.setHintTextColor(Color.RED);
+                }
+                }
 
-            if (et_precintoA.isFocusable()) {
-                et_precintoB.requestFocus();
-                et_precintoB.setHint("Por favor lea el codigo");
-                et_precintoB.setHintTextColor(Color.RED);
-            }
+
 
             if(et_precintoB.length() == 24){
-                et_kgB.setText(et_precintoB.getText().toString().substring((20)));
+                IngresoMP ingreso2 = ingresoMPController.getMP(et_precintoB.getText().toString());
+
+                if(ingreso2==null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El precinto ingresado no existe.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                    et_precintoB.setText("");
+                    et_kgA.setText("");
+                    return;
+                }
+
+                else{
+
+                    //SE VERIFICA QUE EL TIPO DE MP COINCIDA.
+                    String maquinaTipoMP = (maquina.gettipoMP().toLowerCase());
+                    if(maquinaTipoMP.equals("rollos")){
+
+                        //CALCULAR PARA ROLLOS
+                        maquinaTipoMP = "alambron";
+                    }
+                    else{
+                        //CALCULAR PARA BARRAS
+                        maquinaTipoMP = "barra";
+                    }
+
+                    if(ingreso2.getDescripcion().toLowerCase().contains(maquinaTipoMP)){
+                        //EL TIPO MP COINCIDE
+                        et_kgB.setText(ingreso2.getKgDisponible());
+
+                    }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EstribadoraActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El tipo de materia prima no coincide.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_precintoB.setText("");
+                        et_kgB.setText("");
+                        return;
+                    }
+                }
+
+
+
+
             }
 
             /*
@@ -355,16 +474,18 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                     if(precintoB.length() != 0){
                         loteb= precintoB.substring(0,10);
                     }
-                    if(ingresoMPController.esRollo(precintoA)){
+                    if(true){
                         ingresoMP1 = ingresoMPController.getMP(precintoA);
                         if(precintoB.length()!=0) {
-                            if(ingresoMPController.esRollo((precintoB))) {
+                            if(true) {
                                 ingresoMP2  = ingresoMPController.getMP(precintoB);
 
-                                Intent i = new Intent(EstribadoraActivity.this, Estribadora2Activity.class);
+                                Intent i = new Intent(EstribadoraActivity.this, Estribadora2DobleActivity.class);
 
                                 i.putExtra("ingresoMP1",ingresoMP1);
                                 i.putExtra("ingresoMP2",ingresoMP2);
+                                i.putExtra("kgAUsarMP1",et_kgA.getText().toString());
+                                i.putExtra("kgAUsarMP2",et_kgB.getText().toString());
                                 i.putExtra("usuario",usuario);
                                 i.putExtra("ayudante", ayudante);
                                 i.putExtra("maquina", maquina);
@@ -385,6 +506,8 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
                             Intent i = new Intent(EstribadoraActivity.this, Estribadora2Activity.class);
                             i.putExtra("ingresoMP1",ingresoMP1);
                             i.putExtra("ingresoMP2",ingresoMP2);
+                            i.putExtra("kgAUsarMP1",et_kgA.getText().toString());
+                            i.putExtra("kgAUsarMP2",et_kgB.getText().toString());
                             i.putExtra("usuario",usuario);
                             i.putExtra("ayudante", ayudante);
                             i.putExtra("maquina", maquina);

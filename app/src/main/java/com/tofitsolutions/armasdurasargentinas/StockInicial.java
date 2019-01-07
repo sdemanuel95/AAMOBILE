@@ -59,6 +59,7 @@ public class StockInicial extends AppCompatActivity {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    return;
                 }
 
                 if(ingresoMPController.getMP(codigoBarras) != null){
@@ -106,6 +107,7 @@ public class StockInicial extends AppCompatActivity {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    return;
                 }
 
                 //Se le da el foco, se elimina el texto y se setea el hint para el elemento et_codigoBarras

@@ -69,7 +69,7 @@ public class MaquinaController {
 
     public List<Maquina> getCortadoras(){
 
-        String sql = "http://" + host + " /maquina/cortadoras/";
+        String sql = "http://" + host + "/maquina/cortadoras/";
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Gson gson = new Gson();

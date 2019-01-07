@@ -1,6 +1,5 @@
 package com.tofitsolutions.armasdurasargentinas;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,7 +48,7 @@ public class ProduccionActivity extends AppCompatActivity {
         bt_lineaDoblado.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ProduccionActivity.this, LineaDobladoActivity.class);
+                Intent i = new Intent(ProduccionActivity.this, LineaDoblado2Activity.class);
                 finish();
                 startActivity(i);
             }

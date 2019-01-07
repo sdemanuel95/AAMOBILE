@@ -28,7 +28,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tv_usuario"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,7 +36,7 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/usuarioConfEst"
+            android:id="@+id/confirmaUsuario"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
@@ -56,15 +56,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/tv_ayudante"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Ayudante"
             android:textColor="@color/colorAccent" />
-
+te
         <TextView
-            android:id="@+id/AyudanteConfEst"
+            android:id="@+id/confirmaAyudante"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,7 +90,7 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/equipoConfEst"
+            android:id="@+id/confirmaEquipo"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -108,15 +108,15 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tv_precinto"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Precinto 1"
+            android:text="Precinto"
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/preAConfEst"
+            android:id="@+id/confirmaLote"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -134,7 +134,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tv_item"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -142,7 +142,7 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/preBConfEst"
+            android:id="@+id/confirmaItem"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
@@ -163,7 +163,7 @@
 
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/tv_cantidad"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -171,7 +171,7 @@
             android:textColor="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/itemConfEst"
+            android:id="@+id/confirmaCantidad"
             android:layout_width="5dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

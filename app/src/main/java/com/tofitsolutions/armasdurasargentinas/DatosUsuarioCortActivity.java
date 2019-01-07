@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.MaquinaController;
+import com.tofitsolutions.armasdurasargentinas.controllers.OperariosController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,36 +20,58 @@ import java.util.List;
 public class DatosUsuarioCortActivity extends AppCompatActivity {
 
     Button bt_okDatosUsuario, bt_principalDatosUsuario, bt_cancelarDatosUsuario;
-    EditText et_Usuario, et_Ayudante;
-    Spinner spinner_Estribadora;
+    Spinner spinner_Cortadora,spinner_Ayudante,spinner_Usuario;
     String maquinaElegida;
+    String usuarioElegido;
+    String ayudanteElegido;
     List<Maquina> maquinas;
+    List<Operario> operarios;
     List<String> maquinasString = new ArrayList<>();
+    List<String> usuariosString =new ArrayList<>();
+    List<String> usuariosStringTemp =new ArrayList<>();
     MaquinaController mc = new MaquinaController();
-
+    OperariosController oc = new OperariosController();
+    Operario ayudante = null;
+    Operario usuario = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        maquinas =  mc.getEstribadoras();
+
+        //MAQUINAS
+        maquinas =  mc.getCortadoras();
         for(Maquina m : maquinas){
             maquinasString.add(m.getMarca() + "-" + m.getModelo());
         }
 
+        //OPERARIOS
+        operarios = oc.getOperarios();
+        for(Operario o : operarios){
+            usuariosString.add(o.getNombre() + " " + o.getApellido());
+        }
+
+        usuariosString.add("");
+        usuariosStringTemp = usuariosString;
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_datos_usuario_estr);
-        et_Usuario = (EditText)findViewById(R.id.et_Usuario);
-        et_Ayudante = (EditText)findViewById(R.id.et_Ayudante);
-        spinner_Estribadora = (Spinner)findViewById(R.id.SpinnerEstribadora);
+        setContentView(R.layout.activity_datos_usuario_cort);
+        spinner_Usuario = (Spinner)findViewById(R.id.SpinnerUsuario);
+        spinner_Ayudante = (Spinner)findViewById(R.id.SpinnerAyudante);
+        spinner_Cortadora = (Spinner)findViewById(R.id.SpinnerCortadora);
         bt_okDatosUsuario = (Button)findViewById(R.id.bt_okDatosUsuario);
         bt_principalDatosUsuario = (Button)findViewById(R.id.bt_PrincipalDatosUsuario);
         bt_cancelarDatosUsuario = (Button)findViewById(R.id.bt_CancelarDatosUsuario);
 
         ArrayAdapter adp = new ArrayAdapter(DatosUsuarioCortActivity.this, android.R.layout.simple_spinner_dropdown_item,maquinasString);
-        spinner_Estribadora.setAdapter(adp);
-        spinner_Estribadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter adpUsuario = new ArrayAdapter(DatosUsuarioCortActivity.this, android.R.layout.simple_spinner_dropdown_item,usuariosStringTemp);
+        spinner_Cortadora.setAdapter(adp);
+        spinner_Usuario.setAdapter(adpUsuario);
+        spinner_Ayudante.setAdapter(adpUsuario);
+
+
+        spinner_Cortadora.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                maquinaElegida = (String)spinner_Estribadora.getAdapter().getItem(position);
+                maquinaElegida = (String)spinner_Cortadora.getAdapter().getItem(position);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -56,16 +79,43 @@ public class DatosUsuarioCortActivity extends AppCompatActivity {
         });
 
 
+        spinner_Usuario.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                usuarioElegido = (String)spinner_Usuario.getAdapter().getItem(position);
+
+                usuariosStringTemp = getListaOperarios(usuariosString,usuarioElegido);
+                ArrayAdapter adpUsuario = new ArrayAdapter(DatosUsuarioCortActivity.this, android.R.layout.simple_spinner_dropdown_item,usuariosStringTemp);
+                spinner_Ayudante.setAdapter(adpUsuario);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        spinner_Ayudante.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ayudanteElegido = (String)spinner_Ayudante.getAdapter().getItem(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
+
+
         bt_okDatosUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usuario = et_Usuario.getText().toString();
-                String ayudante = et_Ayudante.getText().toString();
-                //String maquina = et_Maquina.getText().toString();
-                if (usuario.length()!=0 || ayudante.length()!=0 ) {
-                    Intent i = new Intent(DatosUsuarioCortActivity.this, EstribadoraActivity.class);
-                    i.putExtra("usuario", usuario);
-                    i.putExtra("ayudante", ayudante);
+
+                if (usuarioElegido!= "" || ayudanteElegido != "" ) {
+                    Intent i = new Intent(DatosUsuarioCortActivity.this, LineaCortadoActivity.class);
+                    i.putExtra("usuario", usuarioElegido);
+                    i.putExtra("ayudante", ayudanteElegido);
                     Maquina maquina = null;
                     for(Maquina m : maquinas){
                         if(m.existe(maquinaElegida)){
@@ -73,10 +123,7 @@ public class DatosUsuarioCortActivity extends AppCompatActivity {
                             break;
                         }
                     }
-                    i.putExtra("maquina", maquina.getMarca() + "-" +maquina.getModelo());
-                    i.putExtra("diametroMin" , maquina.getdiametroMin());
-                    i.putExtra("diametroMax",maquina.getdiametroMax());
-                    i.putExtra("merma", maquina.getMerma());
+                    i.putExtra("maquina", maquina);
                     i.putExtra("et_invalidos", "valido");
                     finish();
                     startActivity(i);
@@ -99,12 +146,24 @@ public class DatosUsuarioCortActivity extends AppCompatActivity {
         bt_cancelarDatosUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DatosUsuarioCortActivity.this, EstribadoraActivity.class);
+                Intent i = new Intent(DatosUsuarioCortActivity.this, LineaCortadoActivity.class);
                 finish();
                 startActivity(i);
             }
         });
     }
 
+
+    public List<String> getListaOperarios(List<String> listaOperarios, String operarioSeleccionado){
+
+        List<String> listaReal = new ArrayList<String>();
+        for(String s : listaOperarios){
+            if(!s.equals(operarioSeleccionado)){
+                listaReal.add(s);
+            }
+        }
+
+        return listaReal;
+    }
 
 }

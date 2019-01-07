@@ -161,6 +161,8 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
                         et_ItemEstribadora2.setText("");
                         return;
                     }
@@ -178,6 +180,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
@@ -198,6 +201,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
@@ -238,6 +242,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
 
@@ -255,6 +260,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                             });
                             AlertDialog dialog = builder.create();
                             dialog.show();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                             et_ItemEstribadora2.setText("");
                             return;
 
@@ -272,6 +278,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
@@ -283,7 +290,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                     cantidadDec = (i.getCantidadDec());
                     double kgUnitario = Double.parseDouble(i.getPeso()) / Double.parseDouble(cantidad);
                     tv_cantidad1KGEA2.setText(ingresoMP1.getKgDisponible());
-                    cantidadPosibleNum = calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)));
+                    cantidadPosibleNum = calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),Integer.parseInt(maquina.getMerma()));
 
                     if(cantidadPosibleNum==0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -297,6 +304,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
@@ -337,6 +345,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_cantidadADeclarar.setText("");
                         return;
                     }
@@ -353,6 +362,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_cantidadADeclarar.setText("");
                         return;
                     }
@@ -391,13 +401,14 @@ public class Estribadora2Activity extends AppCompatActivity {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                     et_cantidadADeclarar.setText("");
                     return;
                 }
                 if(et_ItemEstribadora2 == null || et_ItemEstribadora2.length() != 11){
                     AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                     builder.setTitle("Atencion!");
-                    builder.setMessage("El item insertado no corresponde.");
+                    builder.setMessage("El item insertado debe tener 11 caracteres.");
                     builder.setCancelable(false);
                     builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         @Override
@@ -405,6 +416,7 @@ public class Estribadora2Activity extends AppCompatActivity {
                         }
                     });
                     AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                     dialog.show();
                     return;
                 }
@@ -857,9 +869,11 @@ public class Estribadora2Activity extends AppCompatActivity {
         }
     }
 
-    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem){
+    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem,int merma){
         double resp= 0;
+
         kgTotalItem = kgItem * cantItem;
+        kgTotalItem = kgTotalItem + (merma * kgTotalItem / 100);
         if(cantItem == 0){
             return 0;
         }
@@ -867,7 +881,7 @@ public class Estribadora2Activity extends AppCompatActivity {
             return cantItem;
         }
         else{
-            return calcularPosible(kgPrecinto, kgItem, cantItem-1);
+            return calcularPosible(kgPrecinto, kgItem, cantItem-1,merma);
         }
     }
 

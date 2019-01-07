@@ -20,6 +20,7 @@ import java.util.List;
 import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,6 +29,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Estribadora2DobleActivity extends AppCompatActivity {
+    double kgUnitarioDelItem = 0;
     int cantidadPosibleNumP1;
     int cantidadPosibleNumP2;
     int pesoPosibleP1;
@@ -85,16 +87,16 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
 
         //TEXTVIEWS
 
-        textView_precintoA = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_precintoB = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_piezasPosiblesA = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_piezasPosiblesB = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_kgPosibleA = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_kgPosibleB = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_piezasPosiblesTotal = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_kgPosibleTotal = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_piezasPendientes = (TextView) findViewById(R.id.tv_usuarioEA2);
-        textView_kgPendientes = (TextView) findViewById(R.id.tv_usuarioEA2);
+        textView_precintoA = (TextView) findViewById(R.id.textView_precintoA);
+        textView_precintoB = (TextView) findViewById(R.id.textView_precintoB);
+        textView_piezasPosiblesA = (TextView) findViewById(R.id.textView_piezasPosiblesA);
+        textView_piezasPosiblesB = (TextView) findViewById(R.id.textView_piezasPosiblesB);
+        textView_kgPosibleA = (TextView) findViewById(R.id.textView_kgPosibleA);
+        textView_kgPosibleB = (TextView) findViewById(R.id.textView_kgPosibleB);
+        textView_piezasPosiblesTotal = (TextView) findViewById(R.id.textView_piezasPosiblesTotal);
+        textView_kgPosibleTotal = (TextView) findViewById(R.id.textView_kgPosibleTotal);
+        textView_piezasPendientes = (TextView) findViewById(R.id.textView_piezasPendientes);
+        textView_kgPendientes = (TextView) findViewById(R.id.textView_kgPendientes);
 
 
 
@@ -150,10 +152,10 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                 String cantPosible = "none";
                 if (nro.length()==11) {
 
-                    Item itemTemp = itemController.getItem(et_ItemEstribadora2.getText().toString());
+                    Item item = itemController.getItem(et_ItemEstribadora2.getText().toString());
                     // --------------ESTA VALIDACION DEBE IR PRIMERO-------------------
                     //Valida que el item exista en la base de datos
-                    if(itemTemp==null){
+                    if(item==null){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item no existe en la base de datos.");
@@ -165,12 +167,13 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
 
                     //Valida si el item ya se encuentra declarado
-                    if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
+                    if (item.getCantidad().equals(item.getCantidadDec())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item ingresado ya encuentra declarado.");
@@ -182,6 +185,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
@@ -204,35 +208,13 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
 
 
-                    if(codigoMP.getTipoMaterial().equals("ADNS")){
-
-                        /*
-                        if(itemTemp.getAcero().equals("ADN420S")){
-
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                            builder.setTitle("Atencion!");
-                            builder.setMessage("El item no corresponde al material del lote.");
-                            builder.setCancelable(false);
-                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                            et_ItemEstribadora2.setText("");
-                            return;
-                        }
-                        */
-                    }
-
-                    if( (codigoMP2.getTipoMaterial().equals("ADN") || codigoMP.getTipoMaterial().equals("ADN")) && !itemTemp.getAcero().equals("ADN420")){
+                    if( (codigoMP2.getTipoMaterial().equals("ADN") || codigoMP.getTipoMaterial().equals("ADN")) && !item.getAcero().equals("ADN420")){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El item no corresponde al material del lote.");
@@ -244,6 +226,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
 
@@ -251,7 +234,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
 
 
 
-                    if(!codigoMP.getFamilia().equals(itemTemp.getDiametro()) || !codigoMP2.getFamilia().equals(itemTemp.getDiametro())){
+                    if(!codigoMP.getFamilia().equals(item.getDiametro()) || !codigoMP2.getFamilia().equals(item.getDiametro())){
                             AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                             builder.setTitle("Atencion!");
                             builder.setMessage("El diametro del item no corresponde con el lote.");
@@ -263,12 +246,13 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                             });
                             AlertDialog dialog = builder.create();
                             dialog.show();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                             et_ItemEstribadora2.setText("");
                             return;
 
                     }
 
-                    if(Integer.parseInt(itemTemp.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(itemTemp.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
+                    if(Integer.parseInt(item.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(item.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("El diametro del item no corresponde con la máquina.");
@@ -280,38 +264,64 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
+
                         return;
                     }
 
                     // Se actualizan los ET de Cantidad Posible e Item Pendientes
-                    item = et_ItemEstribadora2.getText().toString();
-                    Item i = itemController.getItem(item);
-                    cantidad = (i.getCantidad());
-                    cantidadDec = (i.getCantidadDec());
-                    double kgUnitario = Double.parseDouble(i.getPeso()) / Double.parseDouble(cantidad);
+                    cantidad = (item.getCantidad());
+                    cantidadDec = (item.getCantidadDec());
+                    double kgUnitario = Double.parseDouble(item.getPeso()) / Double.parseDouble(cantidad);
 
 
 
                     //CALCULAR POSIBLES
 
+                    List<Integer> cantidadesPosibles = calcularPosibleDosPrecintos((Double.parseDouble(ingresoMP1.getKgDisponible())),(Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),maquina);
 
-                    cantidadPosibleNumP1 = calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)));
-                    cantidadPosibleNumP2 = calcularPosible((Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)));
+                    if(cantidadesPosibles == null){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("Ningun precinto puede declarar almenos una pieza.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
+                    cantidadPosibleNumP1 = cantidadesPosibles.get(0);
+                    cantidadPosibleNumP2 = cantidadesPosibles.get(1);
 
 
-                    //CALCULAR POSIBLES
+                    //CALCULAR POSIBLES FIN
 
 
-                    textView_kgPosibleA.setText(String.valueOf(cantidadPosibleNumP1));
-                    textView_kgPosibleB.setText(String.valueOf(cantidadPosibleNumP2));
-                    String kgPosibleA = String.valueOf(cantidadPosibleNumP1 * kgUnitario);
-                    String kgPosibleB = String.valueOf(cantidadPosibleNumP2 * kgUnitario);
+
+                    String kgPosibleA = String.valueOf(Util.setearDosDecimales(cantidadPosibleNumP1 * kgUnitario));
+                    String kgPosibleB = String.valueOf(Util.setearDosDecimales(cantidadPosibleNumP2 * kgUnitario));
                     textView_kgPosibleA.setText(kgPosibleA);
                     textView_kgPosibleB.setText(kgPosibleB);
+                    textView_piezasPosiblesA.setText(String.valueOf(cantidadPosibleNumP1));
+                    textView_piezasPosiblesB.setText(String.valueOf(cantidadPosibleNumP2));
 
+                    int piezasTotal = (cantidadPosibleNumP1 +cantidadPosibleNumP2);
+                    String kgTotal = String.valueOf(Util.setearDosDecimales(piezasTotal * kgUnitario));
 
-                    if(cantidadPosibleNumP1==0 || cantidadPosibleNumP2==0){
+                    textView_piezasPosiblesTotal.setText(String.valueOf(piezasTotal));
+                    textView_kgPosibleTotal.setText(kgTotal);
+
+                    et_cantidadADeclarar.setText(String.valueOf(piezasTotal));
+
+                    if(cantidadPosibleNumP1==0 && cantidadPosibleNumP2==0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("No se puede declarar ya que la cantidad posible es 0.");
@@ -323,20 +333,11 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
                     }
 
-
-/*
-                    System.out.println("Cantidad a producir = " + kgAProducir);
-                    textView_kgPosibleTotal.setText(String.valueOf("kgAProducir"));
-                    tv_cantPosible.setText("CP: " + cantidadPosibleNum);
-                    et_cantidadADeclarar.setText(String.valueOf(cantidadPosibleNum));
-                    tv_pendiente.setText("P: " + cantidadPendienteNum);
-                    tv_kgADeclarar.setText("KG:" + kgAProducir);
-
-                    */
                 }
             }
         });
@@ -353,9 +354,9 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                 String nro = s.toString();
                 if(nro.length() > 0){
 
-                    if( (cantidadPosibleNumP1 < Integer.parseInt((et_cantidadADeclarar.getText().toString())))
+
+                    if( (cantidadPosibleNumP1 + cantidadPosibleNumP2 < Integer.parseInt((et_cantidadADeclarar.getText().toString())))
                             ){
-
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
                         builder.setMessage("La cantidad de piezas a declarar no puede ser mayor a la cantidad posible");
@@ -367,33 +368,29 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
-                        et_cantidadADeclarar.setText("");
-                        return;
-                    }
-
-                    if(Integer.parseInt(et_cantidadADeclarar.getText().toString()) > cantidadPosibleNumP1){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("La cantidad de piezas a declarar no puede ser mayor a la cantidad posible");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        textView_piezasPendientes.setText("");
+                        textView_kgPendientes.setText("");
                         et_cantidadADeclarar.setText("");
                         return;
                     }
                     else{
+
+
                         item = et_ItemEstribadora2.getText().toString();
                         Item i = itemController.getItem(item);
                         cantidad = (i.getCantidad());
                         cantidadDec = (i.getCantidadDec());
                         double kgUnitario = Double.parseDouble(i.getPeso()) / Double.parseDouble(cantidad);
+                        kgUnitarioDelItem = kgUnitario;
                         //cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - Integer.parseInt(et_cantidadADeclarar.getText().toString()) - Integer.parseInt(cantidadDec);
-                        kgAProducir = Integer.parseInt(et_cantidadADeclarar.getText().toString()) * kgUnitario;
+                        kgAProducir = Util.setearDosDecimales(Integer.parseInt(et_cantidadADeclarar.getText().toString()) * kgUnitario);
+
+                        int piezasPendientes = Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec) - Integer.parseInt(nro);
+                        String kgPendientes = String.valueOf(Util.setearDosDecimales(kgUnitario*piezasPendientes));
+                        textView_piezasPendientes.setText(String.valueOf(piezasPendientes));
+                        textView_kgPendientes.setText(kgPendientes);
+
                         //tv_pendiente.setText("P: " + cantidadPendienteNum);
                         //tv_kgADeclarar.setText("KG:" + kgAProducir);
 
@@ -409,7 +406,23 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(cantidadPosibleNumP1 < Integer.parseInt((et_cantidadADeclarar.getText().toString()))){
+                if(et_cantidadADeclarar.getText().toString().equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("Debe ingresar la cantidad de piezas a declarar.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                    et_cantidadADeclarar.setText("");
+                    return;
+                }
+                if(cantidadPosibleNumP1 +  cantidadPosibleNumP2< Integer.parseInt((et_cantidadADeclarar.getText().toString()))){
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                     builder.setTitle("Atencion!");
@@ -422,6 +435,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                     et_cantidadADeclarar.setText("");
                     return;
                 }
@@ -436,19 +450,52 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         }
                     });
                     AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                     dialog.show();
                     return;
                 }
                 //TODO
                 //if(validarItem()){
-                    Intent i = new Intent(Estribadora2DobleActivity.this, ConfirmaEstribadora.class);
+                    double kgPosibleA = Double.parseDouble(textView_kgPosibleA.getText().toString());
+                    double kgPosibleB = Double.parseDouble(textView_kgPosibleB.getText().toString());
+                    double kgUnitario = kgUnitarioDelItem;
+                    int itemsAUsar = Integer.parseInt(et_cantidadADeclarar.getText().toString());
+                    List<Integer> kgAProducirPrecrintos = calcularPosibleDosPrecintos(kgPosibleA,kgPosibleB,kgUnitario,itemsAUsar,maquina);
+
+                    if(kgAProducirPrecrintos ==  null){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        dialog.show();
+                        return;
+                    }
+
+                    int piezasAProducir  =  kgAProducirPrecrintos.get(0);
+                    int piezasBProducir  =  kgAProducirPrecrintos.get(1);
+
+
+
+                    double kgAProducirLOTEA = Util.setearDosDecimales(piezasAProducir *kgUnitario) ;
+                    double kgAProducirLOTEB = Util.setearDosDecimales(piezasBProducir * kgUnitario);
+
+
+
+                    Intent i = new Intent(Estribadora2DobleActivity.this, ConfirmaEstribadoraDoble.class);
                     i.putExtra("usuario", usuario);
                     i.putExtra("ayudante", ayudante);
                     i.putExtra("maquina", maquina);
                 i.putExtra("ingresoMP1",ingresoMP1);
                 i.putExtra("ingresoMP2",ingresoMP2);
                     i.putExtra("item", item);
-                    i.putExtra("kgAProducir",kgAProducir);
+                i.putExtra("kgAProducirA",kgAProducirLOTEA);
+                i.putExtra("kgAProducirB",kgAProducirLOTEB);
+                i.putExtra("kgAProducir",kgAProducir);
                     //i.putExtra("itemObject",i);
                     i.putExtra("cantidad", Integer.parseInt(et_cantidadADeclarar.getText().toString()));
                     i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
@@ -551,346 +598,15 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
         return validacion;
     }
 
-    private class traerItems extends AsyncTask<Void, Integer, Void> {
-        private ArrayList<Item> listaItems;
-        private int progresoItem = 0;
 
-        @Override
-        protected void onPreExecute() {
-            progressI = new ProgressDialog(Estribadora2DobleActivity.this);
-            //progress.setMax(100);
-            progressI.setMessage("Cargando");
-            progressI.setTitle("Items");
-            progressI.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressI.show();
 
-            super.onPreExecute();
-        }
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            progressI.incrementProgressBy(1);
-            if (progresoItem == progressI.getMax()) {
-                progressI.dismiss();
-            }
-            super.onProgressUpdate(values);
-        }
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            listaItems = new ArrayList<Item>();
-            Conexion conexion = new Conexion();
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = conexion.crearConexion();
-                Statement stmt = con.createStatement();
-                final ResultSet rowItemsCompleto = stmt.executeQuery("SELECT * FROM items");
-
-                rowItemsCompleto.last(); //me voy al último
-                int sizeRS = rowItemsCompleto.getRow(); //pillo el tamaño
-                rowItemsCompleto.beforeFirst(); // lo dejo donde estaba para tratarlo
-
-                progressI.setMax(sizeRS);
-                while (rowItemsCompleto.next()) {
-                    int id = rowItemsCompleto.getInt("ID");
-                    int idpedido = rowItemsCompleto.getInt("IDpedido");
-                    int item = rowItemsCompleto.getInt("Item");
-                    String posicion = rowItemsCompleto.getString("Posicion");
-                    String acero = rowItemsCompleto.getString("Acero");
-                    String material = rowItemsCompleto.getString("Material");
-                    String diametro = rowItemsCompleto.getString("Diametro");
-                    String cantidad = rowItemsCompleto.getString("Cantidad");
-                    String cantidadDec = rowItemsCompleto.getString("CantidadDec");
-                    String formato = rowItemsCompleto.getString("Formato");
-                    String dibujo = rowItemsCompleto.getString("Dibujo");
-                    String a = rowItemsCompleto.getString("A");
-                    String b = rowItemsCompleto.getString("B");
-                    String c = rowItemsCompleto.getString("C");
-                    String d = rowItemsCompleto.getString("D");
-                    String e = rowItemsCompleto.getString("E");
-                    String f = rowItemsCompleto.getString("F");
-                    String g = rowItemsCompleto.getString("G");
-                    String h = rowItemsCompleto.getString("H");
-                    String h1 = rowItemsCompleto.getString("H1");
-                    String h2 = rowItemsCompleto.getString("H2");
-                    String lparcial = rowItemsCompleto.getString("LParcial");
-                    String ltotal = rowItemsCompleto.getString("LTotal");
-                    String lcortar = rowItemsCompleto.getString("LCortar");
-                    String peso = rowItemsCompleto.getString("Peso");
-                    String observaciones = rowItemsCompleto.getString("Observaciones");
-                    String estructura = rowItemsCompleto.getString("Estructura");
-                    String codigo = rowItemsCompleto.getString("Codigo");
-                    listaItems.add(new Item(id, idpedido, item, posicion, acero, material, diametro, cantidad, cantidadDec, formato, dibujo, a, b, c, d, e, f, g, h, h1, h2, lparcial, ltotal, lcortar, peso, observaciones, codigo, estructura));
-                    progresoItem++;
-                    publishProgress(progresoItem);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            listaDeItems = listaItems;
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    //NUEVO ASINCSTASK PARA VALIDAR SI UN ITEM YA ESTÁ DECLARADO
-    private class validarItemDeclarado extends AsyncTask<Void, Integer, Void> {
-        private ArrayList<Declaracion> listaDeclaraciones;
-        private int progresoDec = 0;
-
-        @Override
-        protected void onPreExecute() {
-            progresso = new ProgressDialog(Estribadora2DobleActivity.this);
-            //progress.setMax(100);
-            progresso.setMessage("Cargando");
-            progresso.setTitle("Declaracion");
-            progresso.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            //progresso.show();
-
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            progresso.incrementProgressBy(1);
-            if (progresoDec == progresso.getMax()) {
-                Log.d("Termino de ejecutar", "el asyncktask");
-                progresso.dismiss();
-            }
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            listaDeclaraciones = new ArrayList<Declaracion>();
-            Conexion conexion = new Conexion();
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = conexion.crearConexion();
-                Statement stmt = con.createStatement();
-                final ResultSet rowDeclaracionCompleto = stmt.executeQuery("SELECT * FROM declaracion");
-
-                rowDeclaracionCompleto.last(); //me voy al último
-                int sizeRS = rowDeclaracionCompleto.getRow(); //pillo el tamaño
-                rowDeclaracionCompleto.beforeFirst(); // lo dejo donde estaba para tratarlo
-
-                progresso.setMax(sizeRS);
-                while (rowDeclaracionCompleto.next()) {
-                    int id = rowDeclaracionCompleto.getInt("ID");
-                    String fecha = rowDeclaracionCompleto.getString("Fecha");
-                    String usuario = rowDeclaracionCompleto.getString("Usuario");
-                    String ayudante = rowDeclaracionCompleto.getString("Ayudante");
-                    String equipo = rowDeclaracionCompleto.getString("Equipo");
-                    String precintoA = rowDeclaracionCompleto.getString("PrecintoA");
-                    String precintoB = rowDeclaracionCompleto.getString("PrecintoB");
-                    String item = rowDeclaracionCompleto.getString("Item");
-                    String cantidad = rowDeclaracionCompleto.getString("Cantidad");
-                    String cantidadKG = rowDeclaracionCompleto.getString("CantidadKG");
-                    listaDeclaraciones.add(new Declaracion(id, fecha, usuario, ayudante, equipo, precintoA, precintoB, item, cantidad, cantidadKG));
-                    progresoDec++;
-                    publishProgress(progresoDec);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Declaracion d;
-            listaDeclaracion = listaDeclaraciones;
-            Log.d("declarado", " ok");
-
-            //declarado = true;
-
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    private class traerCodigosMP extends AsyncTask<Void, Integer, Void> {
-        private ArrayList<CodigoMP> listaCodigos;
-        private int progresoItem = 0;
-
-        @Override
-        protected void onPreExecute() {
-            progressI = new ProgressDialog(Estribadora2DobleActivity.this);
-            //progress.setMax(100);
-            progressI.setMessage("Cargando");
-            progressI.setTitle("Materias Primas");
-            progressI.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressI.show();
-
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            progressI.incrementProgressBy(1);
-            if (progresoItem == progressI.getMax()) {
-                progressI.dismiss();
-            }
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            listaCodigos = new ArrayList<CodigoMP>();
-            Conexion conexion = new Conexion();
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = conexion.crearConexion();
-                Statement stmt = con.createStatement();
-                final ResultSet rs = stmt.executeQuery("SELECT * FROM codigomp");
-
-                rs.last(); //me voy al último
-                int sizeRS = rs.getRow(); //pillo el tamaño
-                rs.beforeFirst(); // lo dejo donde estaba para tratarlo
-
-                progressI.setMax(sizeRS);
-                while (rs.next()) {
-
-                    long id = rs.getInt("ID");
-                    //String fecha = rs.getString("Fecha");
-                    String codSap = rs.getString("CodSap");
-                    String familia = rs.getString("Familia");
-                    String descripcion = rs.getString("Descripcion");
-                    String tipoMaterial = rs.getString("TipoMaterial");
-
-                    listaCodigos.add(new CodigoMP(id, codSap,familia,descripcion,tipoMaterial));
-
-                    progresoItem++;
-                    publishProgress(progresoItem);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            listaCodigosMP = listaCodigos;
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    //NUEVO ASYNTASK PARA VALIDAR SOLO EL ITEM PUESTO.
-    public class traerUnItem extends AsyncTask<Void, Integer, Void> {
-        private ArrayList<Item> listaItems;
-        private int progresoItem = 0;
-
-        @Override
-        protected void onPreExecute() {
-            progressI = new ProgressDialog(Estribadora2DobleActivity.this);
-            //progress.setMax(100);
-            progressI.setMessage("Validando");
-            progressI.setTitle("Item");
-            progressI.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            //progressI.show();
-
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            progressI.incrementProgressBy(1);
-            if (progresoItem == progressI.getMax()) {
-                progressI.dismiss();
-            }
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            listaItems = new ArrayList<Item>();
-            Conexion conexion = new Conexion();
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = conexion.crearConexion();
-                Statement stmt = con.createStatement();
-                final ResultSet rowItemsCompleto = stmt.executeQuery("SELECT * FROM items where Codigo = '" + et_ItemEstribadora2.getText().toString() + "' limit 1;");
-
-                rowItemsCompleto.last(); //me voy al último
-                int sizeRS = rowItemsCompleto.getRow(); //pillo el tamaño
-                rowItemsCompleto.beforeFirst(); // lo dejo donde estaba para tratarlo
-
-                progressI.setMax(sizeRS == 0 ? 0 : 0);
-                while (rowItemsCompleto.next()) {
-                    int id = rowItemsCompleto.getInt("ID");
-                    int idpedido = rowItemsCompleto.getInt("IDpedido");
-                    int item = rowItemsCompleto.getInt("Item");
-                    String posicion = rowItemsCompleto.getString("Posicion");
-                    String acero = rowItemsCompleto.getString("Acero");
-                    String material = rowItemsCompleto.getString("Material");
-                    String diametro = rowItemsCompleto.getString("Diametro");
-                    String cantidad = rowItemsCompleto.getString("Cantidad");
-                    String cantidadDec = rowItemsCompleto.getString("CantidadDec");
-                    String formato = rowItemsCompleto.getString("Formato");
-                    String dibujo = rowItemsCompleto.getString("Dibujo");
-                    String a = rowItemsCompleto.getString("A");
-                    String b = rowItemsCompleto.getString("B");
-                    String c = rowItemsCompleto.getString("C");
-                    String d = rowItemsCompleto.getString("D");
-                    String e = rowItemsCompleto.getString("E");
-                    String f = rowItemsCompleto.getString("F");
-                    String g = rowItemsCompleto.getString("G");
-                    String h = rowItemsCompleto.getString("H");
-                    String h1 = rowItemsCompleto.getString("H1");
-                    String h2 = rowItemsCompleto.getString("H2");
-                    String lparcial = rowItemsCompleto.getString("LParcial");
-                    String ltotal = rowItemsCompleto.getString("LTotal");
-                    String lcortar = rowItemsCompleto.getString("LCortar");
-                    String peso = rowItemsCompleto.getString("Peso");
-                    String observaciones = rowItemsCompleto.getString("Observaciones");
-                    String estructura = rowItemsCompleto.getString("Estructura");
-                    String codigo = rowItemsCompleto.getString("Codigo");
-                    listaItems.add(new Item(id, idpedido, item, posicion, acero, material, diametro, cantidad, cantidadDec, formato, dibujo, a, b, c, d, e, f, g, h, h1, h2, lparcial, ltotal, lcortar, peso, observaciones, codigo, estructura));
-                    progresoItem++;
-                    //publishProgress(progresoItem);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            listaDeItems = listaItems;
-            if(listaItems.isEmpty()){
-                String mensaje = "Error: El item no existe en la base de datos.";
-                Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
-                msjToast.show();
-                et_ItemEstribadora2.setText("");
-                return;
-            }
-            //System.out.println(listaItems.size());
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem){
+    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem,int merma){
         double resp= 0;
+
         kgTotalItem = kgItem * cantItem;
+        kgTotalItem = kgTotalItem + (merma * kgTotalItem / 100);
         if(cantItem == 0){
             return 0;
         }
@@ -898,23 +614,202 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
             return cantItem;
         }
         else{
-            return calcularPosible(kgPrecinto, kgItem, cantItem-1);
+            return calcularPosible(kgPrecinto, kgItem, cantItem-1,merma);
         }
     }
 
 
-    public List<String> calcularPosible(double kgPrecintoA,double kgPrecintoB, double kgItemUnitario,int cantItemPendientes){
+    public List<Integer>  calcularPiezasAUsar(int posiblesA, int posiblesB, int cantidadTotal){
+           List<Integer> resultados = new ArrayList<>(2);
+           int piezasA = posiblesA;
+           int piezasB = posiblesB;
+           boolean esPar = false;
+           boolean esParP1 = false;
+           boolean esParP2 = false;
+        int cantidadProporcional = cantidadTotal / 2;
+        if(cantidadTotal % 2 ==0){
+            esPar= true;
+        }
 
-        int cantidadPosibleP1 = 0;
-        int cantidadPosibleP2 = 0;
-        kgTotalItem = kgItemUnitario * cantItemPendientes;
+        if(piezasA % 2 ==0 && piezasA!= 1 ){
+            esParP1= true;
+        }
+
+        if(piezasB % 2 ==0 && piezasB!= 1){
+            esParP2= true;
+        }
 
 
-        cantidadPosibleP1 = calcularPosible(kgPrecintoA,kgItemUnitario,cantItemPendientes);
+
+            if(!esPar){
+                cantidadProporcional = (cantidadTotal - 1) /2;
+            }
+
+        if(!esParP1){
+            piezasA = piezasA - 1;
+        }
+
+        if(!esParP2){
+
+            piezasB = piezasB - 1;
+        }
 
 
 
-        return null;
+
+           if(piezasA > cantidadProporcional && piezasB > cantidadProporcional ){
+
+
+               if(!esParP1){
+                   piezasA+= 1;
+               }else{
+                   if(!esParP2){
+                       piezasB+=1;
+                   }
+               }
+
+               resultados.add(piezasA);
+               resultados.add(piezasB);
+
+           }
+           else{
+            int contadorSobrantes = 0;
+            if(piezasA < cantidadProporcional){
+                while(piezasA < cantidadProporcional){
+                    piezasA = piezasA - 1;
+                }
+            }
+            else{
+                while(piezasB < cantidadProporcional){
+                    piezasB = piezasB - 1;
+                }
+            }
+           }
+
+        resultados.add(piezasA);
+        resultados.add(piezasB);
+
+        return resultados;
     }
 
+    public List<Integer> calcularPosibleDosPrecintos(double kgPrecintoA,double kgPrecintoB, double kgItemUnitario,int cantItemPendientes,Maquina maquina){
+
+        List<Integer> resultado = new ArrayList<Integer>(2);
+        int cantidadPosibleP1 = 0;
+        int cantidadPosibleP2 = 0;
+        boolean piezas1ok = false;
+        boolean piezas2ok = false;
+
+        int merma = Integer.parseInt(maquina.getMerma());
+        Double kgTotalItemTrue = kgItemUnitario * cantItemPendientes;
+
+        if(cantItemPendientes == 1){
+
+            //Si solo hay un 1 item pendiente,probamos la cantidad posible con el primer precinto.
+            if(calcularPosible(kgPrecintoA,kgItemUnitario,1,merma) == 1){
+                resultado.add(1);
+                resultado.add(0);
+            }
+            else{
+                if(calcularPosible(kgPrecintoB,kgItemUnitario,1,merma) == 1){
+                    resultado.add(0);
+                    resultado.add(1);
+                }
+                else{
+                    resultado = null;
+                }
+            }
+        }
+        else{
+
+            //Acá va toda la lógica normal que existía antes.
+
+            boolean esPar = true;
+            if((cantItemPendientes % 2) != 0){
+                cantItemPendientes = cantItemPendientes - 1;
+                esPar = false;
+            }
+            int proporcionCantidad =cantItemPendientes/2;
+            cantidadPosibleP1 = calcularPosible(kgPrecintoA,kgItemUnitario,proporcionCantidad,merma);
+            cantidadPosibleP2 = calcularPosible(kgPrecintoB,kgItemUnitario,proporcionCantidad,merma);
+
+
+            if(cantidadPosibleP1 == proporcionCantidad){
+                piezas1ok = true;
+            }
+            if(cantidadPosibleP2 == proporcionCantidad){
+                piezas2ok = true;
+            }
+
+
+            //SI ES INPAR
+            if(!esPar){
+                if(piezas1ok && piezas2ok){
+                    cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, proporcionCantidad +1,merma);
+
+                    if(cantidadPosibleP1 != proporcionCantidad +1){
+                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, proporcionCantidad +1,merma);
+
+                    }
+                }
+                else{
+                    if(piezas1ok && !piezas2ok){
+
+                        cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, (cantItemPendientes) +1 - cantidadPosibleP2,merma );
+
+                    }
+                    else{
+                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, (cantItemPendientes) +1 - cantidadPosibleP1,merma );
+
+                    }
+                }
+            }
+            else{
+                if(piezas1ok && piezas2ok){
+                    cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, proporcionCantidad,merma );
+
+                    if(cantidadPosibleP1 != proporcionCantidad +1){
+                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, proporcionCantidad,merma );
+
+                    }
+                }
+                else{
+                    if(piezas1ok && !piezas2ok){
+
+                        cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, (cantItemPendientes) - cantidadPosibleP2,merma );
+
+                    }
+                    else{
+                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, (cantItemPendientes) - cantidadPosibleP1,merma );
+
+                    }
+                }
+            }
+
+
+            resultado.add(cantidadPosibleP1);
+            resultado.add(cantidadPosibleP2);
+            if(cantidadPosibleP1 == 0 && cantidadPosibleP2 == 0){
+                resultado = null;
+            }
+
+        }
+
+
+        return resultado;
+    }
+
+    public boolean deducirMerma(Double kgAUsarA, Double kgAUsarB, int porcentajeMerma, Double kgDisponibleA, Double kgDisponibleB){
+
+        boolean superaPermitido = false;
+
+        Double merma1 = porcentajeMerma * kgAUsarA / 100;
+        Double merma2 = porcentajeMerma * kgAUsarB / 100;
+
+        if((merma1 + kgAUsarA ) > kgDisponibleA || (merma2 + kgAUsarB)> kgDisponibleB){
+            superaPermitido = true;
+        }
+
+    return superaPermitido;
+    }
 }
