@@ -19,20 +19,12 @@ public class LineaDoblado2Activity extends AppCompatActivity {
         bt_principal = (Button) findViewById(R.id.bt_principal);
 
 
-        //Redirecciona a DatosUsuario
-        bt_datosUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LineaDoblado2Activity.this, DatosUsuarioDoblActivity.class);
-                finish();
-                startActivity(i);
-            }
-        });
+
         //Redirecciona a DatosUsuario
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDoblado2Activity.this, LineaDoblado2Activity.class);
+                Intent i = new Intent(LineaDoblado2Activity.this, ConfirmaLineaDoblado.class);
                 finish();
                 startActivity(i);
             }
@@ -42,7 +34,7 @@ public class LineaDoblado2Activity extends AppCompatActivity {
         bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDoblado2Activity.this, PrincipalActivity.class);
+                Intent i = new Intent(LineaDoblado2Activity.this, LineaDobladoActivity.class);
                 finish();
                 startActivity(i);
             }

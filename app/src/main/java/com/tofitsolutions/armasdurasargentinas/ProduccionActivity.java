@@ -48,7 +48,7 @@ public class ProduccionActivity extends AppCompatActivity {
         bt_lineaDoblado.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ProduccionActivity.this, LineaDoblado2Activity.class);
+                Intent i = new Intent(ProduccionActivity.this, LineaDobladoActivity.class);
                 finish();
                 startActivity(i);
             }

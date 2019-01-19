@@ -21,7 +21,7 @@ public class Conexion  {
         //con = DriverManager.getConnection("jdbc:mysql://wvulqmhjj9tbtc1w.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/m04c2f80573m1icb","joifpn3i49i6l0ib", "vwxdfv7no1ascale");
 
         //LOCAL
-        con = DriverManager.getConnection("jdbc:mysql://192.168.1.42:3306/armadurasargentinas","root","root");
+        con = DriverManager.getConnection("jdbc:mysql://172.16.154.109:3306/armadurasargentinas","root","root");
 
         return con;
     }

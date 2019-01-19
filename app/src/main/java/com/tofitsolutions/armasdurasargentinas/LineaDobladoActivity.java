@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 
 public class LineaDobladoActivity extends AppCompatActivity {
-    Button bt_oklineadoblado2,bt_cancellineadoblado2,bt_principal;
+    Button bt_oklineadoblado2,bt_cancellineadoblado2,bt_principal,bt_datosUsuario;
     TextView tv_usuarioEA2,tv_ayudanteEA2,tv_maquinaEA2,textView_PrecintoA,tv_cantidad1KGEA2,tv_cantPosible,tv_pendiente;
     EditText et_cantidadADeclarar,et_ItemEstribadora2;
     ItemController itemController;
@@ -25,6 +25,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_linea_doblado2);
+        bt_datosUsuario = (Button) findViewById(R.id.bt_datosUsuario);
         bt_oklineadoblado2 = (Button) findViewById(R.id.bt_oklineadoblado2);
         bt_cancellineadoblado2 = (Button) findViewById(R.id.bt_cancellineadoblado2);
         bt_principal = (Button) findViewById(R.id.bt_principal);
@@ -42,6 +43,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
 
         itemController = new ItemController();
         //OBTIENE DATOS DE VISTA ANTERIOR
+        /*
         Intent intentProduccion = getIntent();
         final String usuario = intentProduccion.getStringExtra("usuario");
         final String ayudante = intentProduccion.getStringExtra("ayudante");
@@ -54,39 +56,26 @@ public class LineaDobladoActivity extends AppCompatActivity {
         tv_maquinaEA2.setText(maquina.getMarca() + "-" + maquina.getModelo());
         textView_PrecintoA.setText(ingreso.getLote());
         tv_cantidad1KGEA2.setText(kgReal);
+*/
+
+
+        //Redirecciona a DatosUsuario
+        bt_datosUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LineaDobladoActivity.this, DatosUsuarioDoblActivity.class);
+                finish();
+                startActivity(i);
+            }
+        });
+
 
         //Redirecciona a DatosUsuario
         bt_oklineadoblado2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(et_ItemEstribadora2.length() != 11 || et_cantidadADeclarar.length() == 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                    builder.setTitle("Atencion!");
-                    builder.setMessage("Complete los datos para continuar");
-                    builder.setCancelable(false);
-                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-
-                    et_ItemEstribadora2.setText("");
-                    et_cantidadADeclarar.setText("");
-                    return;
-                }
-                Intent i = new Intent(LineaDobladoActivity.this, ConfirmaLineaCortado.class);
-                i.putExtra("ingreso",ingreso);
-                i.putExtra("item",item);
-                i.putExtra("codigoMP",codigoMP);
-                i.putExtra("cantidad",et_cantidadADeclarar.getText().toString());
-                i.putExtra("maquina",maquina);
-                i.putExtra("usuario",usuario);
-                i.putExtra("ayudante",ayudante);
-
+                Intent i = new Intent(LineaDobladoActivity.this, LineaDoblado2Activity.class);
                 finish();
                 startActivity(i);
             }
@@ -96,7 +85,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
         bt_cancellineadoblado2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LineaDobladoActivity.this, LineaCortadoActivity.class);
+                Intent i = new Intent(LineaDobladoActivity.this, ProduccionActivity.class);
                 finish();
                 startActivity(i);
             }
@@ -173,7 +162,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     }
 
                     //Validacion de codigo de material
-                    String tipoMat = codigoMP.getTipoMaterial();
+                    //String tipoMat = codigoMP.getTipoMaterial();
 
                     /*
                     if(!tipoMat.equals("ADNS") && !tipoMat.equals("ADN") ){
@@ -195,74 +184,6 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     }
 
                     */
-
-                    if(!codigoMP.getFamilia().equals(itemTemp.getDiametro())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("El diametro del item no corresponde con el lote.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
-
-                    }
-
-                    if(Integer.parseInt(itemTemp.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(itemTemp.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("El diametro del item no corresponde con la máquina.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
-                    }
-
-                    // Se actualizan los ET de Cantidad Posible e Item Pendientes
-
-                    String cantidad = (itemTemp.getCantidad());
-                    String cantidadDec = (itemTemp.getCantidadDec());
-                    double kgUnitario = Double.parseDouble(itemTemp.getPeso()) / Double.parseDouble(cantidad);
-                    tv_cantidad1KGEA2.setText(ingreso.getKgDisponible());
-                    int cantidadPosibleNum = calcularPosible((Double.parseDouble(ingreso.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),Integer.parseInt(maquina.getMerma()));
-                    cantidadPosible = cantidadPosibleNum;
-                    if(cantidadPosibleNum==0){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("No se puede declarar ya que la cantidad posible es 0.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
-                    }
-
-                    int cantidadPendienteNum = (Integer.parseInt(itemTemp.getCantidad())) - cantidadPosibleNum - Integer.parseInt(cantidadDec);
-                    double kgAProducir = cantidadPosibleNum * kgUnitario;
-                    System.out.println("Cantidad a producir = " + kgAProducir);
-                    tv_cantPosible.setText("CP: " + cantidadPosibleNum);
-                    et_cantidadADeclarar.setText(String.valueOf(cantidadPosibleNum));
-                    tv_pendiente.setText("P: " + String.valueOf(cantidadPendienteNum));
-                    et_cantidadADeclarar.setText(String.valueOf(cantidadPosibleNum));
 
                     item = itemTemp;
 
