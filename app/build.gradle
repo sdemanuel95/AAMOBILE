@@ -55,4 +55,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     testImplementation 'junit:junit:4.12'
     implementation files('libs/mysql-connector-java-5.1.46-bin.jar')
+    implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
+
 }

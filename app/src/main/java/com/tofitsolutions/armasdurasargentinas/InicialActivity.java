@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.InventarioController;
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -78,6 +78,8 @@ public class InicialActivity extends AppCompatActivity {
                 } else {
                     // CREAR NUEVO ACTIVITY
 
+                    //PRUEBA
+                    //PRUEBA
 
                     Intent i = new Intent(InicialActivity.this, PrincipalActivity.class);
                     new getUsuario().execute();

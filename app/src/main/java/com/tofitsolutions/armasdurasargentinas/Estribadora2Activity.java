@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

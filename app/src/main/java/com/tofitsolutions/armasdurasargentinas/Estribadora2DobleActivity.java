@@ -3,7 +3,6 @@ package com.tofitsolutions.armasdurasargentinas;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +21,6 @@ import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Estribadora2DobleActivity extends AppCompatActivity {

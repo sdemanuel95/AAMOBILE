@@ -12,13 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tofitsolutions.armasdurasargentinas.controllers.FormatoController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.models.Formato;
 
 public class LineaDobladoActivity extends AppCompatActivity {
     Button bt_oklineadoblado2,bt_cancellineadoblado2,bt_principal,bt_datosUsuario;
     TextView tv_usuarioEA2,tv_ayudanteEA2,tv_maquinaEA2,textView_PrecintoA,tv_cantidad1KGEA2,tv_cantPosible,tv_pendiente;
     EditText et_cantidadADeclarar,et_ItemEstribadora2;
     ItemController itemController;
+
+    FormatoController formatoController;
     Item item =null;
     int cantidadPosible = 0;
     @Override
@@ -42,21 +46,25 @@ public class LineaDobladoActivity extends AppCompatActivity {
 
 
         itemController = new ItemController();
+        formatoController = new FormatoController();
         //OBTIENE DATOS DE VISTA ANTERIOR
-        /*
+
         Intent intentProduccion = getIntent();
         final String usuario = intentProduccion.getStringExtra("usuario");
         final String ayudante = intentProduccion.getStringExtra("ayudante");
         final Maquina maquina = (Maquina)intentProduccion.getSerializableExtra("maquina");
-        final IngresoMP ingreso = (IngresoMP)intentProduccion.getSerializableExtra("ingresoMP");
-        final CodigoMP codigoMP = (CodigoMP) intentProduccion.getSerializableExtra("codigoMP");
-        final String kgReal = intentProduccion.getStringExtra("kgReal");
-        tv_usuarioEA2.setText(usuario);
-        tv_ayudanteEA2.setText(ayudante);
-        tv_maquinaEA2.setText(maquina.getMarca() + "-" + maquina.getModelo());
-        textView_PrecintoA.setText(ingreso.getLote());
-        tv_cantidad1KGEA2.setText(kgReal);
-*/
+        //final IngresoMP ingreso = (IngresoMP)intentProduccion.getSerializableExtra("ingresoMP");
+        //final CodigoMP codigoMP = (CodigoMP) intentProduccion.getSerializableExtra("codigoMP");
+        //final String kgReal = intentProduccion.getStringExtra("kgReal");
+
+        if(usuario != null){
+            tv_usuarioEA2.setText(usuario);
+            tv_ayudanteEA2.setText(ayudante);
+            tv_maquinaEA2.setText(maquina.getMarca() + "-" + maquina.getModelo());
+        }
+        //textView_PrecintoA.setText(ingreso.getLote());
+        //tv_cantidad1KGEA2.setText(kgReal);
+
 
 
         //Redirecciona a DatosUsuario
@@ -75,6 +83,48 @@ public class LineaDobladoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(usuario == null || usuario.equals("") || maquina == null){
+
+                    //DEBE COMPLETAR LOS DATOS DE USUARIO PARA CONTINUAR
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("Debe completar los datos de usuario y maquina para continuar.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
+                    return;
+                }
+
+                if(et_ItemEstribadora2.getText().toString() == null ||
+                        et_ItemEstribadora2.getText().toString().equals("") ||
+                        et_cantidadADeclarar.getText().toString() == null ||
+                        et_cantidadADeclarar.getText().toString().equals("") ){
+
+
+                    //DEBE COMPLETAR LOS DATOS DE USUARIO PARA CONTINUAR
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("Debe completar los campos para continuar.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
+                    return;
+
+                }
                 Intent i = new Intent(LineaDobladoActivity.this, LineaDoblado2Activity.class);
                 finish();
                 startActivity(i);
@@ -143,7 +193,29 @@ public class LineaDobladoActivity extends AppCompatActivity {
                         return;
                     }
 
+
+                    Formato formato = formatoController.getFormato(Long.parseLong(itemTemp.getFormato()));
                     //Valida si el item ya se encuentra declarado
+
+
+                    if(formato.getCant_doblados() == 0 ){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El formato del item ingresado no contiene doblados.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
+
                     if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");
@@ -159,6 +231,27 @@ public class LineaDobladoActivity extends AppCompatActivity {
                         dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
                         et_ItemEstribadora2.setText("");
                         return;
+                    }
+
+
+                    if ( ! (Integer.parseInt(itemTemp.getCantidad()) == Integer.parseInt(itemTemp.getCantidadDec()))) {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("Aún no se han declarado todas las piezas en la máquina CORTADORA.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+
+
                     }
 
                     //Validacion de codigo de material

@@ -113,7 +113,7 @@ public class DatosUsuarioDoblActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (usuarioElegido != "" || ayudanteElegido != "") {
-                    Intent i = new Intent(DatosUsuarioDoblActivity.this, LineaDoblado2Activity.class);
+                    Intent i = new Intent(DatosUsuarioDoblActivity.this, LineaDobladoActivity.class);
                     i.putExtra("usuario", usuarioElegido);
                     i.putExtra("ayudante", ayudanteElegido);
                     Maquina maquina = null;

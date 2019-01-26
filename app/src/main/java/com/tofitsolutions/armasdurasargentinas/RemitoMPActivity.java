@@ -1,28 +1,23 @@
 package com.tofitsolutions.armasdurasargentinas;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RemitoMPActivity extends AppCompatActivity {
 

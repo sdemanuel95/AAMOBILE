@@ -19,6 +19,10 @@ allprojects {
         google()
         maven {
             url "https://maven.java.net/content/groups/public/"
+
+        }
+        maven {
+            url 'https://repo.spring.io/libs-milestone'
         }
     }
 }

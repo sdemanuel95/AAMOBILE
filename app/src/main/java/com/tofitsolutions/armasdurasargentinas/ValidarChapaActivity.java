@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

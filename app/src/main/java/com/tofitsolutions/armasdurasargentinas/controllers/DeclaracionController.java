@@ -3,12 +3,7 @@ package com.tofitsolutions.armasdurasargentinas.controllers;
 import android.os.StrictMode;
 
 import com.google.gson.Gson;
-import com.tofitsolutions.armasdurasargentinas.Item;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;

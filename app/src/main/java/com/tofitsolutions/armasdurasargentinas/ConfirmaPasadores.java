@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.StockController;
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 
 import java.sql.Connection;
 import java.sql.SQLException;

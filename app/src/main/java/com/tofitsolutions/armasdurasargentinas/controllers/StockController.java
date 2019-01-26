@@ -4,7 +4,6 @@ import android.os.StrictMode;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tofitsolutions.armasdurasargentinas.CodigoMP;
 import com.tofitsolutions.armasdurasargentinas.Stock;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 

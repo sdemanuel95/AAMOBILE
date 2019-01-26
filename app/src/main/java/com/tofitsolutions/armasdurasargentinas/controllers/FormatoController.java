@@ -1,11 +1,10 @@
-package com.tofitsolutions.armasdurasargentinas;
-import android.os.Bundle;
+package com.tofitsolutions.armasdurasargentinas.controllers;
+
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController;
+import com.tofitsolutions.armasdurasargentinas.models.Formato;
+import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,31 +17,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestConsumingRest extends AppCompatActivity {
-    TextView sal;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        sal  = (TextView) findViewById(R.id.salida);
-        getData();
-    }
-
-
-    public void getData(){
-        String sql = "http://192.168.1.37:8080/items/664";
+public class FormatoController {
+    String host = Util.getHost();
+    public Formato getFormato(long idFormato){
+        String sql = "http://"+host+"/formatos/" + idFormato;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Gson gson = new Gson();
         URL url = null;
         HttpURLConnection conn;
+        Formato formato = null;
 
         try {
             url = new URL(sql);
             conn = (HttpURLConnection) url.openConnection();
 
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
 
             conn.connect();
 
@@ -61,7 +51,11 @@ public class TestConsumingRest extends AppCompatActivity {
             json = response.toString();
 
             JSONArray jsonArr = null;
-            JSONObject objecto = new JSONObject(json);
+            if(json == null || json.equals("")){
+                return null;
+            }
+            else{
+                JSONObject objecto = new JSONObject(json);
             /*
             jsonArr = new JSONArray(json);
             String mensaje = "";
@@ -74,15 +68,12 @@ public class TestConsumingRest extends AppCompatActivity {
             }
             */
 
-            String mensaje = objecto.toString();
-            Item item =  gson.fromJson(json, Item.class);
-            DeclaracionController dc = new DeclaracionController();
-            if((dc.existe("BRIVO001002"))){
-                sal.setText(item.getAcero() + item.getCodigo());
+                String mensaje = objecto.toString();
+                formato =  gson.fromJson(json, Formato.class);
+
+                //sal.setText(item.getAcero() + item.getCodigo());
             }
-            else{
-                sal.setText("No existe.");
-            }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -90,6 +81,8 @@ public class TestConsumingRest extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return formato;
     }
 
 }

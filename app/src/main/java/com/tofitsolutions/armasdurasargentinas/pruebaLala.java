@@ -8,7 +8,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import java.sql.Array;
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
