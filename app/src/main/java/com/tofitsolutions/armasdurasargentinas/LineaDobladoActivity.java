@@ -15,20 +15,23 @@ import android.widget.TextView;
 import com.tofitsolutions.armasdurasargentinas.controllers.FormatoController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 import com.tofitsolutions.armasdurasargentinas.models.Formato;
+import com.tofitsolutions.armasdurasargentinas.restControllers.DeclaracionImpl;
 
 public class LineaDobladoActivity extends AppCompatActivity {
     Button bt_oklineadoblado2,bt_cancellineadoblado2,bt_principal,bt_datosUsuario;
-    TextView tv_usuarioEA2,tv_ayudanteEA2,tv_maquinaEA2,textView_PrecintoA,tv_cantidad1KGEA2,tv_cantPosible,tv_pendiente;
-    EditText et_cantidadADeclarar,et_ItemEstribadora2;
+    TextView tv_usuarioEA2,tv_ayudanteEA2,tv_maquinaEA2;
+    EditText et_ItemEstribadora2;
     ItemController itemController;
-
+    DeclaracionImpl t;
     FormatoController formatoController;
     Item item =null;
     int cantidadPosible = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        t = new DeclaracionImpl();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linea_doblado2);
+        setContentView(R.layout.activity_linea_doblado);
         bt_datosUsuario = (Button) findViewById(R.id.bt_datosUsuario);
         bt_oklineadoblado2 = (Button) findViewById(R.id.bt_oklineadoblado2);
         bt_cancellineadoblado2 = (Button) findViewById(R.id.bt_cancellineadoblado2);
@@ -36,12 +39,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
         tv_usuarioEA2 = (TextView) findViewById(R.id.tv_usuarioEA2);
         tv_ayudanteEA2 = (TextView) findViewById(R.id.tv_ayudanteEA2);
         tv_maquinaEA2 = (TextView) findViewById(R.id.tv_maquinaEA2);
-        textView_PrecintoA  = (TextView) findViewById(R.id.textView_PrecintoA);
-        tv_cantidad1KGEA2 = (TextView) findViewById(R.id.tv_cantidad1KGEA2);
-        et_cantidadADeclarar = (EditText) findViewById(R.id.et_cantidadADeclarar) ;
         et_ItemEstribadora2 = (EditText) findViewById(R.id.et_ItemEstribadora2) ;
-        tv_cantPosible = (TextView) findViewById(R.id.tv_cantPosible);
-        tv_pendiente = (TextView) findViewById(R.id.tv_pendiente);
 
 
 
@@ -103,9 +101,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                 }
 
                 if(et_ItemEstribadora2.getText().toString() == null ||
-                        et_ItemEstribadora2.getText().toString().equals("") ||
-                        et_cantidadADeclarar.getText().toString() == null ||
-                        et_cantidadADeclarar.getText().toString().equals("") ){
+                        et_ItemEstribadora2.getText().toString().equals("") ){
 
 
                     //DEBE COMPLETAR LOS DATOS DE USUARIO PARA CONTINUAR
@@ -125,9 +121,57 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     return;
 
                 }
-                Intent i = new Intent(LineaDobladoActivity.this, LineaDoblado2Activity.class);
-                finish();
-                startActivity(i);
+
+
+                if (item.getCantidad().equals(item.getCantidadDec())){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+
+                    // set title
+                    builder.setTitle("Confirmacion");
+
+                    // set dialog message
+                    builder.setMessage("¿Está seguro que desea continuar?");
+                    builder.setCancelable(false);
+
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //ACA TIENE QUE INSERTAR LA DECLARACION! :-)
+                        Declaracion d = new Declaracion(null,null,"Ema",
+                                "Emanuielo","cuylitooo",null,null,"ITEMMMM","0","0");
+                        boolean isValid = t.crearDeclaracion(d);
+
+                        if(isValid){
+                            //INSERTÓ CORRECTAMENTE
+                        }
+                        else{
+                            //FALLÓ LA INSERCION
+                        }
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    // create alert dialog
+                    AlertDialog dialog = builder.create();
+
+                    // show it
+                    dialog.show();
+
+
+                }
+                else{
+                    Intent i = new Intent(LineaDobladoActivity.this, LineaDoblado2Activity.class);
+                    finish();
+                    startActivity(i);
+
+                }
+
             }
         });
 
@@ -216,182 +260,28 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     }
 
 
-                    if (itemTemp.getCantidad().equals(itemTemp.getCantidadDec())){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("El item ingresado ya encuentra declarado.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
-                    }
 
 
-                    if ( ! (Integer.parseInt(itemTemp.getCantidad()) == Integer.parseInt(itemTemp.getCantidadDec()))) {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("Aún no se han declarado todas las piezas en la máquina CORTADORA.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
 
 
-                    }
-
-                    //Validacion de codigo de material
-                    //String tipoMat = codigoMP.getTipoMaterial();
-
-                    /*
-                    if(!tipoMat.equals("ADNS") && !tipoMat.equals("ADN") ){
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("El item no corresponde al material del lote.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
-                    }
-
-                    */
 
                     item = itemTemp;
 
                 }
-                else{
-                    et_cantidadADeclarar.setText("");
-                    tv_pendiente.setText("");
-                    tv_cantPosible.setText("");
-                }
 
 
-                    /*
-                    if(codigoMP.getTipoMaterial().equals("ADN") && !itemTemp.getAcero().equals("ADN420")){
-                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                        builder.setTitle("Atencion!");
-                        builder.setMessage("El item no corresponde al material del lote.");
-                        builder.setCancelable(false);
-                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                        et_ItemEstribadora2.setText("");
-                        return;
-
-                    }
-
-                    */
 
 
 
             }
         });
 
-        et_cantidadADeclarar.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s){
-                String nro = s.toString();
-                if(nro.length()>=1){
-                    if(et_cantidadADeclarar.getText().toString().length() >=1){
-
-                        try{
-                            Double.parseDouble(et_cantidadADeclarar.getText().toString());
-                        }
-                        catch(Exception e){
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                            builder.setTitle("Atencion!");
-                            builder.setMessage("Debe ingresar un valor numérico.");
-                            builder.setCancelable(false);
-                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                            et_cantidadADeclarar.setText("");
-                            return;
-                        }
-                        if (Integer.parseInt(et_cantidadADeclarar.getText().toString()) > cantidadPosible ) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                            builder.setTitle("Atencion!");
-                            builder.setMessage("No puede declarar más que la cantidad posible.");
-                            builder.setCancelable(false);
-                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-                            et_cantidadADeclarar.setText("");
-                            return;
-                        }
-                    }
-                    if(item!=null){
-                        tv_pendiente.setText(String.valueOf(Integer.parseInt(item.getCantidad()) - Integer.parseInt(item.getCantidadDec()) - Integer.parseInt(et_cantidadADeclarar.getText().toString())));
-
-                    }
-                }
-
-            }
-        });
 
 
     }
 
 
 
-    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem,int merma){
-        double resp= 0;
-
-        double kgTotalItem = kgItem * cantItem;
-        kgTotalItem = kgTotalItem + (merma * kgTotalItem / 100);
-        if(cantItem == 0){
-            return 0;
-        }
-        if(kgPrecinto >= kgTotalItem){
-            return cantItem;
-        }
-        else{
-            return calcularPosible(kgPrecinto, kgItem, cantItem-1,merma);
-        }
-    }
 
 
 }

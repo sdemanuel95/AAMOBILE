@@ -5,7 +5,7 @@ package com.tofitsolutions.armasdurasargentinas;
  */
 
 public class Declaracion {
-    private long id;
+    private String id;
     private String fecha;
     private String usuario;
     private String ayudante;
@@ -16,7 +16,7 @@ public class Declaracion {
     private String cantidad;
     private String cantidadKG;
 
-    public Declaracion(long id, String fecha, String usuario, String ayudante,
+    public Declaracion(String id, String fecha, String usuario, String ayudante,
                        String equipo, String precintoA, String precintoB,
                        String item, String cantidad, String cantidadKG) {
         this.id = id;
@@ -41,11 +41,11 @@ public class Declaracion {
         this.cantidad = cantidad;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

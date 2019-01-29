@@ -12,7 +12,7 @@ public class LineaDoblado2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_linea_doblado);
+        setContentView(R.layout.activity_linea_doblado2);
         bt_datosUsuario = (Button) findViewById(R.id.bt_datosUsuario);
         bt_ok = (Button) findViewById(R.id.bt_ok);
         bt_cancel = (Button) findViewById(R.id.bt_cancel);

@@ -455,7 +455,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                     double kgPosibleB = Double.parseDouble(textView_kgPosibleB.getText().toString());
                     double kgUnitario = kgUnitarioDelItem;
                     int itemsAUsar = Integer.parseInt(et_cantidadADeclarar.getText().toString());
-                    List<Integer> kgAProducirPrecrintos = calcularPosibleDosPrecintos(kgPosibleA,kgPosibleB,kgUnitario,itemsAUsar,maquina);
+                    List<Integer> kgAProducirPrecrintos = calcularPosibleDosPrecintos((Double.parseDouble(ingresoMP1.getKgDisponible())),(Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,itemsAUsar,maquina);
 
                     if(kgAProducirPrecrintos ==  null){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -740,10 +740,10 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
             //SI ES INPAR
             if(!esPar){
                 if(piezas1ok && piezas2ok){
-                    cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, proporcionCantidad +1,merma);
+                    cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, (proporcionCantidad +1),merma);
 
                     if(cantidadPosibleP1 != proporcionCantidad +1){
-                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, proporcionCantidad +1,merma);
+                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, (proporcionCantidad +1),merma);
 
                     }
                 }

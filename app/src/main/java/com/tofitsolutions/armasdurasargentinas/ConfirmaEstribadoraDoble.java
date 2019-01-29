@@ -193,7 +193,7 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
                 Statement stmt = con.createStatement();
                 progress.setMax(listaDeclaraciones.size());
                 for (Declaracion ld : listaDeclaraciones) {
-                    long id = ld.getId();
+                    String id = ld.getId();
                     String usuario = ld.getUsuario();
                     String ayudante = ld.getAyudante();
                     String equipo = ld.getEquipo();
@@ -216,8 +216,8 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
                     Log.d("usuario: ", usuario);
                     progreso++;
                     publishProgress(progreso);
-                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad,CantidadKG) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
-                            "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad + "','" + kgAProducir + "');" );
+                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad,CantidadKG,CantidadKGP1,CantidadKGP2) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
+                            "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad + "','" + kgAProducir + "','" + kgAProducirA + "','"+kgAProducirB + "');" );
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
                     String mermaCalculadaTOTAL = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
                     String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducirA) / 100);

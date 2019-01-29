@@ -49,7 +49,7 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirma_linea_doblado);
+        setContentView(R.layout.activity_confirma_linea_cortado);
         stockController = new StockController();
         confirmaUsuario = (TextView) findViewById(R.id.confirmaUsuario);
         confirmaAyudante = (TextView) findViewById(R.id.confirmaAyudante);
@@ -180,7 +180,7 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
                 Statement stmt = con.createStatement();
                 progress.setMax(listaDeclaraciones.size());
                 for (Declaracion ld : listaDeclaraciones) {
-                    long id = ld.getId();
+                    String id = ld.getId();
                     String usuario = ld.getUsuario();
                     String ayudante = ld.getAyudante();
                     String equipo = ld.getEquipo();

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_weight="6"
+    android:layout_height="wrap_content"
+    android:layout_weight="5"
     android:background="@drawable/fondo_rojo"
     android:orientation="vertical"
-    android:weightSum="6"
+    android:weightSum="5"
     tools:context="com.tofitsolutions.armasdurasargentinas.LineaDoblado2Activity">
 
     <LinearLayout
@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_usuarioEA"
+                android:id="@+id/tv_usuarioEA2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -43,7 +43,7 @@
                 android:textSize="21sp" />
 
             <TextView
-                android:id="@+id/tv_ayudanteEA"
+                android:id="@+id/tv_ayudanteEA2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -53,7 +53,7 @@
                 android:textSize="21sp" />
 
             <TextView
-                android:id="@+id/tv_maquinaEA"
+                android:id="@+id/tv_maquinaEA2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -64,60 +64,54 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="3.8"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:weightSum="3">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.5"
             android:gravity="center_vertical|center_horizontal"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <EditText
-                android:id="@+id/et_precintoA"
-                android:layout_width="250dp"
+                android:id="@+id/et_ItemEstribadora2"
+                android:layout_width="210dp"
                 android:layout_height="47dp"
-                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_weight="3"
                 android:background="@drawable/border_radius"
                 android:ems="10"
-                android:gravity="center"
-                android:hint="Precinto 1"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="Lea el código del Item"
                 android:inputType="text"
-                android:maxLength="24"
-                android:text=""
-                android:textSize="16sp" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-
-
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-            <EditText
-                android:id="@+id/et_kg2"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_marginBottom="10dp"
-                android:textColorHint="#FFF"
-                android:background="@drawable/border_radius_grey"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Kg"
-                android:inputType="text"
-                android:maxLength="24"
+                android:maxLength="11"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:textSize="16sp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+            <Button
+                android:id="@+id/bt_teclado"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30px"
+                android:layout_weight="1"
+                android:background="@drawable/keyboard" />
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 
@@ -126,12 +120,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20px"
         android:layout_marginRight="20px"
-        android:layout_weight="0.5"
+        android:layout_weight="0.7"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/bt_ok"
+            android:id="@+id/bt_oklineadoblado2"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginRight="30px"
@@ -146,10 +140,11 @@
             android:background="@drawable/boton_principal" />
 
         <Button
-            android:id="@+id/bt_cancel"
+            android:id="@+id/bt_cancellineadoblado2"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="30px"
             android:background="@drawable/boton_cancelar_x" />
     </LinearLayout>
+
 </LinearLayout>

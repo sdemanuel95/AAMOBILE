@@ -96,7 +96,7 @@ public class pruebaLala extends AppCompatActivity {
 
                 progress.setMax(sizeRS);
                 while (rowDeclaracionCompleto.next()) {
-                    int id = rowDeclaracionCompleto.getInt("ID");
+                    String id = rowDeclaracionCompleto.getString("ID");
                     String fecha = rowDeclaracionCompleto.getString("Fecha");
                     String usuario = rowDeclaracionCompleto.getString("Usuario");
                     String ayudante = rowDeclaracionCompleto.getString("Ayudante");

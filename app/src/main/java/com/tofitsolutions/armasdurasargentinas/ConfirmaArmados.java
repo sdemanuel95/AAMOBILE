@@ -185,7 +185,7 @@ public class ConfirmaArmados extends AppCompatActivity {
                 Statement stmt = con.createStatement();
                 progress.setMax(listaDeclaraciones.size());
                 for (Declaracion ld : listaDeclaraciones) {
-                    long id = ld.getId();
+                    String id = ld.getId();
                     String usuario = ld.getUsuario();
                     String ayudante = ld.getAyudante();
                     String equipo = ld.getEquipo();
