@@ -103,7 +103,7 @@ public class pruebaLala extends AppCompatActivity {
                     String equipo = rowDeclaracionCompleto.getString("Equipo");
                     String precintoA = rowDeclaracionCompleto.getString("PrecintoA");
                     String precintoB = rowDeclaracionCompleto.getString("PrecintoB");
-                    String item = rowDeclaracionCompleto.getString("Item");
+                    String item = rowDeclaracionCompleto.getString("Items");
                     String cantidad = rowDeclaracionCompleto.getString("Cantidad");
                     String cantidadKG = rowDeclaracionCompleto.getString("CantidadKG");
                     listaDeclaraciones.add(new Declaracion(id, fecha, usuario, ayudante, equipo, precintoA, precintoB, item, cantidad, cantidadKG));

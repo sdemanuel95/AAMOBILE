@@ -1,10 +1,12 @@
 package com.tofitsolutions.armasdurasargentinas;
 
+import java.io.Serializable;
+
 /**
  * Created by Abel on 5/11/2017.
  */
 
-public class Declaracion {
+public class Declaracion implements Serializable {
     private String id;
     private String fecha;
     private String usuario;
@@ -15,6 +17,25 @@ public class Declaracion {
     private String item;
     private String cantidad;
     private String cantidadKG;
+    private String cantidadKGP1;
+    private String cantidadKGP2;
+
+    public Declaracion(String id, String fecha, String usuario, String ayudante,
+                       String equipo, String precintoA, String precintoB,
+                       String item, String cantidad, String cantidadKG,String cantidadKGP1,String cantidadKGP2) {
+        this.id = id;
+        this.fecha = fecha;
+        this.usuario = usuario;
+        this.ayudante = ayudante;
+        this.equipo = equipo;
+        this.precintoA = precintoA;
+        this.precintoB = precintoB;
+        this.item = item;
+        this.cantidad = cantidad;
+        this.cantidadKG = cantidadKG;
+        this.cantidadKGP1 = cantidadKGP1;
+        this.cantidadKGP2 = cantidadKGP2;
+    }
 
     public Declaracion(String id, String fecha, String usuario, String ayudante,
                        String equipo, String precintoA, String precintoB,
@@ -119,5 +140,21 @@ public class Declaracion {
 
     public void setCantidadKG(String cantidadKG) {
         this.cantidadKG = cantidadKG;
+    }
+
+    public String getCantidadKGP1() {
+        return cantidadKGP1;
+    }
+
+    public void setCantidadKGP1(String cantidadKGP1) {
+        this.cantidadKGP1 = cantidadKGP1;
+    }
+
+    public String getCantidadKGP2() {
+        return cantidadKGP2;
+    }
+
+    public void setCantidadKGP2(String cantidadKGP2) {
+        this.cantidadKGP2 = cantidadKGP2;
     }
 }

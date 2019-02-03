@@ -223,7 +223,7 @@ public class ValidarChapaActivity extends AppCompatActivity {
                     String destinatario = rs.getString("Destinatario");
                     String colada = rs.getString("Colada");
                     String pesoPorBalanza = rs.getString("PesoPorBalanza");
-                    materiasPrimaBD.add(new IngresoMP(id, fecha, referencia, material, descripcion, cantidad, umb, lote, destinatario, colada, pesoPorBalanza));
+                    materiasPrimaBD.add(new IngresoMP(id, null, referencia, material, descripcion, cantidad, umb, lote, destinatario, colada, pesoPorBalanza));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

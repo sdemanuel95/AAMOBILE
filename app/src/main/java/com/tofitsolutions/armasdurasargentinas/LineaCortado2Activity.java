@@ -13,13 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 public class LineaCortado2Activity extends AppCompatActivity {
     Button bt_oklineacortado2,bt_cancellineacortado2,bt_principal;
     TextView tv_usuarioEA2,tv_ayudanteEA2,tv_maquinaEA2,textView_PrecintoA,tv_cantidad1KGEA2,tv_cantPosible,tv_pendiente;
     EditText et_cantidadADeclarar,et_ItemEstribadora2;
     ItemController itemController;
-    Item item =null;
+    Items item =null;
     int cantidadPosible = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +126,7 @@ public class LineaCortado2Activity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Item itemTemp = null;
+                Items itemTemp = null;
                 String nro = s.toString();
                 String itemPendiente = "none";
                 String cantPosible = "none";
@@ -231,13 +232,13 @@ public class LineaCortado2Activity extends AppCompatActivity {
                         return;
                     }
 
-                    // Se actualizan los ET de Cantidad Posible e Item Pendientes
+                    // Se actualizan los ET de Cantidad Posible e Items Pendientes
 
                     String cantidad = (itemTemp.getCantidad());
                     String cantidadDec = (itemTemp.getCantidadDec());
                     double kgUnitario = Double.parseDouble(itemTemp.getPeso()) / Double.parseDouble(cantidad);
                     tv_cantidad1KGEA2.setText(ingreso.getKgDisponible());
-                    int cantidadPosibleNum = calcularPosible((Double.parseDouble(ingreso.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),Integer.parseInt(maquina.getMerma()));
+                    int cantidadPosibleNum = Util.calcularPosible((Double.parseDouble(ingreso.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),Integer.parseInt(maquina.getMerma()));
                     cantidadPosible = cantidadPosibleNum;
                     if(cantidadPosibleNum==0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(LineaCortado2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -362,21 +363,7 @@ public class LineaCortado2Activity extends AppCompatActivity {
     }
 
 
-    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem,int merma){
-        double resp= 0;
 
-        double kgTotalItem = kgItem * cantItem;
-        kgTotalItem = kgTotalItem + (merma * kgTotalItem / 100);
-        if(cantItem == 0){
-            return 0;
-        }
-        if(kgPrecinto >= kgTotalItem){
-            return cantItem;
-        }
-        else{
-            return calcularPosible(kgPrecinto, kgItem, cantItem-1,merma);
-        }
-    }
 
 
 

@@ -15,6 +15,10 @@ import android.widget.TextView;
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 import com.tofitsolutions.armasdurasargentinas.controllers.StockController;
+import com.tofitsolutions.armasdurasargentinas.restControllers.DeclaracionImpl;
+import com.tofitsolutions.armasdurasargentinas.restControllers.IngresoMPImpl;
+import com.tofitsolutions.armasdurasargentinas.restControllers.ItemImpl;
+import com.tofitsolutions.armasdurasargentinas.restControllers.MermaImpl;
 import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 
 import java.sql.Connection;
@@ -46,14 +50,20 @@ public class ConfirmaEstribadora extends AppCompatActivity {
     Maquina maquina = null;
     IngresoMP ingresoMP1 = null;
     IngresoMP ingresoMP2 = null;
-    Item itemObject = null;
+    Items itemObject = null;
     String usuario;
     String ayudante;
     String item;
     int cantidadAUsar;
     Double kgAProducir;
     String kgTotalItem;
-    Item itemADeclarar;
+    Items itemADeclarar;
+
+    private DeclaracionImpl declaracionImpl;
+    private IngresoMPImpl ingresoMPImpl;
+    private ItemImpl itemImpl;
+    private MermaImpl mermaImpl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +86,14 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         kgTotalItem = intentPrecintos.getStringExtra("kgTotalItem");
 
 
+        //SERVICIOS REST
+
+        declaracionImpl = new DeclaracionImpl();
+        mermaImpl = new MermaImpl();
+        itemImpl = new ItemImpl();
+        ingresoMPImpl = new IngresoMPImpl();
+
+
         usuario = intentPrecintos.getStringExtra("usuario");
         ayudante = intentPrecintos.getStringExtra("ayudante");
         maquina = (Maquina)intentPrecintos.getSerializableExtra("maquina");
@@ -84,7 +102,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         if(ingresoMP2==null){
             ingresoMP2 = new IngresoMP();
         }
-        itemObject = (Item) intentPrecintos.getSerializableExtra("itemObject");
+        itemObject = (Items) intentPrecintos.getSerializableExtra("itemObject");
         item = intentPrecintos.getStringExtra("item");
         cantidadAUsar = intentPrecintos.getIntExtra("cantidad",0);
         kgAProducir = intentPrecintos.getDoubleExtra("kgAProducir",0);
@@ -114,7 +132,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                 builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new guardarDeclaracion().execute();
+                        guardarDeclaracion();
                         
                     }
                 });
@@ -138,6 +156,13 @@ public class ConfirmaEstribadora extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ConfirmaEstribadora.this, Estribadora2Activity.class);
+                i.putExtra("ingresoMP1",ingresoMP1);
+                i.putExtra("ingresoMP2",ingresoMP2);
+                i.putExtra("kgAUsarMP1",ingresoMP1.getKgDisponible());
+                i.putExtra("kgAUsarMP2",ingresoMP2.getKgDisponible());
+                i.putExtra("usuario",usuario);
+                i.putExtra("ayudante", ayudante);
+                i.putExtra("maquina", maquina);
                 finish();
                 startActivity(i);
             }
@@ -153,7 +178,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         });
     }
 
-    private class guardarDeclaracion extends AsyncTask<Void, Integer, Void> {
+    /*private class guardarDeclaracion extends AsyncTask<Void, Integer, Void> {
         ArrayList<Declaracion> listaDeclaraciones;
         IngresoMPController ingresoMPController = new IngresoMPController();
         private int progreso = 0;
@@ -215,7 +240,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     Log.d("usuario: ", usuario);
                     progreso++;
                     publishProgress(progreso);
-                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad,CantidadKG) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
+                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Items,Cantidad,CantidadKG) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
                             "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad + "','" + kgAProducir + "');" );
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
                     String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
@@ -223,8 +248,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza,Codigo) values (NOW(),'" + ingresoMP1.getReferencia() + "','"+ingresoMP1.getCantidad() + "','" + ingresoMP1.getLote() + "','" + ingresoMP1.getColada() + "','"+ mermaCalculada + "','4310960')");
 
                     String kgdis1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgDisponible()) - (Double.parseDouble(cantidadKG) + Double.parseDouble(mermaCalculada))));
-                    String kgprod1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgProd()) + Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*/));
-                    stmt.executeUpdate("update ingresomp set KGProd = '" + kgprod1 +"', KGDisponible = '" + kgdis1+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
+                    String kgprod1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgProd()) + Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*///));
+                    /*stmt.executeUpdate("update ingresomp set KGProd = '" + kgprod1 +"', KGDisponible = '" + kgdis1+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
 
 
                     int cantidadDelItem = Integer.parseInt(itemADeclarar.getCantidad());
@@ -242,8 +267,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
                     String stockKGDISP = stock.getKgdisponible();
 
 
-                    stockKGPROD = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*/)));
-                    stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKG)) + Double.parseDouble(mermaCalculada))));
+                    stockKGPROD = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*///)));
+                    /*stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKG)) + Double.parseDouble(mermaCalculada))));
                     //ACTUALIZA EN STOCK
                     stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
 
@@ -277,5 +302,81 @@ public class ConfirmaEstribadora extends AppCompatActivity {
             startActivity(i);
             super.onPostExecute(aVoid);
         }
+    }
+
+    */
+
+
+    public void guardarDeclaracion(){
+
+
+        //INSERT DECLARACIÓN.
+        String equipo = maquina.getMarca() + "-" + maquina.getModelo();
+        String precintoA = ingresoMP1.getLote();
+
+        String cantidadKGTOTAL = String.valueOf(kgAProducir);
+        String cantidadKG = String.valueOf(kgAProducir);
+
+
+        Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,null,item,String.valueOf(cantidadAUsar),String.valueOf(kgAProducir),String.valueOf(kgAProducir),"0");
+        declaracionImpl.crearDeclaracion(d);
+
+
+        // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
+
+        //UNSERT EN MERMA
+
+        String mermaCalculadaTOTAL = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
+        String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
+        Merma merma1 = new Merma(null,null,ingresoMP1.getReferencia(),ingresoMP1.getMaterial(),ingresoMP1.getDescripcion(),ingresoMP1.getUmb(),ingresoMP1.getCantidad(),ingresoMP1.getLote(),ingresoMP1.getDestinatario(),ingresoMP1.getColada(),ingresoMP1.getPesoPorBalanza(),ingresoMP1.getKgTeorico(),"0",mermaCalculada,"4310960",itemObject.getDiametro());
+        mermaImpl.crearMerma(merma1);
+
+
+
+        //stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza,Codigo) values (NOW(),'" + ingresoMP1.getReferencia() + "','"+ingresoMP1.getCantidad() + "','" + ingresoMP1.getLote() + "','" + ingresoMP1.getColada() + "','"+ mermaCalculadaTOTAL + "','4310960')");
+
+        String kgdis1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgDisponible()) - (Double.parseDouble(cantidadKG) + Double.parseDouble(mermaCalculada))));
+        String kgprod1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgProd()) + Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*/));
+        //stmt.executeUpdate("update ingresomp set KGProd = '" + kgprod1 +"', KGDisponible = '" + kgdis1+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
+        ingresoMP1.setKgDisponible(kgdis1);
+        ingresoMP1.setKgProd(kgprod1);
+
+        ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
+
+
+        int cantidadDelItem = Integer.parseInt(itemADeclarar.getCantidad());
+        int cantidadDecDelItem = Integer.parseInt(itemADeclarar.getCantidadDec());
+
+
+        //cantidadDelItem = cantidadDelItem - Integer.parseInt(cantidad);
+        cantidadDecDelItem = cantidadDecDelItem + cantidadAUsar;
+
+        itemObject.setCantidadDec(String.valueOf(cantidadDecDelItem));
+        // stmt.executeUpdate("update items set CantidadDec = '" + cantidadDecDelItem+"' where Codigo ='" + item + "';");
+
+
+        itemImpl.actualizarItem(itemObject);
+        //STOCK NO HACE FALTA
+        //ingresoMPController.updatekg(codBarrasA + cantidad);
+        //Stock stock = stockController.getStock(ingresoMP1.getMaterial());
+        //String stockKGPROD = stock.getKgprod();
+        //String stockKGDISP = stock.getKgdisponible();
+
+
+        //stockKGPROD = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKGTOTAL) /*-Double.parseDouble(mermaCalculada)*/)));
+        //stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKGTOTAL)) + Double.parseDouble(mermaCalculadaTOTAL))));
+        //ACTUALIZA EN STOCK
+        // stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
+
+        Intent i = new Intent(ConfirmaEstribadora.this, Estribadora2Activity.class);
+
+        i.putExtra("ingresoMP1",ingresoMP1);
+        i.putExtra("kgAUsarMP1",ingresoMP1.getKgDisponible());
+        i.putExtra("usuario",usuario);
+        i.putExtra("ayudante", ayudante);
+        i.putExtra("maquina", maquina);
+        finish();
+        startActivity(i);
+
     }
 }

@@ -43,7 +43,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
     //private ArrayList<IngresoMP> materiasPrima;
 
     private ArrayList<CodigoMP> listaCodigosMP;
-    private ArrayList<Item> listaDeItems;
+    private ArrayList<Items> listaDeItems;
     private ArrayList<Declaracion> listaDeclaracion;
     private int pesoItem;
     private double kgTotalItem;
@@ -62,6 +62,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
     DeclaracionController declaracionController;
     CodigoMPController codigoMPController;
     ItemController itemController;
+    Items itemObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -147,7 +148,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                 String cantPosible = "none";
                 if (nro.length()==11) {
 
-                    Item item = itemController.getItem(et_ItemEstribadora2.getText().toString());
+                    Items item = itemController.getItem(et_ItemEstribadora2.getText().toString());
                     // --------------ESTA VALIDACION DEBE IR PRIMERO-------------------
                     //Valida que el item exista en la base de datos
                     if(item==null){
@@ -265,7 +266,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         return;
                     }
 
-                    // Se actualizan los ET de Cantidad Posible e Item Pendientes
+                    // Se actualizan los ET de Cantidad Posible e Items Pendientes
                     cantidad = (item.getCantidad());
                     cantidadDec = (item.getCantidadDec());
                     double kgUnitario = Double.parseDouble(item.getPeso()) / Double.parseDouble(cantidad);
@@ -274,7 +275,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
 
                     //CALCULAR POSIBLES
 
-                    List<Integer> cantidadesPosibles = calcularPosibleDosPrecintos((Double.parseDouble(ingresoMP1.getKgDisponible())),(Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),maquina);
+                    List<Integer> cantidadesPosibles = Util.calcularPosibleDosPrecintos((Double.parseDouble(ingresoMP1.getKgDisponible())),(Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),maquina);
 
                     if(cantidadesPosibles == null){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -373,10 +374,10 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
 
 
                         item = et_ItemEstribadora2.getText().toString();
-                        Item i = itemController.getItem(item);
-                        cantidad = (i.getCantidad());
-                        cantidadDec = (i.getCantidadDec());
-                        double kgUnitario = Double.parseDouble(i.getPeso()) / Double.parseDouble(cantidad);
+                        itemObject = itemController.getItem(item);
+                        cantidad = (itemObject.getCantidad());
+                        cantidadDec = (itemObject.getCantidadDec());
+                        double kgUnitario = Double.parseDouble(itemObject.getPeso()) / Double.parseDouble(cantidad);
                         kgUnitarioDelItem = kgUnitario;
                         //cantidadPendienteNum = (Double.parseDouble(i.getCantidad())) - Integer.parseInt(et_cantidadADeclarar.getText().toString()) - Integer.parseInt(cantidadDec);
                         kgAProducir = Util.setearDosDecimales(Integer.parseInt(et_cantidadADeclarar.getText().toString()) * kgUnitario);
@@ -455,7 +456,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                     double kgPosibleB = Double.parseDouble(textView_kgPosibleB.getText().toString());
                     double kgUnitario = kgUnitarioDelItem;
                     int itemsAUsar = Integer.parseInt(et_cantidadADeclarar.getText().toString());
-                    List<Integer> kgAProducirPrecrintos = calcularPosibleDosPrecintos((Double.parseDouble(ingresoMP1.getKgDisponible())),(Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,itemsAUsar,maquina);
+                    List<Integer> kgAProducirPrecrintos = Util.calcularPosibleDosPrecintos((Double.parseDouble(ingresoMP1.getKgDisponible())),(Double.parseDouble(ingresoMP2.getKgDisponible())),kgUnitario,itemsAUsar,maquina);
 
                     if(kgAProducirPrecrintos ==  null){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
@@ -491,7 +492,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                 i.putExtra("kgAProducirA",kgAProducirLOTEA);
                 i.putExtra("kgAProducirB",kgAProducirLOTEB);
                 i.putExtra("kgAProducir",kgAProducir);
-                    //i.putExtra("itemObject",i);
+                    i.putExtra("itemObject",itemObject);
                     i.putExtra("cantidad", Integer.parseInt(et_cantidadADeclarar.getText().toString()));
                     i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
                     finish();
@@ -552,7 +553,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
             msjToast.show();
         }
 
-        // Datos Item
+        // Datos Items
         String acero = ""; //ADN 420, ADN420S, ANGULOS, AL220, ALAMBRES, CLAVOS
         String diametro = "";
         // Busca el item y trae el acero y el diametro
@@ -597,21 +598,6 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
 
 
 
-    public int calcularPosible(double kgPrecinto, double kgItem,int cantItem,int merma){
-        double resp= 0;
-
-        kgTotalItem = kgItem * cantItem;
-        kgTotalItem = kgTotalItem + (merma * kgTotalItem / 100);
-        if(cantItem == 0){
-            return 0;
-        }
-        if(kgPrecinto >= kgTotalItem){
-            return cantItem;
-        }
-        else{
-            return calcularPosible(kgPrecinto, kgItem, cantItem-1,merma);
-        }
-    }
 
 
     public List<Integer>  calcularPiezasAUsar(int posiblesA, int posiblesB, int cantidadTotal){
@@ -685,113 +671,6 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
         resultados.add(piezasB);
 
         return resultados;
-    }
-
-    public List<Integer> calcularPosibleDosPrecintos(double kgPrecintoA,double kgPrecintoB, double kgItemUnitario,int cantItemPendientes,Maquina maquina){
-
-        List<Integer> resultado = new ArrayList<Integer>(2);
-        int cantidadPosibleP1 = 0;
-        int cantidadPosibleP2 = 0;
-        boolean piezas1ok = false;
-        boolean piezas2ok = false;
-
-        int merma = Integer.parseInt(maquina.getMerma());
-        Double kgTotalItemTrue = kgItemUnitario * cantItemPendientes;
-
-        if(cantItemPendientes == 1){
-
-            //Si solo hay un 1 item pendiente,probamos la cantidad posible con el primer precinto.
-            if(calcularPosible(kgPrecintoA,kgItemUnitario,1,merma) == 1){
-                resultado.add(1);
-                resultado.add(0);
-            }
-            else{
-                if(calcularPosible(kgPrecintoB,kgItemUnitario,1,merma) == 1){
-                    resultado.add(0);
-                    resultado.add(1);
-                }
-                else{
-                    resultado = null;
-                }
-            }
-        }
-        else{
-
-            //Acá va toda la lógica normal que existía antes.
-
-            boolean esPar = true;
-            if((cantItemPendientes % 2) != 0){
-                cantItemPendientes = cantItemPendientes - 1;
-                esPar = false;
-            }
-            int proporcionCantidad =cantItemPendientes/2;
-            cantidadPosibleP1 = calcularPosible(kgPrecintoA,kgItemUnitario,proporcionCantidad,merma);
-            cantidadPosibleP2 = calcularPosible(kgPrecintoB,kgItemUnitario,proporcionCantidad,merma);
-
-
-            if(cantidadPosibleP1 == proporcionCantidad){
-                piezas1ok = true;
-            }
-            if(cantidadPosibleP2 == proporcionCantidad){
-                piezas2ok = true;
-            }
-
-
-            //SI ES INPAR
-            if(!esPar){
-                if(piezas1ok && piezas2ok){
-                    cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, (proporcionCantidad +1),merma);
-
-                    if(cantidadPosibleP1 != proporcionCantidad +1){
-                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, (proporcionCantidad +1),merma);
-
-                    }
-                }
-                else{
-                    if(piezas1ok && !piezas2ok){
-
-                        cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, (cantItemPendientes) +1 - cantidadPosibleP2,merma );
-
-                    }
-                    else{
-                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, (cantItemPendientes) +1 - cantidadPosibleP1,merma );
-
-                    }
-                }
-            }
-            else{
-                if(piezas1ok && piezas2ok){
-                    cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, proporcionCantidad,merma );
-
-                    if(cantidadPosibleP1 != proporcionCantidad +1){
-                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, proporcionCantidad,merma );
-
-                    }
-                }
-                else{
-                    if(piezas1ok && !piezas2ok){
-
-                        cantidadPosibleP1 = calcularPosible(kgPrecintoA, kgItemUnitario, (cantItemPendientes) - cantidadPosibleP2,merma );
-
-                    }
-                    else{
-                        cantidadPosibleP2 = calcularPosible(kgPrecintoB, kgItemUnitario, (cantItemPendientes) - cantidadPosibleP1,merma );
-
-                    }
-                }
-            }
-
-
-            resultado.add(cantidadPosibleP1);
-            resultado.add(cantidadPosibleP2);
-            if(cantidadPosibleP1 == 0 && cantidadPosibleP2 == 0){
-                resultado = null;
-            }
-
-        }
-
-
-        return resultado;
     }
 
     public boolean deducirMerma(Double kgAUsarA, Double kgAUsarB, int porcentajeMerma, Double kgDisponibleA, Double kgDisponibleB){

@@ -3,7 +3,7 @@ package com.tofitsolutions.armasdurasargentinas.controllers;
 import android.os.StrictMode;
 
 import com.google.gson.Gson;
-import com.tofitsolutions.armasdurasargentinas.Item;
+import com.tofitsolutions.armasdurasargentinas.Items;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 import org.json.JSONArray;
@@ -19,14 +19,14 @@ import java.net.URL;
 
 public class ItemController {
     String host = Util.getHost();
-    public Item getItem(String codItem){
+    public Items getItem(String codItem){
         String sql = "http://"+host+"/items/codItem/" + codItem;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Gson gson = new Gson();
         URL url = null;
         HttpURLConnection conn;
-        Item item = null;
+        Items item = null;
 
         try {
             url = new URL(sql);
@@ -69,7 +69,7 @@ public class ItemController {
             */
 
                 String mensaje = objecto.toString();
-                item =  gson.fromJson(json, Item.class);
+                item =  gson.fromJson(json, Items.class);
 
                 //sal.setText(item.getAcero() + item.getCodigo());
             }

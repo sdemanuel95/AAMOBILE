@@ -10,7 +10,7 @@ public class IngresoMP implements Serializable {
 
 
     private long id;
-    private Date fecha;
+    private String fecha;
     private String referencia;
     private String material;
     private String descripcion;
@@ -27,7 +27,7 @@ public class IngresoMP implements Serializable {
     public IngresoMP(long id, java.util.Date fecha, String referencia, String material, String descripcion,
                      String cantidad, String umb, String lote, String destinatario, String colada, String pesoPorBalanza) {
         this.id = id;
-        this.fecha = (Date) fecha;
+        //this.fecha = (Date) fecha;
         this.referencia = referencia;
         this.material = material;
         this.descripcion = descripcion;
@@ -42,7 +42,7 @@ public class IngresoMP implements Serializable {
     public IngresoMP(long id, java.util.Date fecha, String referencia, String material, String descripcion,
                      String cantidad, String umb, String lote, String destinatario, String colada, String pesoPorBalanza,String kgProd,String kgTeo, String kgDisp) {
         this.id = id;
-        this.fecha = (Date) fecha;
+        //this.fecha = (Date) fecha;
         this.referencia = referencia;
         this.material = material;
         this.descripcion = descripcion;
@@ -77,11 +77,11 @@ public class IngresoMP implements Serializable {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

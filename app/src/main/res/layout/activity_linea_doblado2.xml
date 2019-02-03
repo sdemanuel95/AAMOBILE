@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
-        android:layout_weight="0.3"
+        android:layout_weight="0.01"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20px"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <TextView
@@ -66,10 +66,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_height="match_parent"
+        android:layout_weight="7"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -82,7 +83,8 @@
                 android:id="@+id/et_precintoA"
                 android:layout_width="250dp"
                 android:layout_height="47dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/border_radius"
                 android:ems="10"
                 android:gravity="center"
@@ -91,34 +93,487 @@
                 android:maxLength="24"
                 android:text=""
                 android:textSize="16sp" />
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+
+
+        </LinearLayout>
+        //pendiente  y a declarar
 
 
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
-            <EditText
-                android:id="@+id/et_kg2"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
-                android:layout_marginBottom="10dp"
-                android:textColorHint="#FFF"
-                android:background="@drawable/border_radius_grey"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="Kg"
-                android:inputType="text"
-                android:maxLength="24"
-                android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadKGPrecintoText"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="KG PRECINTO : "
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadKGPrecinto"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVItemText"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="ITEM : "
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVItem"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadPendienteText"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="CANT. PENDIENTE : "
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadPendiente"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadPosibleText"
+                    android:layout_width="200dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="CANT. POSIBLE : "
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/Space3"
+                    android:layout_width="50dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadPosible"
+                    android:layout_width="221dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVCantidadADeclararText"
+                    android:layout_width="200dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="CANT. A DECLARAR : "
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/Space2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:textSize="16sp"></TextView>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <EditText
+                    android:id="@+id/TVCantidadADeclarar"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/border_radius"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="Kg"
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:textSize="16sp"></EditText>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/Space"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:textSize="16sp"></TextView>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVKGADeclararText"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="KG A DECLARAR : "
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/TVKGADeclarar"
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_marginBottom="10dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint=""
+                    android:inputType="text"
+                    android:maxLength="24"
+                    android:text=""
+                    android:textSize="16sp" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -126,7 +581,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20px"
         android:layout_marginRight="20px"
-        android:layout_weight="0.5"
+        android:layout_weight="0"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 

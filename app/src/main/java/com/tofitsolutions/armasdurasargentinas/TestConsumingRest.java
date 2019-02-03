@@ -75,7 +75,7 @@ public class TestConsumingRest extends AppCompatActivity {
             */
 
             String mensaje = objecto.toString();
-            Item item =  gson.fromJson(json, Item.class);
+            Items item =  gson.fromJson(json, Items.class);
             DeclaracionController dc = new DeclaracionController();
             if((dc.existe("BRIVO001002"))){
                 sal.setText(item.getAcero() + item.getCodigo());

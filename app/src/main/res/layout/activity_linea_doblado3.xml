@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="5"
+    android:background="@drawable/fondo_rojo"
+    android:orientation="vertical"
+    android:weightSum="5"
+    tools:context="com.tofitsolutions.armasdurasargentinas.LineaDoblado2Activity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_weight="0.3"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_datosUsuario"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:background="@drawable/boton_linea_doblado" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20px"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_usuarioEA2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Usuario"
+                android:textColor="@android:color/background_light"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_ayudanteEA2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Ayudante"
+                android:textColor="@android:color/background_light"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_maquinaEA2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Maquina"
+                android:textColor="@android:color/background_light"
+                android:textSize="21sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="30px"
+        android:layout_weight="0.2"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_weight="5"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="P1"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/textView_PrecintoA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="PrecintoA"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent"
+                android:textSize="21sp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_cantidad1KGEA2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KG"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_weight="5"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="3.8"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="0.5"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <EditText
+                android:id="@+id/et_ItemEstribadora2"
+                android:layout_width="210dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_weight="3"
+                android:background="@drawable/border_radius"
+                android:ems="10"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="Lea el código del Item"
+                android:inputType="text"
+                android:maxLength="11"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/bt_teclado"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30px"
+                android:layout_weight="1"
+                android:background="@drawable/keyboard" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:orientation="horizontal"
+
+            android:layout_weight="0.5"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tv_cantPosible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cant. posible"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_pendiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pendiente"
+                android:textColor="@color/colorAccent"
+                android:textSize="21sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <TextView
+                android:id="@+id/tv_declarar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Declarar"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/et_cantidadADeclarar"
+                android:layout_width="100dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/border_radius"
+                android:ems="10"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="Lea el código del Item"
+                android:inputType="text"
+                android:maxLength="3"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:layout_weight="0.7"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_oklineadoblado2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="30px"
+            android:background="@drawable/boton_ok_j" />
+
+        <Button
+            android:id="@+id/bt_principal"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:background="@drawable/boton_principal" />
+
+        <Button
+            android:id="@+id/bt_cancellineadoblado2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="30px"
+            android:background="@drawable/boton_cancelar_x" />
+    </LinearLayout>
+
+</LinearLayout>

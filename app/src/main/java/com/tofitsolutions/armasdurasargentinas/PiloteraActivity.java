@@ -78,7 +78,7 @@ public class PiloteraActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String nro = s.toString();
                 if(nro.length() == 11){
-                    Item itemTemp = itemController.getItem(pedido.getText().toString());
+                    Items itemTemp = itemController.getItem(pedido.getText().toString());
                     if(itemTemp==null){
                         System.out.println("No existe.");
                         String mensaje = "Error: El item no existe en la base de datos.";

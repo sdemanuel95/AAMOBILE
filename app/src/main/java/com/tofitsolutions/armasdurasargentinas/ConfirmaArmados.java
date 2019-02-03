@@ -197,7 +197,7 @@ public class ConfirmaArmados extends AppCompatActivity {
                     Log.d("usuario: ", usuario);
                     progreso++;
                     publishProgress(progreso);
-                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Item,Cantidad) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
+                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Items,Cantidad) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
                             "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad +"');" );
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
 

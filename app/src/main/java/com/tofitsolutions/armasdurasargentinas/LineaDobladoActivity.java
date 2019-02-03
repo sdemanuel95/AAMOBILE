@@ -24,7 +24,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
     ItemController itemController;
     DeclaracionImpl t;
     FormatoController formatoController;
-    Item item =null;
+    Items item =null;
     int cantidadPosible = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
         tv_maquinaEA2 = (TextView) findViewById(R.id.tv_maquinaEA2);
         et_ItemEstribadora2 = (EditText) findViewById(R.id.et_ItemEstribadora2) ;
 
-
+        et_ItemEstribadora2.setEnabled(false);
 
         itemController = new ItemController();
         formatoController = new FormatoController();
@@ -59,6 +59,8 @@ public class LineaDobladoActivity extends AppCompatActivity {
             tv_usuarioEA2.setText(usuario);
             tv_ayudanteEA2.setText(ayudante);
             tv_maquinaEA2.setText(maquina.getMarca() + "-" + maquina.getModelo());
+
+            et_ItemEstribadora2.setEnabled(true);
         }
         //textView_PrecintoA.setText(ingreso.getLote());
         //tv_cantidad1KGEA2.setText(kgReal);
@@ -138,15 +140,46 @@ public class LineaDobladoActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //ACA TIENE QUE INSERTAR LA DECLARACION! :-)
-                        Declaracion d = new Declaracion(null,null,"Ema",
-                                "Emanuielo","cuylitooo",null,null,"ITEMMMM","0","0");
+                        Declaracion d = new Declaracion(null,null,usuario,
+                                ayudante,(maquina.getMarca() +"-"+ maquina.getModelo()),null,null,item.getCodigo(),"0","0");
                         boolean isValid = t.crearDeclaracion(d);
 
                         if(isValid){
                             //INSERTÓ CORRECTAMENTE
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            builder.setTitle("Declaración exitosa.");
+                            builder.setMessage("La declaracion del item " + item.getCodigo() +" se creó con éxito.");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            AlertDialog dialog2 = builder.create();
+                            dialog2.show();
+                            dialog2.getWindow().setBackgroundDrawableResource(android.R.color.holo_green_light);
+
+                            et_ItemEstribadora2.setText("");
+                            return;
+
                         }
                         else{
                             //FALLÓ LA INSERCION
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            builder.setTitle("Atencion!");
+                            builder.setMessage("Ocurrió un error al declarar el item.");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            AlertDialog dialog2 = builder.create();
+                            dialog2.show();
+                            dialog2.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
+                            et_ItemEstribadora2.setText("");
+                            return;
                         }
                         }
                     });
@@ -167,6 +200,10 @@ public class LineaDobladoActivity extends AppCompatActivity {
                 }
                 else{
                     Intent i = new Intent(LineaDobladoActivity.this, LineaDoblado2Activity.class);
+                    i.putExtra("item",item);
+                    i.putExtra("maquina",maquina);
+                    i.putExtra("usuario",usuario);
+                    i.putExtra("ayudante",ayudante);
                     finish();
                     startActivity(i);
 
@@ -208,7 +245,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Item itemTemp = null;
+                Items itemTemp = null;
                 String nro = s.toString();
                 String itemPendiente = "none";
                 String cantPosible = "none";
@@ -259,11 +296,27 @@ public class LineaDobladoActivity extends AppCompatActivity {
                         return;
                     }
 
+                    //VERIFICA QUE EL DIAMETRO DEL ITEM COINCIDA CON LA MAQUINA
+                    int diametroMax = Integer.parseInt(maquina.getdiametroMax());
+                    int diametroMin = Integer.parseInt(maquina.getdiametroMin());
+                    int diametroItem = Integer.parseInt(itemTemp.getDiametro());
 
-
-
-
-
+                    if(diametroItem > diametroMax || diametroItem <diametroMin){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("El diametro del item no coincide con el de la máquina.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
 
                     item = itemTemp;
 
