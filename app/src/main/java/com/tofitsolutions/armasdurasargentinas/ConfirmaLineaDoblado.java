@@ -225,14 +225,25 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
         //stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKGTOTAL)) + Double.parseDouble(mermaCalculadaTOTAL))));
         //ACTUALIZA EN STOCK
         // stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
+        if(item.getCantidad().equals(item.getCantidadDec())){
+            Intent i = new Intent(ConfirmaLineaDoblado.this, LineaDobladoActivity.class);
+            i.putExtra("maquina",maquina);
+            i.putExtra("usuario",usuario);
+            i.putExtra("ayudante",ayudante);
+            finish();
+            startActivity(i);
 
-        Intent i = new Intent(ConfirmaLineaDoblado.this, LineaDoblado2Activity.class);
-        i.putExtra("item",item);
-        i.putExtra("maquina",maquina);
-        i.putExtra("usuario",usuario);
-        i.putExtra("ayudante",ayudante);
-        finish();
-        startActivity(i);
+        }
+        else{
+            Intent i = new Intent(ConfirmaLineaDoblado.this, LineaDoblado2Activity.class);
+            i.putExtra("item",item);
+            i.putExtra("maquina",maquina);
+            i.putExtra("usuario",usuario);
+            i.putExtra("ayudante",ayudante);
+            finish();
+            startActivity(i);
+
+        }
 
 
     }

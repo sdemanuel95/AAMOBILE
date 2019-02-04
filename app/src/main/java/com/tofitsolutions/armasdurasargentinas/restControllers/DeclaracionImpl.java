@@ -41,7 +41,7 @@ public class DeclaracionImpl {
                     System.out.println(error.getBody());
                 }
             });
-            return isValid;
+            return true;
         }catch(Exception e){
             return false;
         }
