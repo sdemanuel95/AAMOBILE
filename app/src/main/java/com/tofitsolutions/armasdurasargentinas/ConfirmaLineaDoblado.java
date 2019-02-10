@@ -169,7 +169,7 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
 
         //INSERT DECLARACIÓN.
         String equipo = maquina.getMarca() + "-" + maquina.getModelo();
-        String precintoA = ingreso.getLote();
+        String precintoA = ingreso.getLote() + ingreso.getMaterial() + ingreso.getCantidad();
 
 
         double kgUnitario = Double.parseDouble(item.getPeso()) / Double.parseDouble(item.getCantidad());

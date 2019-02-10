@@ -177,8 +177,8 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
                     //INSERT DECLARACIÓN.
                     String equipo = maquina.getMarca() + "-" + maquina.getModelo();
-                    String precintoA = ingresoMP1.getLote();
-                    String precintoB = ingresoMP2.getLote();
+                    String precintoA = ingresoMP1.getLote() + ingresoMP1.getMaterial() + ingresoMP1.getCantidad();
+                    String precintoB = ingresoMP2.getLote() + ingresoMP2.getMaterial() + ingresoMP2.getCantidad();
 
                     String cantidadKGTOTAL = String.valueOf(kgAProducir);
                     String cantidadKG = String.valueOf(kgAProducirA);
