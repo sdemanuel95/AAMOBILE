@@ -317,14 +317,14 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         String cantidadKGTOTAL = String.valueOf(kgAProducir);
         String cantidadKG = String.valueOf(kgAProducir);
 
-
         Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,null,item,String.valueOf(cantidadAUsar),String.valueOf(kgAProducir),String.valueOf(kgAProducir),"0");
-        declaracionImpl.crearDeclaracion(d);
+
+
 
 
         // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
 
-        //UNSERT EN MERMA
+        //INSERT EN MERMA
 
         String mermaCalculadaTOTAL = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
         String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
@@ -341,9 +341,26 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         ingresoMP1.setKgDisponible(kgdis1);
         ingresoMP1.setKgProd(kgprod1);
 
-        ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
+        boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
+        if(!actualizoLote){
+            //No actualizó el lote así que se cancela la declaración!!
+            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaEstribadora.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+            builder.setTitle("Atencion!");
+            builder.setMessage("Ocurrió un error al actualizar el precinto, porfavor vuelva a intentarlo.");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
 
+            return;
+        }
 
+        declaracionImpl.crearDeclaracion(d);
         int cantidadDelItem = Integer.parseInt(itemADeclarar.getCantidad());
         int cantidadDecDelItem = Integer.parseInt(itemADeclarar.getCantidadDec());
 

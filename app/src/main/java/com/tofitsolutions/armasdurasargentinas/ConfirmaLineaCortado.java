@@ -181,7 +181,7 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
         String cantidadKG = String.valueOf(kgAProducir);
 
         Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,null,item.getCodigo(),String.valueOf(cantidad),String.valueOf(kgAProducir),String.valueOf(kgAProducir),"0");
-        declaracionImpl.crearDeclaracion(d);
+
 
 
         // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
@@ -202,9 +202,25 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
         ingreso.setKgDisponible(kgdis1);
         ingreso.setKgProd(kgprod1);
 
-        ingresoMPImpl.actualizarIngresoMP(ingreso);
+        boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingreso);
+        if(!actualizoLote){
+            //No actualizó el lote así que se cancela la declaración!!
+            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaLineaCortado.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+            builder.setTitle("Atencion!");
+            builder.setMessage("Ocurrió un error al actualizar el precinto, porfavor vuelva a intentarlo.");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
 
-
+            return;
+        }
+        declaracionImpl.crearDeclaracion(d);
         int cantidadDelItem = Integer.parseInt(item.getCantidad());
         int cantidadDecDelItem = Integer.parseInt(item.getCantidadDec());
 

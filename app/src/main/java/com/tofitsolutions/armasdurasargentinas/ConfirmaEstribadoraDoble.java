@@ -186,7 +186,7 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
 
                     Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,precintoB,item,String.valueOf(cantidadAUsar),String.valueOf(kgAProducir),String.valueOf(kgAProducirA),String.valueOf(kgAProducirB));
-                    declaracionImpl.crearDeclaracion(d);
+
 
 
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
@@ -218,8 +218,27 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
                     ingresoMP2.setKgDisponible(kgdis2);
                     ingresoMP2.setKgProd(kgprod2);
 
-                    ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
-                    ingresoMPImpl.actualizarIngresoMP(ingresoMP2);
+                        boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
+                        boolean actualizoLote2 = ingresoMPImpl.actualizarIngresoMP(ingresoMP2);
+
+                        if(!actualizoLote || !actualizoLote2){
+                            //No actualizó el lote así que se cancela la declaración!!
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaEstribadoraDoble.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                            builder.setTitle("Atencion!");
+                            builder.setMessage("Ocurrió un error al actualizar el precinto, porfavor vuelva a intentarlo.");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
+                            return;
+                        }
+                        declaracionImpl.crearDeclaracion(d);
 
 
                     int cantidadDelItem = Integer.parseInt(itemADeclarar.getCantidad());
