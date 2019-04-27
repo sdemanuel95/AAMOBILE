@@ -199,6 +199,12 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
         ingreso.setKgDisponible(kgdis1);
         ingreso.setKgProd(kgprod1);
 
+        //stmt.executeUpdate("update ingresomp set KGProd = '" + kgprod1 +"', KGDisponible = '" + kgdis1+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
+        ingreso.setKgDisponible(kgdis1);
+        ingreso.setKgProd(kgprod1);
+
+        new guardarDeclaracionAT().execute(kgdis1,kgprod1,String.valueOf(ingreso.getId()));
+/*
         boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingreso);
         if(!actualizoLote){
             //No actualizó el lote así que se cancela la declaración!!
@@ -217,6 +223,8 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
 
             return;
         }
+
+        */
         declaracionImpl.crearDeclaracion(d);
         int cantidadDelItem = Integer.parseInt(item.getCantidad());
         int cantidadDecDelItem = Integer.parseInt(item.getCantidadDec());
@@ -259,6 +267,51 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
             finish();
             startActivity(i);
 
+        }
+
+
+    }
+
+
+    public static class guardarDeclaracionAT extends AsyncTask<String, Integer, Long> {
+
+        private int progreso = 0;
+
+        @Override
+        protected void onPreExecute() {
+
+            //progress.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+
+        }
+
+        @Override
+        protected Long doInBackground(String... arg0) {
+
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Conexion conexion = new Conexion();
+                Connection con = conexion.crearConexion();
+                Statement stmt = con.createStatement();
+                String a = arg0[0];
+                String b = arg0[1];
+                String c = arg0[2];
+                String query = "update ingresomp set KGDisponible =" + a + " , KGProd = " + b +" where id = "+c+ "; ;";
+                stmt.executeUpdate(query);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            return null;
         }
 
 

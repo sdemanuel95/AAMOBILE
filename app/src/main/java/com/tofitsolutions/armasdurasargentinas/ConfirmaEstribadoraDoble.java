@@ -3,6 +3,7 @@ package com.tofitsolutions.armasdurasargentinas;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,11 @@ import com.tofitsolutions.armasdurasargentinas.restControllers.DeclaracionImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.IngresoMPImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.ItemImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.MermaImpl;
+import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ConfirmaEstribadoraDoble extends AppCompatActivity {
@@ -218,6 +223,12 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
                     ingresoMP2.setKgDisponible(kgdis2);
                     ingresoMP2.setKgProd(kgprod2);
 
+
+                        new guardarDeclaracionAT().execute(kgdis1,kgprod1,String.valueOf(ingresoMP1.getId()));
+
+
+                        new guardarDeclaracionAT().execute(kgdis2,kgprod2,String.valueOf(ingresoMP2.getId()));
+                    /*
                         boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
                         boolean actualizoLote2 = ingresoMPImpl.actualizarIngresoMP(ingresoMP2);
 
@@ -238,6 +249,8 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
                             return;
                         }
+
+                        */
                         declaracionImpl.crearDeclaracion(d);
 
 
@@ -276,6 +289,51 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
                         i.putExtra("maquina", maquina);
                         finish();
                         startActivity(i);
+
+    }
+
+
+    public static class guardarDeclaracionAT extends AsyncTask<String, Integer, Long> {
+
+        private int progreso = 0;
+
+        @Override
+        protected void onPreExecute() {
+
+            //progress.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+
+        }
+
+        @Override
+        protected Long doInBackground(String... arg0) {
+
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Conexion conexion = new Conexion();
+                Connection con = conexion.crearConexion();
+                Statement stmt = con.createStatement();
+                String a = arg0[0];
+                String b = arg0[1];
+                String c = arg0[2];
+                String query = "update ingresomp set KGDisponible =" + a + " , KGProd = " + b +" where id = "+c+ "; ;";
+                stmt.executeUpdate(query);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
 
     }
 }

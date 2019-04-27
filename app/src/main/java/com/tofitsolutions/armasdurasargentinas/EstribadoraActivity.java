@@ -130,7 +130,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
             et_precintoA.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //et_precintoA.setEnabled(false);
+                    et_precintoA.setEnabled(false);
                     String mensaje = "Ingrese Usuario, Ayudante y Maquina.";
                     Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                     msjToast.show();
@@ -140,7 +140,7 @@ public class EstribadoraActivity extends AppCompatActivity implements TextWatche
             et_precintoB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //et_precintoB.setEnabled(false);
+                    et_precintoB.setEnabled(false);
                     String mensaje = "Ingrese Usuario, Ayudante y Maquina.";
                     Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                     msjToast.show();
