@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ public class Pasadores2Activity extends AppCompatActivity {
     EditText et_cantidadADeclarar,et_ItemEstribadora2;
     ItemController itemController;
     Items item =null;
+    boolean declaroTodo;
+    private CheckBox chkSubproduco;
     int cantidadPosible = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,8 @@ public class Pasadores2Activity extends AppCompatActivity {
         tv_cantPosible = (TextView) findViewById(R.id.tv_cantPosible);
         tv_pendiente = (TextView) findViewById(R.id.tv_pendiente);
 
-
+        chkSubproduco = (CheckBox) findViewById(R.id.chkSubproduco);
+        chkSubproduco.setVisibility(View.INVISIBLE);
 
         itemController = new ItemController();
         //OBTIENE DATOS DE VISTA ANTERIOR
@@ -87,7 +91,8 @@ public class Pasadores2Activity extends AppCompatActivity {
                 i.putExtra("maquina",maquina);
                 i.putExtra("usuario",usuario);
                 i.putExtra("ayudante",ayudante);
-
+                i.putExtra("subproducto",chkSubproduco.isChecked());
+                i.putExtra("declaroTodo",declaroTodo);
                 finish();
                 startActivity(i);
             }
@@ -352,7 +357,18 @@ public class Pasadores2Activity extends AppCompatActivity {
                     }
                     if(item!=null){
                         tv_pendiente.setText(String.valueOf(Integer.parseInt(item.getCantidad()) - Integer.parseInt(item.getCantidadDec()) - Integer.parseInt(et_cantidadADeclarar.getText().toString())));
+                        if(Integer.parseInt(tv_pendiente.getText().toString()) == 0){
+                            //MOSTRAR CHECKBOX
 
+                            chkSubproduco.setVisibility(View.VISIBLE);
+                            declaroTodo = true;
+                        }
+                        else{
+                            chkSubproduco.setChecked(false);
+                            chkSubproduco.setVisibility(View.INVISIBLE);
+                            declaroTodo = false;
+                            //OCULTAR CHECKBOX Y MARCARLO COMO FALSE.
+                        }
                     }
                 }
 

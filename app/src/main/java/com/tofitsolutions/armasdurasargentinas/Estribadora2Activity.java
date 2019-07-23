@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +38,9 @@ public class Estribadora2Activity extends AppCompatActivity {
     private TextView tv_kgADeclarar,tv_precintoA, tv_precintoB, tv_usuarioEA2, tv_ayudanteEA2, tv_maquinaEA2, tv_cantidad1KGEA2, tv_cantidad2KGEA2, tv_cantPosible, tv_pendiente;
     private EditText et_ItemEstribadora2,et_cantidadADeclarar;
     private Button bt_teclado, bt_okEstribadora2, bt_principalEstribadora2, bt_cancelEstribadora2;
+    private CheckBox chkSubproduco;
     //private ArrayList<IngresoMP> materiasPrima;
-
+    boolean declaroTodo;
     private ArrayList<CodigoMP> listaCodigosMP;
     private ArrayList<Items> listaDeItems;
     private ArrayList<Declaracion> listaDeclaracion;
@@ -83,14 +85,14 @@ public class Estribadora2Activity extends AppCompatActivity {
         bt_okEstribadora2 = (Button) findViewById(R.id.bt_okEstribadora2);
         bt_principalEstribadora2 = (Button) findViewById(R.id.bt_principalEstribadora2);
         bt_cancelEstribadora2 = (Button) findViewById(R.id.bt_cancelEstribadora2);
-
-
+        chkSubproduco = (CheckBox) findViewById(R.id.chkSubproduco);
+        chkSubproduco.setVisibility(View.INVISIBLE);
 
         listaCodigosMP = new ArrayList<CodigoMP>();
 
         et_ItemEstribadora2 = (EditText)findViewById(R.id.et_ItemEstribadora2);
         et_ItemEstribadora2.setInputType(InputType.TYPE_NULL);
-        et_cantidadADeclarar = (EditText)findViewById(R.id.et_cantidadADeclarar);
+        et_cantidadADeclarar = (EditText)findViewById(R.id.1............/);
 
         //Ingresa info del Activity -> EstribadoraActivity
         Intent intentPrecintos = getIntent();
@@ -319,6 +321,22 @@ public class Estribadora2Activity extends AppCompatActivity {
                     et_cantidadADeclarar.setText(String.valueOf(cantidadPosibleNum));
                     tv_pendiente.setText("P: " + cantidadPendienteNum);
                     tv_kgADeclarar.setText("KG:" + kgAProducir);
+
+
+                    if(tv_pendiente.getText().toString().equals("P: 0.0")){
+                        //MOSTRAR CHECKBOX
+
+
+                        chkSubproduco.setVisibility(View.VISIBLE);
+                        declaroTodo = true;
+                    }
+                    else{
+                        chkSubproduco.setChecked(false);
+                        chkSubproduco.setVisibility(View.INVISIBLE);
+                        declaroTodo = false;
+                        //OCULTAR CHECKBOX Y MARCARLO COMO FALSE.
+                    }
+
                 }
             }
         });
@@ -426,19 +444,26 @@ public class Estribadora2Activity extends AppCompatActivity {
                 //TODO
                 //if(validarItem()){
                     Intent i = new Intent(Estribadora2Activity.this, ConfirmaEstribadora.class);
-                    i.putExtra("usuario", usuario);
-                    i.putExtra("ayudante", ayudante);
-                    i.putExtra("maquina", maquina);
-                i.putExtra("ingresoMP1",ingresoMP1);
-                i.putExtra("ingresoMP2",ingresoMP2);
-                    i.putExtra("item", item);
-                    i.putExtra("itemObject",itemObject);
-                    i.putExtra("kgAProducir",kgAProducir);
-                    i.putExtra("itemObject",itemObject);
-                    i.putExtra("cantidad", Integer.parseInt(et_cantidadADeclarar.getText().toString()));
-                    i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
-                    finish();
-                    startActivity(i);
+
+
+
+
+                        i.putExtra("usuario", usuario);
+                        i.putExtra("ayudante", ayudante);
+                        i.putExtra("maquina", maquina);
+                        i.putExtra("ingresoMP1",ingresoMP1);
+                        i.putExtra("ingresoMP2",ingresoMP2);
+                        i.putExtra("item", item);
+                        i.putExtra("itemObject",itemObject);
+                        i.putExtra("kgAProducir",kgAProducir);
+                        i.putExtra("itemObject",itemObject);
+                        i.putExtra("cantidad", Integer.parseInt(et_cantidadADeclarar.getText().toString()));
+                        i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
+                        i.putExtra("subproducto",chkSubproduco.isChecked());
+                        i.putExtra("declaroTodo",declaroTodo);
+                        finish();
+                        startActivity(i);
+
                 //}
                 /*else{
                     String mensaje = "Error: El código o el diametro del item no se corresponden.";

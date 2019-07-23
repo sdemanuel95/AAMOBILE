@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
 import com.tofitsolutions.armasdurasargentinas.controllers.StockController;
+import com.tofitsolutions.armasdurasargentinas.controllers.SubproductoController;
 import com.tofitsolutions.armasdurasargentinas.restControllers.DeclaracionImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.IngresoMPImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.ItemImpl;
@@ -63,12 +64,16 @@ public class ConfirmaEstribadora extends AppCompatActivity {
     private IngresoMPImpl ingresoMPImpl;
     private ItemImpl itemImpl;
     private MermaImpl mermaImpl;
+    SubproductoController subproductoController;
 
+    boolean declaroTodo;
+    boolean subproducto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirma_estribadora);
         ingresoMPController = new IngresoMPController();
+        subproductoController = new SubproductoController();
         usuarioConfEst = (TextView) findViewById(R.id.usuarioConfEst);
         AyudanteConfEst = (TextView) findViewById(R.id.AyudanteConfEst);
         equipoConfEst = (TextView) findViewById(R.id.equipoConfEst);
@@ -94,6 +99,8 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         ingresoMPImpl = new IngresoMPImpl();
 
 
+        declaroTodo = intentPrecintos.getBooleanExtra("declaroTodo",false);
+        subproducto = intentPrecintos.getBooleanExtra("subproducto",false);
         usuario = intentPrecintos.getStringExtra("usuario");
         ayudante = intentPrecintos.getStringExtra("ayudante");
         maquina = (Maquina)intentPrecintos.getSerializableExtra("maquina");
@@ -108,7 +115,9 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         kgAProducir = intentPrecintos.getDoubleExtra("kgAProducir",0);
         itemADeclarar = itemController.getItem(item);
         d = new Declaracion(usuario,ayudante,maquina.getMarca()+"-"+maquina.getModelo(),ingresoMP1.getLote(),null,item,String.valueOf(cantidadAUsar));
-
+        if(declaroTodo){
+            subproductoController.nuevoSubproducto(item,subproducto);
+        }
         usuarioConfEst.setText(usuario);
         AyudanteConfEst.setText(ayudante);
         equipoConfEst.setText(maquina.getMarca()+"-"+maquina.getModelo());

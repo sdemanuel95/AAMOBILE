@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ import com.tofitsolutions.armasdurasargentinas.util.Util;
 import java.util.ArrayList;
 
 public class Estribadora2DobleActivity extends AppCompatActivity {
+    private CheckBox chkSubproduco;
+
     double kgUnitarioDelItem = 0;
     int cantidadPosibleNumP1;
     int cantidadPosibleNumP2;
@@ -32,6 +35,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
     Double cantidadPendienteNumP1;
     Double cantidadPendienteNumP2;
     Double kgAProducir;
+    boolean declaroTodo;
     //KG, CANT POSIBLE Y CANT PENDIENTE .
     private TextView tv_usuarioEA2, tv_ayudanteEA2, tv_maquinaEA2;
     private TextView textView_precintoA,textView_precintoB,textView_piezasPosiblesA,textView_piezasPosiblesB,
@@ -79,8 +83,8 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
         bt_okEstribadora2 = (Button) findViewById(R.id.bt_okEstribadora2);
         bt_principalEstribadora2 = (Button) findViewById(R.id.bt_principalEstribadora2);
         bt_cancelEstribadora2 = (Button) findViewById(R.id.bt_cancelEstribadora2);
-
-
+        chkSubproduco = (CheckBox) findViewById(R.id.chkSubproduco);
+        chkSubproduco.setVisibility(View.INVISIBLE);
         //TEXTVIEWS
 
         textView_precintoA = (TextView) findViewById(R.id.textView_precintoA);
@@ -334,6 +338,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         return;
                     }
 
+
                 }
             }
         });
@@ -386,6 +391,21 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                         String kgPendientes = String.valueOf(Util.setearDosDecimales(kgUnitario*piezasPendientes));
                         textView_piezasPendientes.setText(String.valueOf(piezasPendientes));
                         textView_kgPendientes.setText(kgPendientes);
+
+
+
+                        if(piezasPendientes == 0){
+                            //MOSTRAR CHECKBOX
+                            chkSubproduco.setVisibility(View.VISIBLE);
+                            declaroTodo = true;
+                        }
+                        else{
+                            chkSubproduco.setChecked(false);
+                            chkSubproduco.setVisibility(View.INVISIBLE);
+                            declaroTodo = false;
+                            //OCULTAR CHECKBOX Y MARCARLO COMO FALSE.
+                        }
+
 
                         //tv_pendiente.setText("P: " + cantidadPendienteNum);
                         //tv_kgADeclarar.setText("KG:" + kgAProducir);
@@ -482,28 +502,36 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
 
 
 
+
                     Intent i = new Intent(Estribadora2DobleActivity.this, ConfirmaEstribadoraDoble.class);
                     i.putExtra("usuario", usuario);
                     i.putExtra("ayudante", ayudante);
                     i.putExtra("maquina", maquina);
-                i.putExtra("ingresoMP1",ingresoMP1);
-                i.putExtra("ingresoMP2",ingresoMP2);
+                    i.putExtra("ingresoMP1",ingresoMP1);
+                    i.putExtra("ingresoMP2",ingresoMP2);
                     i.putExtra("item", item);
-                i.putExtra("kgAProducirA",kgAProducirLOTEA);
-                i.putExtra("kgAProducirB",kgAProducirLOTEB);
-                i.putExtra("kgAProducir",kgAProducir);
+                    i.putExtra("kgAProducirA",kgAProducirLOTEA);
+                    i.putExtra("kgAProducirB",kgAProducirLOTEB);
+                    i.putExtra("kgAProducir",kgAProducir);
                     i.putExtra("itemObject",itemObject);
                     i.putExtra("cantidad", Integer.parseInt(et_cantidadADeclarar.getText().toString()));
                     i.putExtra("kgTotalItem", String.valueOf(kgTotalItem));
+                    i.putExtra("subproducto",chkSubproduco.isChecked());
+                    i.putExtra("declaroTodo",declaroTodo);
                     finish();
                     startActivity(i);
+
+                }
+
+
+
                 //}
                 /*else{
                     String mensaje = "Error: El código o el diametro del item no se corresponden.";
                     Toast msjToast = Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_LONG);
                     msjToast.show();
                 }*/
-            }
+
 
         });
 

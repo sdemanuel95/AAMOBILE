@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.StockController;
+import com.tofitsolutions.armasdurasargentinas.controllers.SubproductoController;
+import com.tofitsolutions.armasdurasargentinas.models.Subproducto;
 import com.tofitsolutions.armasdurasargentinas.restControllers.DeclaracionImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.IngresoMPImpl;
 import com.tofitsolutions.armasdurasargentinas.restControllers.ItemImpl;
@@ -46,6 +48,7 @@ public class ConfirmaPasadores extends AppCompatActivity {
     public CodigoMP codigoMP;
     public StockController stockController;
     public IngresoMPController ingresoMPController;
+    public SubproductoController subproductoController;
     //Ingresa info del Activity -> EstribadoraActivity
     Intent intentPrecintos = getIntent();
 
@@ -54,11 +57,14 @@ public class ConfirmaPasadores extends AppCompatActivity {
     public DeclaracionImpl declaracionImpl;
     public MermaImpl mermaImpl;
 
+    boolean declaroTodo;
+    boolean subproducto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirma_linea_doblado);
         stockController = new StockController();
+        subproductoController = new SubproductoController();
         confirmaUsuario = (TextView) findViewById(R.id.confirmaUsuario);
         confirmaAyudante = (TextView) findViewById(R.id.confirmaAyudante);
         confirmaEquipo = (TextView) findViewById(R.id.confirmaEquipo);
@@ -77,6 +83,8 @@ public class ConfirmaPasadores extends AppCompatActivity {
         Intent intentPrecintos = getIntent();
 
 
+        declaroTodo = intentPrecintos.getBooleanExtra("declaroTodo",false);
+        subproducto = intentPrecintos.getBooleanExtra("subproducto",false);
         ingreso = (IngresoMP) intentPrecintos.getSerializableExtra("ingreso");
         item = (Items) intentPrecintos.getSerializableExtra("item");
         maquina = (Maquina) intentPrecintos.getSerializableExtra("maquina");
@@ -94,7 +102,9 @@ public class ConfirmaPasadores extends AppCompatActivity {
         confirmaCantidad.setText(cantidad);
 
         d = new Declaracion(usuario,ayudante,maquina.getMarca() +"-"+maquina.getModelo(),ingreso.getLote(),null,item.getCodigo(),cantidad);
-
+        if(declaroTodo){
+            subproductoController.nuevoSubproducto(item.getCodigo(),subproducto);
+        }
 
         bt_okEstribadoraConf.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context="com.tofitsolutions.armasdurasargentinas.InformesActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo_inicio"
+        android:gravity="bottom|center_vertical|center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp">
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/porPedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonPorPedido"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/informes"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="UnknownIdInLayout"
+                    tools:layout_editor_absoluteY="0dp" />
+
+                <TextView
+                    android:id="@+id/tw_porPedido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="POR PEDIDO"
+                    android:textColor="@android:color/white"
+                    android:textSize="19sp"
+                    android:typeface="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/porLote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonPorLote"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/informes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonPorLote"
+                    app:layout_constraintVertical_bias="0.1" />
+
+                <TextView
+                    android:id="@+id/tw_porLote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="POR LOTE"
+                    android:textColor="@android:color/white"
+                    android:textSize="19sp"
+                    android:typeface="normal" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

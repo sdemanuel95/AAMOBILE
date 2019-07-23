@@ -1,5 +1,6 @@
 package com.tofitsolutions.armasdurasargentinas;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.InventarioController;
+import com.tofitsolutions.armasdurasargentinas.restControllers.UsuariosAndroidImpl;
 import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 
 import java.sql.Connection;
@@ -18,29 +20,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InicialActivity extends AppCompatActivity {
 
+
+
+    UsuarioAndroid usuarioAndroid;
     private EditText codigo, contraseña;
-    private String usuario;
+    private String codigoElegido,contraseñaElegida;
     private TextView excepcion;
     private Button ingresar;
     private AlertDialog.Builder builder;
     private boolean codigoCorrecto, contraseñaCorrecta;
     private ArrayList<String> codigos, contraseñas;
+    private List<UsuarioAndroid> listaUsuarios;
     private InventarioController inventarioController;
+    String usuarioCorrecto,passwordCorrecta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
 
+        codigos = new ArrayList<>();
+        contraseñas = new ArrayList<>();
+        listaUsuarios = new ArrayList<UsuarioAndroid>();
         new MyTask().execute();
         inventarioController = new InventarioController();
         codigoCorrecto = false;
         contraseñaCorrecta = false;
 
-        codigos = new ArrayList<>();
-        contraseñas = new ArrayList<>();
 
         codigo = (EditText) findViewById(R.id.ed_Codigo);
         contraseña = (EditText) findViewById(R.id.ed_Contraseña);
@@ -50,6 +59,8 @@ public class InicialActivity extends AppCompatActivity {
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 for (int i = 0; i< codigos.size(); i++) {
                     String u = codigo.getText().toString();
                     if (u.equals(codigos.get(i))) {
@@ -78,17 +89,25 @@ public class InicialActivity extends AppCompatActivity {
                 } else {
                     // CREAR NUEVO ACTIVITY
 
-                    //PRUEBA
-                    //PRUEBA
-
+                    contraseñaElegida = contraseña.getText().toString();
+                    codigoElegido = codigo.getText().toString();
                     Intent i = new Intent(InicialActivity.this, PrincipalActivity.class);
-                    new getUsuario().execute();
+                    //new getUsuario().execute();
 //                    finish();  //Kill the activity from which you will go to next activity
-                    i.putExtra("usuario", usuario);
+                    for(UsuarioAndroid u : listaUsuarios){
+                        if(u.getCodigo().equals(codigoElegido) && u.getContrasenia().equals(contraseña.getText().toString())){
+                            usuarioAndroid = u;
+                        }
+                    }
+                    i.putExtra("usuarioAndroid",usuarioAndroid);
+                    i.putExtra("usuario", codigoElegido);
                     i.putExtra("contraseña", contraseña.getText().toString());
                     startActivity(i);
                 }
+
+
             }
+
         });
     }
 
@@ -99,12 +118,14 @@ public class InicialActivity extends AppCompatActivity {
     private class MyTask extends AsyncTask<Void, Void, Void> {
 
         private ArrayList<String> codigosBD, contraseñasBD;
+        private ArrayList<UsuarioAndroid> usuariosAndroidBD;
         private String excepcionBD = "";
 
         @Override
         protected Void doInBackground(Void... params) {
             codigosBD = new ArrayList<>();
             contraseñasBD = new ArrayList<>();
+            usuariosAndroidBD = new ArrayList<UsuarioAndroid>();
             Conexion conexion = new Conexion();
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -113,6 +134,19 @@ public class InicialActivity extends AppCompatActivity {
                 Statement stmt = con.createStatement();
                 final ResultSet rs = stmt.executeQuery("SELECT * FROM usuariosandroid");
                 while (rs.next()) {
+                    long id = rs.getLong("ID");
+                    String codigo = rs.getString("codigo");
+                    String nombre = rs.getString("nombre");
+                    String apellido = rs.getString("apellido");
+                    String contraseña = rs.getString("contraseña");
+                    String fechaNacimiento = rs.getString("fechaDeNacimiento");
+                    Boolean produccion = rs.getBoolean("produccion");
+                    Boolean stock = rs.getBoolean("stock");
+                    Boolean despacho = rs.getBoolean("despacho");
+                    Boolean descarga = rs.getBoolean("descarga");
+                    Boolean stockInicial = rs.getBoolean("stockInicial");
+                    Boolean inventario = rs.getBoolean("inventario");
+                    usuariosAndroidBD.add(new UsuarioAndroid(id,codigo,nombre,apellido,contraseña,fechaNacimiento,produccion,stock,despacho,descarga,stockInicial,inventario));
                     codigosBD.add(rs.getString("codigo"));
                     contraseñasBD.add(rs.getString("contraseña"));
                 }
@@ -123,7 +157,6 @@ public class InicialActivity extends AppCompatActivity {
                 e.printStackTrace();
 
             }
-
             return null;
         }
 
@@ -131,41 +164,7 @@ public class InicialActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             codigos = codigosBD;
             contraseñas = contraseñasBD;
-            excepcion.setText(excepcionBD);
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    private class getUsuario extends AsyncTask<Void, Void, Void> {
-        private String usuarioBD = "";
-        private String excepcionBD = "";
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Conexion conexion = new Conexion();
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = conexion.crearConexion();
-                Statement stmt = con.createStatement();
-                final ResultSet rs = stmt.executeQuery("SELECT * FROM usuariosandroid");
-                while (rs.next()) {
-                    if(codigo.getText().toString().equals(rs.getString("codigo"))){
-                        usuarioBD = rs.getString("nombre");
-                    }
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                excepcionBD = e.toString();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            usuario = usuarioBD;
+            listaUsuarios = usuariosAndroidBD;
             excepcion.setText(excepcionBD);
             super.onPostExecute(aVoid);
         }

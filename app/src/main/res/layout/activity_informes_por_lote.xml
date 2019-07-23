@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context="com.tofitsolutions.armasdurasargentinas.Informes_por_lote_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo_inicio"
+        android:gravity="bottom|center_vertical|center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp">
+
+
+
+
+
+        <LinearLayout
+
+
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+            <EditText
+                android:id="@+id/et_Lote"
+                android:layout_width="299dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_weight="0"
+                android:background="@drawable/border_radius"
+                android:ems="10"
+                android:gravity="center_vertical|center_horizontal"
+                android:hint="Lea el precinto a consultar."
+                android:inputType="text"
+                android:maxLength="24"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/btnConsultar"
+                android:layout_width="129dp"
+                android:layout_height="38dp"
+                android:text="Consultar" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
