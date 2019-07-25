@@ -219,8 +219,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/keyboard" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="0.5"
@@ -230,11 +231,11 @@
 
             <EditText
                 android:id="@+id/et_cantidadADeclarar"
-                android:layout_width="100dp"
+                android:layout_width="65dp"
                 android:layout_height="47dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginLeft="30px"
-                android:layout_marginRight="365px"
+                android:layout_marginRight="0px"
                 android:layout_weight="3"
                 android:background="@drawable/border_radius"
                 android:ems="10"
@@ -245,6 +246,12 @@
                 android:textColorHint="@color/colorPrimaryDark"
                 android:textSize="16sp" />
 
+
+            <CheckBox
+                android:id="@+id/chkSubproduco"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Subproducto" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

@@ -36,7 +36,6 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
 
     private ProgressDialog progress;
     private ArrayList<Declaracion> listaDeclaracion;
-    private Declaracion d;
 
     public IngresoMP ingreso;
     public Items item;
@@ -110,12 +109,9 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
           declaracionImpl = new DeclaracionImpl();
 
 
-        d = new Declaracion(usuario,ayudante,maquina.getMarca() +"-"+maquina.getModelo(),ingreso.getLote(),null,item.getCodigo(),cantidad);
 
 
-        if(declaroTodo){
-            subproductoController.nuevoSubproducto(item.getCodigo(),subproducto);
-        }
+
         bt_okEstribadoraConf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +188,9 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
         String cantidadKG = String.valueOf(kgAProducir);
 
         Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,null,item.getCodigo(),String.valueOf(cantidad),String.valueOf(kgAProducir),String.valueOf(kgAProducir),"0");
-
+        if(declaroTodo){
+            subproductoController.nuevoSubproducto(item.getCodigo(),subproducto);
+        }
 
 
         // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
@@ -219,27 +217,6 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
 
         new guardarDeclaracionAT().execute(kgdis1,kgprod1,String.valueOf(ingreso.getId()));
 
-/*
-        boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingreso);
-        if(!actualizoLote){
-            //No actualizó el lote así que se cancela la declaración!!
-            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaLineaCortado.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-            builder.setTitle("Atencion!");
-            builder.setMessage("Ocurrió un error al actualizar el precinto, porfavor vuelva a intentarlo.");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-
-            return;
-        }
-
-        */
         declaracionImpl.crearDeclaracion(d);
         int cantidadDelItem = Integer.parseInt(item.getCantidad());
         int cantidadDecDelItem = Integer.parseInt(item.getCantidadDec());
@@ -253,17 +230,6 @@ public class ConfirmaLineaCortado extends AppCompatActivity {
 
 
         itemImpl.actualizarItem(item);
-        //STOCK NO HACE FALTA
-        //ingresoMPController.updatekg(codBarrasA + cantidad);
-        //Stock stock = stockController.getStock(ingresoMP1.getMaterial());
-        //String stockKGPROD = stock.getKgprod();
-        //String stockKGDISP = stock.getKgdisponible();
-
-
-        //stockKGPROD = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKGTOTAL) /*-Double.parseDouble(mermaCalculada)*/)));
-        //stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKGTOTAL)) + Double.parseDouble(mermaCalculadaTOTAL))));
-        //ACTUALIZA EN STOCK
-        // stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
 
         Intent i = new Intent(ConfirmaLineaCortado.this, LineaCortado2Activity.class);
         i.putExtra("ingresoMP",ingreso);

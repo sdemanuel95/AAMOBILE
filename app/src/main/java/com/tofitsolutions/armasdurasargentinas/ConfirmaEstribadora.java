@@ -43,7 +43,6 @@ public class ConfirmaEstribadora extends AppCompatActivity {
 
     private ProgressDialog progress;
     private ArrayList<Declaracion> listaDeclaracion;
-    private Declaracion d;
     private ItemController itemController = new ItemController();
     private StockController stockController = new StockController();
     //Ingresa info del Activity -> EstribadoraActivity
@@ -114,10 +113,7 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         cantidadAUsar = intentPrecintos.getIntExtra("cantidad",0);
         kgAProducir = intentPrecintos.getDoubleExtra("kgAProducir",0);
         itemADeclarar = itemController.getItem(item);
-        d = new Declaracion(usuario,ayudante,maquina.getMarca()+"-"+maquina.getModelo(),ingresoMP1.getLote(),null,item,String.valueOf(cantidadAUsar));
-        if(declaroTodo){
-            subproductoController.nuevoSubproducto(item,subproducto);
-        }
+
         usuarioConfEst.setText(usuario);
         AyudanteConfEst.setText(ayudante);
         equipoConfEst.setText(maquina.getMarca()+"-"+maquina.getModelo());
@@ -187,133 +183,6 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         });
     }
 
-    /*private class guardarDeclaracion extends AsyncTask<Void, Integer, Void> {
-        ArrayList<Declaracion> listaDeclaraciones;
-        IngresoMPController ingresoMPController = new IngresoMPController();
-        private int progreso = 0;
-
-        @Override
-        protected void onPreExecute() {
-            progress = new ProgressDialog(ConfirmaEstribadora.this);
-            progress.setMessage("Guardando");
-            progress.setTitle("Declaracion");
-            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            //progress.show();
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-
-            progress.incrementProgressBy(1);
-            if (progreso == progress.getMax()) {
-                progress.dismiss();
-            }
-
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            listaDeclaraciones = new ArrayList<Declaracion>();
-            listaDeclaraciones.add(d);
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = conexion.crearConexion();
-                Statement stmt = con.createStatement();
-                progress.setMax(listaDeclaraciones.size());
-                for (Declaracion ld : listaDeclaraciones) {
-                    String id = ld.getId();
-                    String usuario = ld.getUsuario();
-                    String ayudante = ld.getAyudante();
-                    String equipo = ld.getEquipo();
-                    String precintoA = ld.getPrecintoA();
-                    String precintoB = ld.getPrecintoB();
-                    String item = ld.getItem();
-                    String cantidad = ld.getCantidad();
-                    String lote = ingresoMP1.getLote();
-                    String material = ingresoMP1.getMaterial();
-                    String cantidadCodBarra = ingresoMP1.getCantidad();
-                    String loteB = ingresoMP2.getLote();
-                    String materialB = ingresoMP2.getMaterial();
-                    String cantidadCodBarraB = ingresoMP2.getCantidad();
-
-                    //String loteB = codBarrasB.substring(0,10);
-                    //String materialB = codBarrasB.substring(10,20);
-                    //String cantidadCodBarraB = codBarrasB.substring(20,24);
-
-
-                    Log.d("usuario: ", usuario);
-                    progreso++;
-                    publishProgress(progreso);
-                    stmt.executeUpdate("INSERT INTO declaracion (Usuario,Ayudante,Equipo,PrecintoA,PrecintoB,Items,Cantidad,CantidadKG) VALUES ('" + usuario +"','" + ayudante +"','" + equipo + "'," +
-                            "'" + precintoA + "','" + precintoB + "','" +  item +"','" +  cantidad + "','" + kgAProducir + "');" );
-                    // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
-                    String mermaCalculada = String.valueOf( Double.parseDouble(maquina.getMerma()) * (kgAProducir) / 100);
-                    String cantidadKG = String.valueOf(kgAProducir);
-                    stmt.executeUpdate("insert into merma (Fecha,Referencia,Cantidad,Lote,Colada,PesoPorBalanza,Codigo) values (NOW(),'" + ingresoMP1.getReferencia() + "','"+ingresoMP1.getCantidad() + "','" + ingresoMP1.getLote() + "','" + ingresoMP1.getColada() + "','"+ mermaCalculada + "','4310960')");
-
-                    String kgdis1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgDisponible()) - (Double.parseDouble(cantidadKG) + Double.parseDouble(mermaCalculada))));
-                    String kgprod1 = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(ingresoMP1.getKgProd()) + Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*///));
-                    /*stmt.executeUpdate("update ingresomp set KGProd = '" + kgprod1 +"', KGDisponible = '" + kgdis1+"' where lote ='" + lote + "' AND material = '" + material + "' And cantidad ='" + cantidadCodBarra + "';");
-
-
-                    int cantidadDelItem = Integer.parseInt(itemADeclarar.getCantidad());
-                    int cantidadDecDelItem = Integer.parseInt(itemADeclarar.getCantidadDec());
-                    cantidadDelItem = cantidadDelItem - Integer.parseInt(cantidad);
-                    cantidadDecDelItem = cantidadDecDelItem + Integer.parseInt(cantidad);
-                    stmt.executeUpdate("update items set CantidadDec = '" + cantidadDecDelItem+"' where Codigo ='" + item + "';");
-
-                    if(loteB != null || loteB != ""){
-                        //stmt.executeUpdate("update ingresomp set KGProd = '" + ingresoMP2.getKgDisponible() +"', KGDisponible = '" + cantidad+"' where lote ='" + loteB + "' AND material = '" + materialB + "' And cantidad ='" + cantidadCodBarraB + "';");
-                    }
-                    //ingresoMPController.updatekg(codBarrasA + cantidad);
-                    Stock stock = stockController.getStock(ingresoMP1.getMaterial());
-                    String stockKGPROD = stock.getKgprod();
-                    String stockKGDISP = stock.getKgdisponible();
-
-
-                    stockKGPROD = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKG) /*-Double.parseDouble(mermaCalculada)*///)));
-                    /*stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKG)) + Double.parseDouble(mermaCalculada))));
-                    //ACTUALIZA EN STOCK
-                    stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
-
-
-
-
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            //listaDeclaracion = listaDeclaraciones;
-
-            Intent i = new Intent(ConfirmaEstribadora.this, Estribadora2Activity.class);
-            ingresoMP1 = ingresoMPController.getMP(ingresoMP1.getLote() + ingresoMP1.getMaterial() + ingresoMP1.getCantidad());
-
-            i.putExtra("ingresoMP1",ingresoMP1);
-            if (ingresoMP2.getLote() != null) i.putExtra("ingresoMP2",ingresoMP2);
-            i.putExtra("usuario",usuario);
-            i.putExtra("ayudante", ayudante);
-            i.putExtra("maquina", maquina);
-
-            finish();
-            startActivity(i);
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    */
-
 
     public void guardarDeclaracion(){
 
@@ -328,7 +197,9 @@ public class ConfirmaEstribadora extends AppCompatActivity {
         Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,null,item,String.valueOf(cantidadAUsar),String.valueOf(kgAProducir),String.valueOf(kgAProducir),"0");
 
 
-
+        if(declaroTodo){
+            subproductoController.nuevoSubproducto(item,subproducto);
+        }
 
         // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
 

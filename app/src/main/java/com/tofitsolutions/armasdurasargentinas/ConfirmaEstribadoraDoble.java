@@ -46,7 +46,6 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
     private MermaImpl mermaImpl;
     private ProgressDialog progress;
     private ArrayList<Declaracion> listaDeclaracion;
-    private Declaracion d;
     private ItemController itemController = new ItemController();
     private StockController stockController = new StockController();
     public SubproductoController subproductoController;
@@ -114,10 +113,7 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
 
 
-        d = new Declaracion(usuario,ayudante,maquina.getMarca()+"-"+maquina.getModelo(),ingresoMP1.getLote(),ingresoMP2.getLote(),item,String.valueOf(cantidadAUsar));
-        if(declaroTodo){
-            subproductoController.nuevoSubproducto(item,subproducto);
-        }
+
         usuarioConfEst.setText(usuario);
         AyudanteConfEst.setText(ayudante);
         equipoConfEst.setText(maquina.getMarca()+"-"+maquina.getModelo());
@@ -204,7 +200,9 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
                     Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,precintoB,item,String.valueOf(cantidadAUsar),String.valueOf(kgAProducir),String.valueOf(kgAProducirA),String.valueOf(kgAProducirB));
 
-
+                        if(declaroTodo){
+                            subproductoController.nuevoSubproducto(item,subproducto);
+                        }
 
                     // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
 
@@ -240,29 +238,7 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
 
                         new guardarDeclaracionAT().execute(kgdis2,kgprod2,String.valueOf(ingresoMP2.getId()));
-                    /*
-                        boolean actualizoLote = ingresoMPImpl.actualizarIngresoMP(ingresoMP1);
-                        boolean actualizoLote2 = ingresoMPImpl.actualizarIngresoMP(ingresoMP2);
 
-                        if(!actualizoLote || !actualizoLote2){
-                            //No actualizó el lote así que se cancela la declaración!!
-                            AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmaEstribadoraDoble.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                            builder.setTitle("Atencion!");
-                            builder.setMessage("Ocurrió un error al actualizar el precinto, porfavor vuelva a intentarlo.");
-                            builder.setCancelable(false);
-                            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
-
-                            return;
-                        }
-
-                        */
                         declaracionImpl.crearDeclaracion(d);
 
 
@@ -278,17 +254,7 @@ public class ConfirmaEstribadoraDoble extends AppCompatActivity {
 
 
                     itemImpl.actualizarItem(itemObject);
-                    //STOCK NO HACE FALTA
-                        //ingresoMPController.updatekg(codBarrasA + cantidad);
-                    //Stock stock = stockController.getStock(ingresoMP1.getMaterial());
-                    //String stockKGPROD = stock.getKgprod();
-                    //String stockKGDISP = stock.getKgdisponible();
 
-
-                    //stockKGPROD = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGPROD )+ (Double.parseDouble(cantidadKGTOTAL) /*-Double.parseDouble(mermaCalculada)*/)));
-                    //stockKGDISP = String.valueOf(com.tofitsolutions.armasdurasargentinas.util.Util.setearDosDecimales(Double.parseDouble(stockKGDISP) - ((Double.parseDouble(cantidadKGTOTAL)) + Double.parseDouble(mermaCalculadaTOTAL))));
-                    //ACTUALIZA EN STOCK
-                   // stmt.executeUpdate("update stock set KGProd = '" + stockKGPROD +"', KGDisponible = '" + stockKGDISP+"' where CodMat ='" + stock.getCodMat() + "';");
 
                         Intent i = new Intent(ConfirmaEstribadoraDoble.this, Estribadora2DobleActivity.class);
 

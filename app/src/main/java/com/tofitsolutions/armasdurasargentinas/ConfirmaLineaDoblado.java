@@ -35,7 +35,6 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
 
     private ProgressDialog progress;
     private ArrayList<Declaracion> listaDeclaracion;
-    private Declaracion d;
 
     public IngresoMP ingreso;
     public Items item;
@@ -101,7 +100,6 @@ public class ConfirmaLineaDoblado extends AppCompatActivity {
         declaracionImpl = new DeclaracionImpl();
 
 
-        d = new Declaracion(usuario,ayudante,maquina.getMarca() +"-"+maquina.getModelo(),ingreso.getLote(),null,item.getCodigo(),cantidad);
 
 
         bt_okEstribadoraConf.setOnClickListener(new View.OnClickListener() {

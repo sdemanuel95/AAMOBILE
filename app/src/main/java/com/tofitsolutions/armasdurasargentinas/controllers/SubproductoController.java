@@ -169,5 +169,48 @@ public class SubproductoController {
     }
 
 
+
+    public boolean isSubproducto(String codItem){
+        String sql = "http://" + host+ "/declaracion/isSubproducto/" + codItem;
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        Gson gson = new Gson();
+        URL url = null;
+        HttpURLConnection conn;
+        boolean esSubproducto = false;
+
+        try {
+            url = new URL(sql);
+            conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("POST");
+
+            conn.connect();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String inputLine;
+
+            StringBuffer response = new StringBuffer();
+
+            String json = "";
+            response.toString();
+            while((inputLine = in.readLine()) != null){
+                response.append(inputLine);
+            }
+
+
+            esSubproducto = Boolean.parseBoolean(response.toString());
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return esSubproducto;
+    }
+
+
+
 }
 

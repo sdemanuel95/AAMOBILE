@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.FormatoController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.controllers.OrdenDeProduccionController;
+import com.tofitsolutions.armasdurasargentinas.controllers.SubproductoController;
 import com.tofitsolutions.armasdurasargentinas.models.Formato;
 import com.tofitsolutions.armasdurasargentinas.restControllers.DeclaracionImpl;
 
@@ -26,9 +28,13 @@ public class LineaDobladoActivity extends AppCompatActivity {
     FormatoController formatoController;
     Items item =null;
     int cantidadPosible = 0;
+    SubproductoController subProductoController;
+    OrdenDeProduccionController opController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        opController = new OrdenDeProduccionController();
         t = new DeclaracionImpl();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_linea_doblado);
@@ -45,6 +51,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
 
         itemController = new ItemController();
         formatoController = new FormatoController();
+        subProductoController = new SubproductoController();
         //OBTIENE DATOS DE VISTA ANTERIOR
 
         Intent intentProduccion = getIntent();
@@ -127,78 +134,118 @@ public class LineaDobladoActivity extends AppCompatActivity {
 
                 if (item.getCantidad().equals(item.getCantidadDec())){
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-
-                    // set title
-                    builder.setTitle("Confirmacion");
-
-                    // set dialog message
-                    builder.setMessage("¿Está seguro que desea continuar?");
-                    builder.setCancelable(false);
-
-                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //ACA TIENE QUE INSERTAR LA DECLARACION! :-)
-                        Declaracion d = new Declaracion(null,null,usuario,
-                                ayudante,(maquina.getMarca() +"-"+ maquina.getModelo()),null,null,item.getCodigo(),"0","0");
-                        boolean isValid = t.crearDeclaracion(d);
-
-                        if(isValid){
-                            //INSERTÓ CORRECTAMENTE
+                        if(subProductoController.isSubproducto(item.getCodigo())){
                             AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                            builder.setTitle("Declaración exitosa.");
-                            builder.setMessage("La declaracion del item " + item.getCodigo() +" se creó con éxito.");
+
+                            // set title
+                            builder.setTitle("Confirmacion");
+
+                            // set dialog message
+                            builder.setMessage("¿Está seguro que desea continuar?");
                             builder.setCancelable(false);
+
                             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    //ACA TIENE QUE INSERTAR LA DECLARACION! :-)
+                                    Declaracion d = new Declaracion(null,null,usuario,
+                                            ayudante,(maquina.getMarca() +"-"+ maquina.getModelo()),null,null,item.getCodigo(),"0","0");
+                                    boolean isValid = t.crearDeclaracion(d);
+
+                                    if(isValid){
+                                        //INSERTÓ CORRECTAMENTE
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                                        builder.setTitle("Declaración exitosa.");
+                                        builder.setMessage("La declaracion del item " + item.getCodigo() +" se creó con éxito.");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+                                        AlertDialog dialog2 = builder.create();
+                                        dialog2.show();
+                                        dialog2.getWindow().setBackgroundDrawableResource(android.R.color.holo_green_light);
+
+                                        et_ItemEstribadora2.setText("");
+                                        return;
+
+                                    }
+                                    else{
+                                        //FALLÓ LA INSERCION
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                                        builder.setTitle("Atencion!");
+                                        builder.setMessage("Ocurrió un error al declarar el item.");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+                                        AlertDialog dialog2 = builder.create();
+                                        dialog2.show();
+                                        dialog2.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
+                                        et_ItemEstribadora2.setText("");
+                                        return;
+                                    }
                                 }
                             });
-                            AlertDialog dialog2 = builder.create();
-                            dialog2.show();
-                            dialog2.getWindow().setBackgroundDrawableResource(android.R.color.holo_green_light);
+                            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                            et_ItemEstribadora2.setText("");
-                            return;
+                                }
+                            });
+
+                            // create alert dialog
+                            AlertDialog dialog = builder.create();
+
+                            // show it
+                            dialog.show();
 
                         }
                         else{
-                            //FALLÓ LA INSERCION
+                            //DEBE COMPLETAR LOS DATOS DE USUARIO PARA CONTINUAR
                             AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                             builder.setTitle("Atencion!");
-                            builder.setMessage("Ocurrió un error al declarar el item.");
+                            builder.setMessage("El item no fue declarado como SUBPRODUCTO.");
                             builder.setCancelable(false);
                             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             });
-                            AlertDialog dialog2 = builder.create();
-                            dialog2.show();
-                            dialog2.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
 
-                            et_ItemEstribadora2.setText("");
                             return;
                         }
-                        }
-                    });
-                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-                    // create alert dialog
-                    AlertDialog dialog = builder.create();
-
-                    // show it
-                    dialog.show();
 
 
                 }
                 else{
+
+
+                    //DEBE COMPLETAR LOS DATOS DE USUARIO PARA CONTINUAR
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                    builder.setTitle("Atencion!");
+                    builder.setMessage("El item no se encuentra declarado al 100%.");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+
+                    return;
+
+
+                    /*
                     Intent i = new Intent(LineaDobladoActivity.this, LineaDoblado2Activity.class);
                     i.putExtra("item",item);
                     i.putExtra("maquina",maquina);
@@ -206,7 +253,7 @@ public class LineaDobladoActivity extends AppCompatActivity {
                     i.putExtra("ayudante",ayudante);
                     finish();
                     startActivity(i);
-
+*/
                 }
 
             }
@@ -317,6 +364,25 @@ public class LineaDobladoActivity extends AppCompatActivity {
                         et_ItemEstribadora2.setText("");
                         return;
                     }
+
+                    if(opController.validadoOP(itemTemp.getCodigo(),itemTemp.getDiametro())){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LineaDobladoActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("No se puede declarar este item, por que no contiene una orden de producción.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
+
 
                     item = itemTemp;
 

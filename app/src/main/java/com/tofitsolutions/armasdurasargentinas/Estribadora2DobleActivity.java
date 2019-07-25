@@ -20,6 +20,7 @@ import java.util.List;
 import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.controllers.OrdenDeProduccionController;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
     CodigoMPController codigoMPController;
     ItemController itemController;
     Items itemObject;
+    OrdenDeProduccionController opController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -74,6 +76,7 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estribadora2doble);
         itemController = new ItemController();
+        opController = new OrdenDeProduccionController();
         declaracionController = new DeclaracionController();
         codigoMPController = new CodigoMPController();
         tv_usuarioEA2 = (TextView) findViewById(R.id.tv_usuarioEA2);
@@ -251,6 +254,25 @@ public class Estribadora2DobleActivity extends AppCompatActivity {
                             return;
 
                     }
+
+
+                    if(opController.validadoOP(item.getCodigo(),item.getDiametro())){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("No se puede declarar este item, por que no contiene una orden de producción.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
+
 
                     if(Integer.parseInt(item.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(item.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2DobleActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);

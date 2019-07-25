@@ -239,13 +239,17 @@
                 android:background="@drawable/border_radius"
                 android:ems="10"
                 android:gravity="center_vertical|center_horizontal"
-                android:hint="Lea el código del Item"
+                android:hint="Declarar"
                 android:inputType="text"
                 android:maxLength="3"
                 android:textColorHint="@color/colorPrimaryDark"
                 android:textSize="16sp" />
 
-
+            <CheckBox
+                android:id="@+id/chkSubproduco"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Subproducto" />
         </LinearLayout>
 
     </LinearLayout>

@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> in manifest.xml
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -149,6 +149,26 @@
         <activity
             android:name=".LineaCortado2Activity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".InformesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Informes_por_lote_Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Informes_por_lote_lista_Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Informes_por_pedido_Activity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Informes_por_pedido_lista_Activity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".LoginInventarioActivity"
             android:screenOrientation="portrait" />

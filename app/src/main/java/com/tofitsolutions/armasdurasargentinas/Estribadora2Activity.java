@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.DeclaracionController;
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.controllers.OrdenDeProduccionController;
 import com.tofitsolutions.armasdurasargentinas.util.Conexion;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 
@@ -62,6 +63,7 @@ public class Estribadora2Activity extends AppCompatActivity {
     CodigoMPController codigoMPController;
     ItemController itemController;
     Items itemObject;
+    OrdenDeProduccionController opController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,6 +73,7 @@ public class Estribadora2Activity extends AppCompatActivity {
         itemController = new ItemController();
         declaracionController = new DeclaracionController();
         codigoMPController = new CodigoMPController();
+        opController = new OrdenDeProduccionController();
         tv_precintoA = (TextView) findViewById(R.id.textView_PrecintoA);
         tv_kgADeclarar =(TextView) findViewById(R.id.textView_kgADeclarar);
         tv_precintoB = (TextView) findViewById(R.id.textView_PrecintoB);
@@ -92,7 +95,7 @@ public class Estribadora2Activity extends AppCompatActivity {
 
         et_ItemEstribadora2 = (EditText)findViewById(R.id.et_ItemEstribadora2);
         et_ItemEstribadora2.setInputType(InputType.TYPE_NULL);
-        et_cantidadADeclarar = (EditText)findViewById(R.id.1............/);
+        et_cantidadADeclarar = (EditText)findViewById(R.id.et_cantidadADeclarar);
 
         //Ingresa info del Activity -> EstribadoraActivity
         Intent intentPrecintos = getIntent();
@@ -288,6 +291,8 @@ public class Estribadora2Activity extends AppCompatActivity {
                         return;
                     }
 
+
+
                     // Se actualizan los ET de Cantidad Posible e Items Pendientes
                     item = et_ItemEstribadora2.getText().toString();
                     itemObject = itemController.getItem(item);
@@ -297,6 +302,24 @@ public class Estribadora2Activity extends AppCompatActivity {
                     tv_cantidad1KGEA2.setText(ingresoMP1.getKgDisponible());
                     cantidadPosibleNum = Util.calcularPosible((Double.parseDouble(ingresoMP1.getKgDisponible())),kgUnitario,(Integer.parseInt(cantidad) - Integer.parseInt(cantidadDec)),Integer.parseInt(maquina.getMerma()));
 
+
+
+                    if(opController.validadoOP(itemTemp.getCodigo(),itemTemp.getDiametro())){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("No se puede declarar este item, por que no contiene una orden de producción.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
                     if(cantidadPosibleNum==0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Estribadora2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");

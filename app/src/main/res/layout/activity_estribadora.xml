@@ -87,7 +87,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Precinto 1"
-                android:text=""
+                android:text="000001118700060795311790"
                 android:inputType="text"
                 android:maxLength="24"
                 android:textSize="16sp" />
@@ -125,7 +125,7 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Precinto 2"
-                android:text=""
+                android:text="000001117500060795311796"
                 android:inputType="text"
                 android:maxLength="24"
                 android:textSize="16sp" />

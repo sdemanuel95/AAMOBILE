@@ -359,6 +359,11 @@
                 android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="21sp" />
+            <CheckBox
+                android:id="@+id/chkSubproduco"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:text="Subproducto" />
         </LinearLayout>
 
         <LinearLayout

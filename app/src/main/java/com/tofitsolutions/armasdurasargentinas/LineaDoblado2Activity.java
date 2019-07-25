@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.CodigoMPController;
 import com.tofitsolutions.armasdurasargentinas.controllers.IngresoMPController;
+import com.tofitsolutions.armasdurasargentinas.controllers.SubproductoController;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 public class LineaDoblado2Activity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class LineaDoblado2Activity extends AppCompatActivity {
     IngresoMPController ingresoMPController;
     CodigoMPController codigoMPController;
     IngresoMP ingresoMP;
+    SubproductoController subProductoController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class LineaDoblado2Activity extends AppCompatActivity {
         et_cantidadADeclarar = (EditText) findViewById(R.id.TVCantidadADeclarar);
         et_kgADeclarar = (TextView) findViewById(R.id.TVKGADeclarar);
         et_precintoA = (EditText) findViewById(R.id.et_precintoA);
+        subProductoController = new SubproductoController();
         Intent intentProduccion = getIntent();
         final String usuario = intentProduccion.getStringExtra("usuario");
         final String ayudante = intentProduccion.getStringExtra("ayudante");

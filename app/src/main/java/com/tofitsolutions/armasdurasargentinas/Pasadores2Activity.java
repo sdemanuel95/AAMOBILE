@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tofitsolutions.armasdurasargentinas.controllers.ItemController;
+import com.tofitsolutions.armasdurasargentinas.controllers.OrdenDeProduccionController;
 import com.tofitsolutions.armasdurasargentinas.util.Util;
 
 public class Pasadores2Activity extends AppCompatActivity {
@@ -25,6 +26,8 @@ public class Pasadores2Activity extends AppCompatActivity {
     boolean declaroTodo;
     private CheckBox chkSubproduco;
     int cantidadPosible = 0;
+    OrdenDeProduccionController opController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,7 @@ public class Pasadores2Activity extends AppCompatActivity {
 
         chkSubproduco = (CheckBox) findViewById(R.id.chkSubproduco);
         chkSubproduco.setVisibility(View.INVISIBLE);
-
+        opController = new OrdenDeProduccionController();
         itemController = new ItemController();
         //OBTIENE DATOS DE VISTA ANTERIOR
         Intent intentProduccion = getIntent();
@@ -219,7 +222,22 @@ public class Pasadores2Activity extends AppCompatActivity {
                         return;
 
                     }
-
+                    if(opController.validadoOP(itemTemp.getCodigo(),itemTemp.getDiametro())){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                        builder.setTitle("Atencion!");
+                        builder.setMessage("No se puede declarar este item, por que no contiene una orden de producción.");
+                        builder.setCancelable(false);
+                        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawableResource(android.R.color.holo_red_light);
+                        et_ItemEstribadora2.setText("");
+                        return;
+                    }
                     if(Integer.parseInt(itemTemp.getDiametro()) < Double.parseDouble(maquina.getdiametroMin()) || Integer.parseInt(itemTemp.getDiametro()) > Double.parseDouble(maquina.getdiametroMax())){
                         AlertDialog.Builder builder = new AlertDialog.Builder(Pasadores2Activity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                         builder.setTitle("Atencion!");

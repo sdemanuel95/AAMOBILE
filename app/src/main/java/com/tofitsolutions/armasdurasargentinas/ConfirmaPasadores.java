@@ -101,10 +101,6 @@ public class ConfirmaPasadores extends AppCompatActivity {
         confirmaItem.setText(item.getCodigo());
         confirmaCantidad.setText(cantidad);
 
-        d = new Declaracion(usuario,ayudante,maquina.getMarca() +"-"+maquina.getModelo(),ingreso.getLote(),null,item.getCodigo(),cantidad);
-        if(declaroTodo){
-            subproductoController.nuevoSubproducto(item.getCodigo(),subproducto);
-        }
 
         bt_okEstribadoraConf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +171,9 @@ public class ConfirmaPasadores extends AppCompatActivity {
         Declaracion d = new Declaracion(null,null,usuario,ayudante,equipo,precintoA,null,item.getCodigo(),String.valueOf(cantidad),String.valueOf(kgAProducir),String.valueOf(kgAProducir),"0");
 
 
+        if(declaroTodo){
+            subproductoController.nuevoSubproducto(item.getCodigo(),subproducto);
+        }
 
         // ACA DEBE ACTUALIZAR EN INGRESO MP EL KG DISPONIBLE Y PRODUCIDO
 
